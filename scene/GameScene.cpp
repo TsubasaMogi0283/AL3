@@ -4,13 +4,29 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() { 
+	delete playerModel_; 
+}
 
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+
+
+	//ファイル名を指定、読み込み
+	textureHandle_ = TextureManager::Load("./AL3_Resources/AL3_2/AL3_02_01/Player/Player1.png");
+
+	// 3Dモデルの生成
+	playerModel_ = Model::Create();
+
+	// ワールドトランスフォームの初期化
+	worldTransform_.Initialize();
+	// ビュープロジェクションの初期化
+	viewProjection_.Initialize();
+
 }
 
 void GameScene::Update() {}
