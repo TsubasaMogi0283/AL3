@@ -16,7 +16,6 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 
-
 	//ファイル名を指定、読み込み
 	textureHandle_ = TextureManager::Load("./AL3_Resources/AL3_2/AL3_02_01/Player/Player1.png");
 
