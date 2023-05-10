@@ -6,8 +6,8 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {
-	
+GameScene::~GameScene() { 
+	delete model_; 
 }
 
 void GameScene::Initialize() {
@@ -16,10 +16,12 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
-
+	//テクスチャ読み込み
 	textureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_02_01/Player/Player1.png");
 
-	
+	//3Dモデルの生成
+	//CreateはnewとInitializeの呼び出しをまとめた関数
+	model_= Model::Create();
 
 
 }
