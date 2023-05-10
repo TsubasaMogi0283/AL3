@@ -11,9 +11,28 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	//テクスチャ読み込み
+	playerTextureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_02_01/Player/Player1.png");
+
+	//3Dモデルの生成
+	//CreateはnewとInitializeの呼び出しをまとめた関数
+	playerModel_= Model::Create();
+
+	//ビュープロジェクション
+	viewProjection_.Initialize();
+
+	//自キャラの生成
+	player_ = new Player();
+	
+	//自キャラの初期化
+	player_->Initialize(playerModel_,playerTextureHandle_);
+
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+	player_->UpDate();
+}
 
 void GameScene::Draw() {
 
@@ -41,6 +60,8 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+
+	player_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

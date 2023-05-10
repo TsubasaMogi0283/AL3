@@ -1,19 +1,29 @@
-#pragma once
+﻿#pragma once
 #include <input/Input.h>
+#include <Model.h>
+#include <WorldTransform.h>
 
 class Player {
 public:
-	void Initialize();
+	//初期化
+	void Initialize(Model* model,uint32_t textureHandle);
 
+	//更新
 	void UpDate();
 
-
-
-	void Draw();
-
-
+	//描画
+	void Draw(ViewProjection viewProjection);
 private:
-	
+		
+	//ワールド変換データ
+	WorldTransform worldTransform_;
+	//モデル
+	Model* model_ = nullptr;
+	//テクスチャハンドル
+	uint32_t textureHandle_ = 0u;
+	//自キャラ
+	Player* player_ = nullptr;
+
 	Input* input_ = nullptr;
 
 };
