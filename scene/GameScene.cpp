@@ -30,7 +30,9 @@ void GameScene::Initialize() {
 
 	//自キャラの生成
 	player_ = new Player();
-
+	
+	//自キャラの初期化
+	player_->Initialize(playerModel_,playerTextureHandle_);
 
 
 }
@@ -68,7 +70,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	player_->Draw();
+	player_->Draw(viewProjection_);
 
 
 

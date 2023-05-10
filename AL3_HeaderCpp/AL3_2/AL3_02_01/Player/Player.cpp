@@ -4,6 +4,8 @@
 
 //初期化
 void Player::Initialize(Model* model,uint32_t textureHandle) { 
+	
+
 	assert(model);
 
 	//引数として受け取ったデータをメンバ変数に記録する
@@ -15,11 +17,15 @@ void Player::Initialize(Model* model,uint32_t textureHandle) {
 }
 
 //更新
-void Player::UpDate() {
-
+void Player::UpDate() { 
+	//行列を定数バッファに転送
+	worldTransform_.TransferMatrix(); 
 }
 
 //描画
-void Player::Draw() {
-
+void Player::Draw(ViewProjection viewProjection) { 
+	model_->Draw(
+		this->worldTransform_, 
+		viewProjection, 
+		this->textureHandle_);
 }

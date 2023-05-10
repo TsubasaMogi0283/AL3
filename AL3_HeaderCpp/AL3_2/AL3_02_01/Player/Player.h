@@ -11,7 +11,7 @@ public:
 	void UpDate();
 
 	//描画
-	void Draw();
+	void Draw(ViewProjection viewProjection);
 
 private:
 	
