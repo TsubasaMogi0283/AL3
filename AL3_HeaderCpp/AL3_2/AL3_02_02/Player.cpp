@@ -19,6 +19,44 @@ void Player::Initialize(Model* model,uint32_t textureHandle) {
 void Player::UpDate() {
 	//行列を定数バッファに転送
 	worldTransform_.TransferMatrix(); 
+
+	//キャラクターも異動ベクトル
+	Vector3 move = {0, 0, 0};
+
+	//キャラクターの移動の速さ
+	const float kCharacterSpeed = 0.2f;
+
+	//押した方向で移動
+	if (input_->PushKey(DIK_LEFT)) {
+		move.x -= kCharacterSpeed;
+	}
+	else if (input_->PushKey(DIK_RIGHT)) {
+		move.x += kCharacterSpeed;
+	}
+
+	if (input_->PushKey(DIK_UP)) {
+		move.y -= kCharacterSpeed;
+	}
+	else if (input_->PushKey(DIK_DOWN)) {
+		move.y += kCharacterSpeed;
+	}
+
+
+
+
+	//座標移動(ベクトルの加算)
+	worldTransform_.translation_ .x+= move.x;
+	worldTransform_.translation_ .y+= move.y;
+
+
+	worldTransform_.scale_
+
+
+
+
+
+
+
 }
 
 //描画
