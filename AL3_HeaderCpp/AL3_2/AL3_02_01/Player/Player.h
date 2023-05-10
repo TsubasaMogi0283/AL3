@@ -15,6 +15,14 @@ public:
 
 private:
 	
+	//ワールド変換データ
+	WorldTransform worldTransform_;
+	//モデル
+	Model* model_ = nullptr;
+	//テクスチャハンドル
+	uint32_t textureHandle_ = 0u;
+	//自キャラ
+	Player* player_ = nullptr;
 
 	//c++では以下のようにしよう！
 	//unsigned int → unint32_t

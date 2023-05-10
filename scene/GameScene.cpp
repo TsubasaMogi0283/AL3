@@ -7,7 +7,8 @@
 GameScene::GameScene() {}
 
 GameScene::~GameScene() { 
-	delete model_; 
+	delete playerModel_; 
+	delete player_;
 }
 
 void GameScene::Initialize() {
@@ -17,19 +18,27 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	//テクスチャ読み込み
-	textureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_02_01/Player/Player1.png");
+	playerTextureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_02_01/Player/Player1.png");
 
 	//3Dモデルの生成
 	//CreateはnewとInitializeの呼び出しをまとめた関数
-	model_= Model::Create();
+	playerModel_= Model::Create();
 
 	//ビュープロジェクション
 	viewProjection_.Initialize();
 
+	//自キャラの生成
+	player_ = new Player();
+
+	//自キャラの初期化
+	player_->Initialize();
+
+
 }
 
 void GameScene::Update() { 
-	
+	player_->UpDate();
+
 
 }
 
@@ -59,6 +68,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+
+	player_->Draw();
+
 
 
 	// 3Dオブジェクト描画後処理
