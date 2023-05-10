@@ -14,6 +14,7 @@ public:
 	void Draw();
 
 
+
 	
 private:
 	//ワールド変換データ
