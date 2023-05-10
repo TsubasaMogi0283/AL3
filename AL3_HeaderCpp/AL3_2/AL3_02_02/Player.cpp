@@ -49,7 +49,7 @@ void Player::UpDate() {
 	worldTransform_.translation_ .y+= move.y;
 
 
-	worldTransform_.scale_
+	
 
 
 
