@@ -23,6 +23,8 @@ void GameScene::Initialize() {
 	//CreateはnewとInitializeの呼び出しをまとめた関数
 	model_= Model::Create();
 
+	//ビュープロジェクション
+	viewProjection_.Initialize();
 
 }
 

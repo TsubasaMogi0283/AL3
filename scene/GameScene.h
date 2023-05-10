@@ -58,7 +58,8 @@ private: // メンバ変数
 	//3Dモデル
 	Model* model_=nullptr;
 	
-	
+	//ビュープロジェクション
+	ViewProjection viewProjection_;
 	 
 
 };
