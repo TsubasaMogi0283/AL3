@@ -24,6 +24,7 @@ private:
 	//テクスチャファイル
 	uint32_t textureHandle_ = 0u; 
 
+
 	//c++では以下のようにしよう！
 	//unsigned int → unint32_t
 	//		   int → int32_t
