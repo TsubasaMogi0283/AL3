@@ -70,6 +70,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
+
 	player_->Draw(viewProjection_);
 
 
