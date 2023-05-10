@@ -9,6 +9,9 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
+#include <AL3_HeaderCpp/AL3_2/AL3_02_01/Player/Player.h>
+
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -58,6 +61,7 @@ private: // メンバ変数
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 
-
+	//自キャラ
+	Player* player_ = nullptr;
 	 
 };
