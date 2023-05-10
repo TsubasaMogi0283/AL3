@@ -51,6 +51,7 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
+	/// //テクスチャハンドル読み込み
 	uint32_t textureHandle_ = 0;
 
 	//3Dモデル

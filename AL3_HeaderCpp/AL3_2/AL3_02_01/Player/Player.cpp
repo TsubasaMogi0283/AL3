@@ -1,19 +1,4 @@
-#include <AL3_HeaderCpp/AL3_2/AL3_02_01/Player/Player.h>
+ï»¿#include <AL3_HeaderCpp/AL3_2/AL3_02_01/Player/Player.h>
 
 #include <cassert>
 
-void Player::Initialize(Model* model,uint32_t textureHandle) {
-	//NULLƒ|ƒCƒ“ƒ^ƒ`ƒFƒbƒN
-	assert(model);
-
-	//ˆø”‚Æ‚µ‚Äó‚¯æ‚Á‚½ƒf[ƒ^‚ğƒƒ“ƒo•Ï”‚É‹L˜^‚·‚é
-
-	//ƒ[ƒ‹ƒh•Ï”‚Ì‰Šú‰»
-	worldTransform_.Initialize();
-}
-
-void Player::UpDate() {
-}
-
-void Player::Draw() {
-}

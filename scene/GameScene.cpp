@@ -2,10 +2,11 @@
 #include "TextureManager.h"
 #include <cassert>
 
+
+
 GameScene::GameScene() {}
 
-GameScene::~GameScene() { 
-	delete playerModel_; 
+GameScene::~GameScene() {
 	delete player_;
 }
 
@@ -16,28 +17,15 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 
-	//ファイル名を指定、読み込み
-	textureHandle_ = TextureManager::Load("./AL3_Resources/AL3_2/AL3_02_01/Player/Player1.png");
+	
 
-	// 3Dモデルの生成
-	playerModel_ = Model::Create();
-
-	// ワールドトランスフォームの初期化
-	worldTransform_.Initialize();
-	// ビュープロジェクションの初期化
-	viewProjection_.Initialize();
-
-
-	//自キャラの生成
-	player_ = new Player();
-	//自キャラの初期化
-	player_->Initialize();
+	
 
 
 }
 
 void GameScene::Update() { 
-	player_->UpDate();
+	
 
 }
 
@@ -68,7 +56,6 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	player_->Draw();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
