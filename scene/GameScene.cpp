@@ -7,7 +7,7 @@
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
-	delete player_;
+	
 }
 
 void GameScene::Initialize() {
@@ -17,7 +17,7 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 
-	
+	textureHandle_ = TextureManager::Load("./AL3_Resources/AL3_2/AL3_02_01/Player/Player1.png");
 
 	
 

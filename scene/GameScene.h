@@ -51,19 +51,11 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
-	/// //テクスチャハンドル読み込み
+	
+	///テクスチャハンドル
 	uint32_t textureHandle_ = 0;
 
-	//3Dモデル
-	Model* playerModel_ = nullptr;
 	
-	//ワールドトランスフォーム
-	WorldTransform worldTransform_;
-	//ビュープロジェクション
-	ViewProjection viewProjection_;
-
-	//自キャラ
-	Player* player_ = nullptr;
 	 
 
 };
