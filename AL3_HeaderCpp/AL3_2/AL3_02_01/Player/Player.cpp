@@ -3,7 +3,7 @@
 #include <cassert>
 
 //初期化
-void Player::Initialize() {
+void Player::Initialize(Model* model,uint32_t textureHandle) {
 	
 }
 
