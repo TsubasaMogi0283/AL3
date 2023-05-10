@@ -3,8 +3,15 @@
 #include <cassert>
 
 //初期化
-void Player::Initialize(Model* model,uint32_t textureHandle) {
-	
+void Player::Initialize(Model* model,uint32_t textureHandle) { 
+	assert(model);
+
+	//引数として受け取ったデータをメンバ変数に記録する
+	this->model_ = model;
+	this->textureHandle_ = textureHandle;
+
+	//ワールド変数の初期化
+	worldTransform_.Initialize();
 }
 
 //更新
