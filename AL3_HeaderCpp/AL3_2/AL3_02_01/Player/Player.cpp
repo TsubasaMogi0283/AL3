@@ -2,3 +2,17 @@
 
 #include <cassert>
 
+//初期化
+void Player::Initialize() {
+
+}
+
+//更新
+void Player::UpDate() {
+
+}
+
+//描画
+void Player::Draw() {
+
+}
