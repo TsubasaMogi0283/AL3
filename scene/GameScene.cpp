@@ -35,7 +35,6 @@ void GameScene::Initialize() {
 	player_->Initialize(playerModel_,playerTextureHandle_);
 
 
-
 	//デバッグカメラの設定
 	debugCamera_ = new DebugCamera(1280, 720);
 
@@ -44,7 +43,6 @@ void GameScene::Initialize() {
 	//軸方向表示が参照するビュープロジェクションを指定する
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 	
-
 
 }
 
@@ -86,10 +84,11 @@ void GameScene::Update() {
 		//デバッグカメラの更新
 		debugCamera_->Update();
 		
-		viewProjection_.matView = Inverse(cameraMatrix);
+		//ビュー行列(逆行列)
+		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
 		//プロジェクション行列(射影行列)
-		viewProjection_.matProjection =
-		    MakeOrthographicMatrix(-30.0f, 18.0f, 30.0f, -18.0f, 10.0f, 30.0f);
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+		    ;
 
 
 		//ビュープロジェクション行列の転送
