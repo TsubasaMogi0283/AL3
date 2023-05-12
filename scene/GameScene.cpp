@@ -2,10 +2,14 @@
 #include "TextureManager.h"
 #include <cassert>
 #include <ImGuiManager.h>
+#include <AxisIndicator.h>
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+	delete debugCamera_;
+
+}
 
 void GameScene::Initialize() {
 
@@ -32,8 +36,13 @@ void GameScene::Initialize() {
 
 
 
+	//デバッグカメラの設定
+	debugCamera_ = new DebugCamera(1280, 720);
 
-
+	//軸方向表示の障子を有効にする
+	AxisIndicator::GetInstance()->SetVisible(true);
+	//軸方向表示が参照するビュープロジェクションを指定する
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 	
 
 
@@ -41,6 +50,56 @@ void GameScene::Initialize() {
 
 void GameScene::Update() {
 	player_->UpDate();
+
+
+	Matrix4x4 cameraMatrix = {};
+	cameraMatrix.m[0][0] = 1.0f;
+	cameraMatrix.m[0][1] = 0.0f;
+	cameraMatrix.m[0][2] = 0.0f;
+	cameraMatrix.m[0][3] = 0.0f;
+
+	cameraMatrix.m[1][0] = 0.0f;
+	cameraMatrix.m[1][1] = 1.0f;
+	cameraMatrix.m[1][2] = 0.0f;
+	cameraMatrix.m[1][3] = 0.0f;
+
+	cameraMatrix.m[2][0] = 0.0f;
+	cameraMatrix.m[2][1] = 0.0f;
+	cameraMatrix.m[2][2] = 1.0f;
+	cameraMatrix.m[2][3] = 0.0f;
+
+	cameraMatrix.m[2][0] = 1280.0f;
+	cameraMatrix.m[2][1] = 720.0f;
+	cameraMatrix.m[2][2] = 1.0f;
+	cameraMatrix.m[2][3] = 1.0f;
+
+
+	#ifdef _DEBUG
+	if (input_->TriggerKey(DIK_SPACE)) {
+		isDebugCameraActive_ = true;
+	}
+
+
+	#endif
+
+	if (isDebugCameraActive_) {
+		//デバッグカメラの更新
+		debugCamera_->Update();
+		
+		viewProjection_.matView = Inverse(cameraMatrix);
+		//プロジェクション行列(射影行列)
+		viewProjection_.matProjection =
+		    MakeOrthographicMatrix(-30.0f, 18.0f, 30.0f, -18.0f, 10.0f, 30.0f);
+
+
+		//ビュープロジェクション行列の転送
+		viewProjection_.TransferMatrix();
+
+	} else {
+		//ビュープロジェクション行列の更新と転送
+		viewProjection_.UpdateMatrix();
+	}
+
 }
 
 void GameScene::Draw() {

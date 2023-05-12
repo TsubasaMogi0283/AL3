@@ -10,6 +10,7 @@
 #include "WorldTransform.h"
 
 #include <AL3_HeaderCpp/AL3_2/AL3_02_02/Player.h>
+#include <DebugCamera.h>
 
 /// <summary>
 /// ゲームシーン
@@ -67,4 +68,17 @@ private: // メンバ変数
 	 
 	//自キャラ
 	Player* player_ = nullptr;
+
+
+	//デバッグカメラの切り替え
+	bool isDebugCameraActive_ = false;
+
+
+
+
+	//デバッグカメラ
+	DebugCamera* debugCamera_ = nullptr;
+
+
+
 };
