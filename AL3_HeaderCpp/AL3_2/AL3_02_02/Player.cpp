@@ -27,6 +27,11 @@ void Player::UpDate() {
 	//キャラクターの移動の速さ
 	const float kCharacterSpeed = 0.2f;
 	
+
+	
+
+
+	//キーボード入力による移動処理
 	//押した方向で移動
 	if (input_->PushKey(DIK_LEFT)) {
 		move.x -= kCharacterSpeed;
@@ -45,8 +50,20 @@ void Player::UpDate() {
 		move.y = 0.0f;
 	}
 	
+	//移動の限界
+	const float MOVE_LIMITX = 30.0f;
+	const float MOVE_LIMITY = 18.0f;
+
+	//超えない処理
+	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -MOVE_LIMITX);
+	worldTransform_.translation_.x = min(worldTransform_.translation_.x, MOVE_LIMITX);
+	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -MOVE_LIMITY);
+	worldTransform_.translation_.y = min(worldTransform_.translation_.y, MOVE_LIMITY);
+
+
+
 	
-	
+	//行列更新
 	//座標移動(ベクトルの加算)
 	worldTransform_.translation_= Add(worldTransform_.translation_, move);
 	
@@ -63,7 +80,9 @@ void Player::UpDate() {
 
 	ImGui::Begin("Player");
 
+	
 	ImGui::InputFloat3("PlayerPosition", &worldTransform_.translation_.x);
+	ImGui::SliderFloat3("PlayerSlide", &worldTransform_.translation_.x, -20.0f,30.0f);
 	
 	//ImGui::SliderFloat3()
 	ImGui::End();
