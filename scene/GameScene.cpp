@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
+#include <ImGuiManager.h>
 
 GameScene::GameScene() {}
 
@@ -28,6 +29,12 @@ void GameScene::Initialize() {
 	
 	//自キャラの初期化
 	player_->Initialize(playerModel_,playerTextureHandle_);
+
+
+
+
+
+	
 
 
 }
