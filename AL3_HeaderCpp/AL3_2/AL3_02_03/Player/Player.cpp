@@ -149,6 +149,9 @@ void Player::Draw(ViewProjection viewProjection) {
 		this->textureHandle_);
 
 	
-	
+	//弾の描画
+	if (bullet_) {
+		bullet_->Draw(viewProjection);
+	}
 
 }
