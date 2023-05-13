@@ -18,3 +18,7 @@ void PlayerBullet::Initialize(Model* model, const Vector3 position) {
 
 
 }
+
+void PlayerBullet::Update() {
+	
+}
