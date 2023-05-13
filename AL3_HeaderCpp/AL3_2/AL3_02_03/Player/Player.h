@@ -36,8 +36,6 @@ private:
 
 	Input* input_ = nullptr;
 
-	PlayerBullet* bullet_ = nullptr;
-
 
 	//弾について
 	//メンバ「変数」なのでprivate

@@ -1,19 +1,19 @@
-#include <cassert>
+ï»¿#include <cassert>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/PlayerBullet/PlayerBullet.h>
 
 void PlayerBullet::Initialize(Model* model, const Vector3 position) { 
 	
-	//NULLƒ`ƒFƒbƒN
+	//NULLãƒã‚§ãƒƒã‚¯
 	assert(model);
 
 	model_ = model;
-	//ƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İ
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿
 	textureHandle_ = TextureManager::Load("white.png");
 
-	//ƒ[ƒ‹ƒhƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚Ì‰Šú‰»
-	//’†‚É‚ ‚é‚æ
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã®åˆæœŸåŒ–
+	//ä¸­ã«ã‚ã‚‹ã‚ˆ
 	worldTransform_.Initialize();
-	//ˆø”‚Åó‚¯æ‚Á‚½‰ŠúÀ•W‚ğƒZƒbƒg
+	//å¼•æ•°ã§å—ã‘å–ã£ãŸåˆæœŸåº§æ¨™ã‚’ã‚»ãƒƒãƒˆ
 	worldTransform_.translation_ = position;
 
 

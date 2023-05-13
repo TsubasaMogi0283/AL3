@@ -1,4 +1,4 @@
-#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
+ï»¿#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
 #include <cassert>
 #include <cmath>
 
@@ -236,7 +236,7 @@ Matrix4x4 MakeAffineMatrix(const Vector3 scale, const Vector3 rotate, const Vect
 	return result;
 }
 
-//ƒrƒ…[s—ñ
+//ãƒ“ãƒ¥ãƒ¼è¡Œåˆ—
 Matrix4x4 Inverse(const Matrix4x4 m) {
 	float MatrixFormula;
 	MatrixFormula =
