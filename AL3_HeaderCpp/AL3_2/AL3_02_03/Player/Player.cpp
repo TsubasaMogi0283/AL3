@@ -131,7 +131,11 @@ void Player::Update() {
 	//キャラクターの攻撃処理
 	Attack();
 
-
+	//弾更新
+	//if (bullet_!=nullptr)でもOK!
+	if (bullet_) {
+		bullet_->Update();
+	}
 
 }
 
