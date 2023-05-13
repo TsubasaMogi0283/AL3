@@ -17,6 +17,10 @@ public:
 	//回転
 	void Rotate();
 
+	//攻撃
+	//メンバ「関数」なのでpublic
+	void Attack();
+
 	//描画
 	void Draw(ViewProjection viewProjection);
 private:
@@ -33,6 +37,12 @@ private:
 	Input* input_ = nullptr;
 
 	PlayerBullet* bullet_ = nullptr;
+
+
+	//弾について
+	//メンバ「変数」なのでprivate
+	PlayerBullet* bullet_ = nullptr;
+
 
 };
 

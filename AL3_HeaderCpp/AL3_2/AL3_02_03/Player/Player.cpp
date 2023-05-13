@@ -112,6 +112,10 @@ void Player::Update() {
 
 }
 
+void Player::Attack() {
+
+}
+
 //描画
 void Player::Draw(ViewProjection viewProjection) { 
 	model_->Draw(
