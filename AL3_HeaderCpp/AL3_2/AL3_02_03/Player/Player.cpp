@@ -36,6 +36,24 @@ void Player::Rotate() {
 
 }
 
+//攻撃
+void Player::Attack() {
+
+	//今回はSPACEキーで発射する
+	if (input_->TriggerKey(DIK_SPACE)) {
+		//弾を生成し、初期化
+		PlayerBullet* newBullet = new PlayerBullet();
+		newBullet->Initialize(model_, worldTransform_.translation_);
+
+		//弾を登録する
+		bullet_ = newBullet;
+
+	}
+
+
+
+}
+
 void Player::Update() { 
 	//Updateから呼び出す
 	Rotate();
@@ -110,11 +128,14 @@ void Player::Update() {
 	ImGui::End();
 
 
+	//キャラクターの攻撃処理
+	Attack();
+
+
+
 }
 
-void Player::Attack() {
 
-}
 
 //描画
 void Player::Draw(ViewProjection viewProjection) { 
