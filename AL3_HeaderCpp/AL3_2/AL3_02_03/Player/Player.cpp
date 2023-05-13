@@ -1,6 +1,7 @@
 ﻿#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h>
 
-void Player::Initialize() { 
+
+void Player::Initialize(Model* model,uint32_t textureHandle) { 
 	input_ = Input::GetInstance(); 
 }
 

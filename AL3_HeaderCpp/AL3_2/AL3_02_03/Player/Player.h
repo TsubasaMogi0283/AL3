@@ -1,23 +1,34 @@
 ﻿#pragma once
-#include <Input.h>
-#include <WorldTransform.h>]
+#include <input/Input.h>
+#include <Model.h>
+#include <WorldTransform.h>
+#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
 
 class Player {
 public:
+	//初期化
+	void Initialize(Model* model,uint32_t textureHandle);
 
-	void Initialize();
-
+	//更新
 	void Update();
 
+	//回転
 	void Rotate();
 
-	void Draw();
-
-
+	//描画
+	void Draw(ViewProjection viewProjection);
 private:
+		
+	//ワールド変換データ
+	WorldTransform worldTransform_;
+	//モデル
+	Model* model_ = nullptr;
+	//テクスチャハンドル
+	uint32_t textureHandle_ = 0u;
+	//自キャラ
+	Player* player_ = nullptr;
 
 	Input* input_ = nullptr;
 
-	WorldTransform worldTransform_;
-
 };
+
