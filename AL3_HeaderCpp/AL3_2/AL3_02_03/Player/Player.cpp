@@ -3,8 +3,13 @@
 #include <ImGuiManager.h>
 #include <cassert>
 
-void Player::Initialize(Model* model,uint32_t textureHandle) { 
+#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h>
 
+#include <ImGuiManager.h>
+#include <cassert>
+
+void Player::Initialize(Model* model,uint32_t textureHandle) {
+	
 	assert(model);
 
 	//引数として受け取ったデータをメンバ変数に記録する
@@ -15,49 +20,9 @@ void Player::Initialize(Model* model,uint32_t textureHandle) {
 	worldTransform_.Initialize();
 
 	input_ = Input::GetInstance();
-	
-
-
 }
 
-void Player::Rotate() { 
-	//回転の速さ(ラジアン/frame)
-	const float ROT_SPEED = 0.02f;
-
-	//押した方向で移動ベクトルを変更
-	if (input_->PushKey(DIK_A)) {
-		worldTransform_.rotation_.y = -ROT_SPEED;
-	} 
-	else if (input_->PushKey(DIK_A)) {
-		worldTransform_.rotation_.y = ROT_SPEED;
-	}
-
-
-
-}
-
-//攻撃
-void Player::Attack() {
-
-	//今回はSPACEキーで発射する
-	if (input_->TriggerKey(DIK_SPACE)) {
-		//弾を生成し、初期化
-		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_);
-
-		//弾を登録する
-		bullet_ = newBullet;
-
-	}
-
-
-
-}
-
-void Player::Update() { 
-	//Updateから呼び出す
-	Rotate();
-
+void Player::UpDate() {
 	//行列を定数バッファに転送
 	worldTransform_.TransferMatrix(); 
 
@@ -127,19 +92,7 @@ void Player::Update() {
 	//ImGui::SliderFloat3()
 	ImGui::End();
 
-
-	//キャラクターの攻撃処理
-	Attack();
-
-	//弾更新
-	//if (bullet_!=nullptr)でもOK!
-	if (bullet_) {
-		bullet_->Update();
-	}
-
 }
-
-
 
 //描画
 void Player::Draw(ViewProjection viewProjection) { 
@@ -149,9 +102,6 @@ void Player::Draw(ViewProjection viewProjection) {
 		this->textureHandle_);
 
 	
-	//弾の描画
-	if (bullet_) {
-		bullet_->Draw(viewProjection);
-	}
+	
 
 }

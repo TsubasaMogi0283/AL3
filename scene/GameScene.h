@@ -9,6 +9,9 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
+#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h>
+#include <DebugCamera.h>
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -48,4 +51,34 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
+	/// 
+	 
+	 
+	 ///テクスチャハンドル
+	uint32_t playerTextureHandle_ = 0;
+
+	//3Dモデル
+	Model* playerModel_=nullptr;
+	
+	//ワールドトランスフォーム
+	WorldTransform worldTransform_;
+	
+	//ビュープロジェクション
+	ViewProjection viewProjection_;
+	 
+	//自キャラ
+	Player* player_ = nullptr;
+
+
+	//デバッグカメラの切り替え
+	bool isDebugCameraActive_ = false;
+
+
+
+
+	//デバッグカメラ
+	DebugCamera* debugCamera_ = nullptr;
+
+
+
 };

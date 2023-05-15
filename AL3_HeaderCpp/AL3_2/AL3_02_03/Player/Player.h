@@ -1,10 +1,10 @@
 ﻿#pragma once
+
+
 #include <input/Input.h>
 #include <Model.h>
 #include <WorldTransform.h>
-
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_03/PlayerBullet/PlayerBullet.h>
 
 class Player {
 public:
@@ -12,14 +12,7 @@ public:
 	void Initialize(Model* model,uint32_t textureHandle);
 
 	//更新
-	void Update();
-
-	//回転
-	void Rotate();
-
-	//攻撃
-	//メンバ「関数」なのでpublic
-	void Attack();
+	void UpDate();
 
 	//描画
 	void Draw(ViewProjection viewProjection);
@@ -36,11 +29,6 @@ private:
 
 	Input* input_ = nullptr;
 
-
-	//弾について
-	//メンバ「変数」なのでprivate
-	PlayerBullet* bullet_ = nullptr;
-
-
 };
+
 
