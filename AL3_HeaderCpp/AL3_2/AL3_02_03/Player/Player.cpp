@@ -29,10 +29,10 @@ void Player::Rotate() {
 
 	//押した方向で移動ベクトルを変更
 	if (input_->PushKey(DIK_A)) {
-		worldTransform_.translation_.y = -kRotSpeed;
+		worldTransform_.rotation_.y -= kRotSpeed;
 	}
 	else if (input_->PushKey(DIK_D)) {
-		worldTransform_.translation_.y = kRotSpeed;
+		worldTransform_.rotation_.y += kRotSpeed;
 	}
 
 
@@ -41,6 +41,10 @@ void Player::Rotate() {
 
 
 void Player::UpDate() {
+
+	Rotate();
+
+
 	//行列を定数バッファに転送
 	worldTransform_.TransferMatrix(); 
 
@@ -54,7 +58,7 @@ void Player::UpDate() {
 	
 
 
-	//キーボード入力による移動処理
+	#pragma region キーボード入力による移動処理
 	//押した方向で移動
 	if (input_->PushKey(DIK_LEFT)) {
 		move.x -= kCharacterSpeed;
@@ -72,8 +76,9 @@ void Player::UpDate() {
 		move.x = 0.0f;
 		move.y = 0.0f;
 	}
+	#pragma endregion
 	
-	//移動の限界
+	#pragma region 移動の限界
 	const float MOVE_LIMITX = 30.0f;
 	const float MOVE_LIMITY = 18.0f;
 
@@ -83,7 +88,7 @@ void Player::UpDate() {
 	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -MOVE_LIMITY);
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y, MOVE_LIMITY);
 
-
+	#pragma endregion
 
 	
 	//行列更新
@@ -101,6 +106,8 @@ void Player::UpDate() {
 	worldTransform_.TransferMatrix();
 
 
+	#pragma region デバッグテキスト
+
 	ImGui::Begin("Player");
 
 	
@@ -109,6 +116,8 @@ void Player::UpDate() {
 	
 	//ImGui::SliderFloat3()
 	ImGui::End();
+
+	#pragma endregion
 
 }
 

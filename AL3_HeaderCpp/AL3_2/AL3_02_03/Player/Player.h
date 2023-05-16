@@ -4,6 +4,7 @@
 #include <Model.h>
 #include <WorldTransform.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
+#include <AL3_HeaderCpp/AL3_2/AL3_02_03/PlayerBullet/PlayerBullet.h>
 
 class Player {
 public:
@@ -12,6 +13,7 @@ public:
 
 	//回転
 	void Rotate();
+
 
 	//更新
 	void UpDate();
@@ -30,6 +32,12 @@ private:
 	Player* player_ = nullptr;
 
 	Input* input_ = nullptr;
+
+	//弾
+	//メンバ「変数」なのでprivate
+	//PlayerBullet* bullet_ = nullptr;
+
+
 
 };
 

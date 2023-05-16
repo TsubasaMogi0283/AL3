@@ -18,11 +18,13 @@ void PlayerBullet::Initialize(Model* model, const Vector3 position) {
 
 
 }
-//
+
 //void PlayerBullet::Update() { 
+//	//ワールドトランスフォームの更新
 //	worldTransform_.UpdateMatrix(); 
 //}
-//
+
 //void PlayerBullet::Draw(const ViewProjection& viewProjection) { 
+//	//自キャラと同じ処理なので出来れば継承を使うといいよ！
 //	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 //}
