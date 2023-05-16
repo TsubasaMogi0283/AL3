@@ -39,8 +39,18 @@ void Player::Rotate() {
 }
 
 //攻撃
-void Player::Attack() {
+void Player::Attack() { 
+	if (input_->TriggerKey(DIK_SPACE)) {
+		//弾を生成し、初期化
+		PlayerBullet* newBullet = new PlayerBullet();
+		newBullet->Initialize(model_, worldTransform_.translation_);
 
+
+		//弾を登録する
+		bullet_ = newBullet;
+	
+	
+	}
 }
 
 
@@ -107,7 +117,8 @@ void Player::UpDate() {
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 
-	worldTransform_.TransferMatrix();
+	//更新処理書き直し
+	worldTransform_.UpdateMatrix();
 
 
 	#pragma region デバッグテキスト

@@ -110,7 +110,7 @@
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Function\Function.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\PlayerBullet\PlayerBullet.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Player\Player.cpp" />
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\WorldTransform\WorldTransform.cpp" />
+    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\WorldTransform\WorldTransformEx.cpp" />
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="main.cpp" />
