@@ -38,6 +38,10 @@ void Player::Rotate() {
 
 }
 
+//攻撃
+void Player::Attack() {
+
+}
 
 
 void Player::UpDate() {

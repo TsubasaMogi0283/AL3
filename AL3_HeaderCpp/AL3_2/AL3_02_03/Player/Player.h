@@ -13,6 +13,8 @@ public:
 
 	//回転
 	void Rotate();
+	//攻撃
+	void Attack();
 
 
 	//更新
@@ -35,7 +37,7 @@ private:
 
 	//弾
 	//メンバ「変数」なのでprivate
-	//PlayerBullet* bullet_ = nullptr;
+	PlayerBullet* bullet_ = nullptr;
 
 
 
