@@ -8,6 +8,12 @@
 #include <ImGuiManager.h>
 #include <cassert>
 
+Player::~Player() { 
+	//弾の解放処理
+	delete bullet_; 
+}
+
+
 void Player::Initialize(Model* model,uint32_t textureHandle) {
 	
 	assert(model);
@@ -41,14 +47,19 @@ void Player::Rotate() {
 //攻撃
 void Player::Attack() { 
 	if (input_->TriggerKey(DIK_SPACE)) {
+
+		//弾があれば解放する
+		if (bullet_) {
+			delete bullet_;
+			bullet_ = nullptr;
+		}
+
 		//弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_, worldTransform_.translation_);
 
-
 		//弾を登録する
 		bullet_ = newBullet;
-	
 	
 	}
 }

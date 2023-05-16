@@ -8,6 +8,9 @@
 
 class Player {
 public:
+	//デストラクタ
+	~Player();
+
 	//初期化
 	void Initialize(Model* model,uint32_t textureHandle);
 
@@ -15,7 +18,6 @@ public:
 	void Rotate();
 	//攻撃
 	void Attack();
-
 
 	//更新
 	void UpDate();
