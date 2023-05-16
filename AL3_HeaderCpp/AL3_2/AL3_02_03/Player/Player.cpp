@@ -58,6 +58,9 @@ void Player::Attack() {
 		const float kBulletSpeed = 1.0f;
 		Vector3 velocity(0, 0, kBulletSpeed);
 
+		//速度ベクトルを自機の向きに合わせて回転させる
+		velocity = TransformNormal(velocity,worldTransform_.matWorld_ );
+
 		//弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_, worldTransform_.translation_,velocity);
