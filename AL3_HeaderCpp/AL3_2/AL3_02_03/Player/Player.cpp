@@ -32,7 +32,7 @@ void Player::Initialize(Model* model,uint32_t textureHandle) {
 	input_ = Input::GetInstance();
 }
 
-//回転
+//旋回
 void Player::Rotate() {
 	//回転の速さ「ラジアン/frame」
 	const float kRotSpeed = 0.02f;
@@ -53,11 +53,14 @@ void Player::Attack() {
 	//SPACEキーで発射
 	if (input_->TriggerKey(DIK_SPACE)) {
 
-		
+		//弾の速度
+		//z方向に+1.0ずつ進むよ
+		const float kBulletSpeed = 1.0f;
+		Vector3 velocity(0, 0, kBulletSpeed);
 
 		//弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_);
+		newBullet->Initialize(model_, worldTransform_.translation_,velocity);
 
 		//弾を登録する
 		//bullets_に要素を追加

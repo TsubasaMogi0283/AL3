@@ -1,7 +1,8 @@
 ﻿#include <cassert>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/PlayerBullet/PlayerBullet.h>
+#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
 
-void PlayerBullet::Initialize(Model* model, const Vector3 position) { 
+void PlayerBullet::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
 	
 	//NULLチェック
 	assert(model);
@@ -15,11 +16,15 @@ void PlayerBullet::Initialize(Model* model, const Vector3 position) {
 	worldTransform_.Initialize();
 	//引数で受け取った初期座標をセット
 	worldTransform_.translation_ = position;
-
+	velocity_ = velocity;
 
 }
 
 void PlayerBullet::Update() { 
+
+	//座標を移動させる(1フレーム分足す)
+	//ベクトルの足し算
+	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
 	//ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix(); 
 }
