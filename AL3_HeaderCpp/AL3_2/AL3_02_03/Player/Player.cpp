@@ -17,6 +17,7 @@ Player::~Player() {
 }
 
 
+
 void Player::Initialize(Model* model,uint32_t textureHandle) {
 	
 	assert(model);
