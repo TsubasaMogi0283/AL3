@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <list>
 
 #include <input/Input.h>
 #include <Model.h>
@@ -40,6 +41,13 @@ private:
 	//弾
 	//メンバ「変数」なのでprivate
 	PlayerBullet* bullet_ = nullptr;
+
+	//STL(Standard Template Library)...「データの出し入れ、整理する」ための便利な仕組みを提供するlib
+	// 
+	//list(双方向リスト)の導入
+	//とりあえず弾を沢山出したい時に使うのがおすすめらしい。ただどの順番で消えるか分からない
+	//複数形だからsつけるの忘れないでね
+	std::list<PlayerBullet*> bullets_;
 
 
 

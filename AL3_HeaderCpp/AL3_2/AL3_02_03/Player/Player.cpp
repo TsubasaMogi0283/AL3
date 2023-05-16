@@ -10,7 +10,10 @@
 
 Player::~Player() { 
 	//弾の解放処理
-	delete bullet_; 
+	//複数出たのでfor文で解放しよう
+	for (PlayerBullet* bullet : bullets_) {
+		delete bullet;
+	}
 }
 
 
@@ -49,18 +52,15 @@ void Player::Attack() {
 	//SPACEキーで発射
 	if (input_->TriggerKey(DIK_SPACE)) {
 
-		//弾があれば解放する
-		if (bullet_) {
-			delete bullet_;
-			bullet_ = nullptr;
-		}
+		
 
 		//弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_, worldTransform_.translation_);
 
 		//弾を登録する
-		bullet_ = newBullet;
+		//bullets_に要素を追加
+		bullets_.push_back(newBullet);
 	
 	}
 }
@@ -139,10 +139,9 @@ void Player::UpDate() {
 	//攻撃処理
 	Attack();
 
-	//更新
-	//bullet_!=nullptr
-	if (bullet_) {
-		bullet_->Update();
+	//弾の更新
+	for (PlayerBullet* bullet : bullets_) {
+		bullet->Update();
 	}
 
 
@@ -169,8 +168,8 @@ void Player::Draw(ViewProjection viewProjection) {
 		this->textureHandle_);
 
 	//弾の描画
-	if (bullet_) {
-		bullet_->Draw(viewProjection);
+	for (PlayerBullet* bullet : bullets_) {
+		bullet->Draw(viewProjection);
 	}
 	
 
