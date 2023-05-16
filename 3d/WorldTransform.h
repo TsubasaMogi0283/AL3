@@ -30,6 +30,7 @@ struct WorldTransform {
 	const WorldTransform* parent_ = nullptr;
 
 	
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
