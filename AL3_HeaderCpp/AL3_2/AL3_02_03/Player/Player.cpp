@@ -46,6 +46,7 @@ void Player::Rotate() {
 
 //攻撃
 void Player::Attack() { 
+	//SPACEキーで発射
 	if (input_->TriggerKey(DIK_SPACE)) {
 
 		//弾があれば解放する
