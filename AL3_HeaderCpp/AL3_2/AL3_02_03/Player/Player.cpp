@@ -78,6 +78,17 @@ void Player::UpDate() {
 	//旋回処理
 	Rotate();
 
+	//デスフラグの経った弾を削除
+	//remove ifは条件に当てはまる要素をリストから排除する関数
+	//trueを返すとlistから取り除かれる
+	bullets_.remove_if([](PlayerBullet* bullet) {
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+	});
+
 	#pragma region 移動処理
 
 	//行列を定数バッファに転送
