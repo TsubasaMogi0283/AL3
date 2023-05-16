@@ -6,7 +6,7 @@
 
 void WorldTransform::UpdateMatrix() {
 	//SRT合成
-	matWorld = MakeAffineMatrix(scale_, rotation_, translation_);
+	matWorld_ = MakeAffineMatrix(scale_, rotation_, translation_);
 
 	//定数バッファに転送
 	TransferMatrix();

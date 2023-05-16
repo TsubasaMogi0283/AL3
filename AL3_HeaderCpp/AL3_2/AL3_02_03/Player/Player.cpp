@@ -56,8 +56,10 @@ void Player::Attack() {
 
 void Player::UpDate() {
 
+	//旋回処理
 	Rotate();
 
+	#pragma region 移動処理
 
 	//行列を定数バッファに転送
 	worldTransform_.TransferMatrix(); 
@@ -120,6 +122,17 @@ void Player::UpDate() {
 	//更新処理書き直し
 	worldTransform_.UpdateMatrix();
 
+	#pragma endregion
+
+	//攻撃処理
+	Attack();
+
+	//更新
+	//bullet_!=nullptr
+	if (bullet_) {
+		bullet_->Update();
+	}
+
 
 	#pragma region デバッグテキスト
 
@@ -143,7 +156,10 @@ void Player::Draw(ViewProjection viewProjection) {
 		viewProjection, 
 		this->textureHandle_);
 
-	
+	//弾の描画
+	if (bullet_) {
+		bullet_->Draw(viewProjection);
+	}
 	
 
 }
