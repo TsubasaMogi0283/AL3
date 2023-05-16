@@ -22,6 +22,24 @@ void Player::Initialize(Model* model,uint32_t textureHandle) {
 	input_ = Input::GetInstance();
 }
 
+//回転
+void Player::Rotate() {
+	//回転の速さ「ラジアン/frame」
+	const float kRotSpeed = 0.02f;
+
+	//押した方向で移動ベクトルを変更
+	if (input_->PushKey(DIK_A)) {
+		worldTransform_.translation_.y = -kRotSpeed;
+	}
+	else if (input_->PushKey(DIK_D)) {
+		worldTransform_.translation_.y = kRotSpeed;
+	}
+
+
+}
+
+
+
 void Player::UpDate() {
 	//行列を定数バッファに転送
 	worldTransform_.TransferMatrix(); 
