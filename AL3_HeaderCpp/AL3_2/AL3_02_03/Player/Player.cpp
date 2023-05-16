@@ -78,11 +78,6 @@ void Player::UpDate() {
 	//旋回処理
 	Rotate();
 
-	//弾の更新
-	for (PlayerBullet* bullet : bullets_) {
-		bullet->Update();
-	}
-
 	//デスフラグの経った弾を削除
 	//remove ifは条件に当てはまる要素をリストから排除する関数
 	//trueを返すとlistから取り除かれる
@@ -162,7 +157,10 @@ void Player::UpDate() {
 	//攻撃処理
 	Attack();
 
-	
+	//弾の更新
+	for (PlayerBullet* bullet : bullets_) {
+		bullet->Update();
+	}
 
 
 	#pragma region デバッグテキスト
