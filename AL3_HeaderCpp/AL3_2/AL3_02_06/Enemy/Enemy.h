@@ -30,7 +30,7 @@ private:
 
 	//速度
 	Vector3 velocity_;
-
+	Vector3 leaveVelocity_;
 
 	//enum宣言
 	enum class Phase {

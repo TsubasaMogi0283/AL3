@@ -71,23 +71,35 @@ void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velo
 
 void Enemy::Update() { 
 
+	switch (phase_) { 
+		case Phase::Approach:
+	default:
+		//移動(ベクトルの加算)
+		worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
+		//規定の位置に到達したら離脱
+		if (worldTransform_.translation_.z < 0.0f) {
+			phase_ = Phase::Leave;
+		}
+
+
+		break;
+
+		case Phase::Leave:
+			//移動(ベクトルを加算)
+		worldTransform_.translation_ = Add(worldTransform_.translation_, leaveVelocity_);
+
+		break;
+
+	}
+
+
+
 	//座標を移動させる(1フレーム分足す)
 	//ベクトルの足し算
-	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
 
-	
-	
-	//Vector3 enemyPosition_
-
-
-
-	//弾の速度
-		
-
-	//速度ベクトルを自機の向きに合わせて回転させる
 	velocity_ = TransformNormal(velocity_,worldTransform_.matWorld_ );
+	leaveVelocity_ = TransformNormal(leaveVelocity_, worldTransform_.matWorld_);
 	
-
 	//ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix(); 
 }
