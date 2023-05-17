@@ -22,6 +22,10 @@ public:
 		return enemyVelocity_;
 	}
 
+	void ApproachUpdate();
+
+	void LeaveUpdate();
+
 
 private:
 
