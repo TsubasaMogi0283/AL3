@@ -36,15 +36,13 @@ void GameScene::Initialize() {
 
 	//敵の生成
 	
-	const float kEnemySpeed = -0.5f;
-	Vector3 enemyVelocity(0, 0, kEnemySpeed);
-	Vector3 enemyPosition(0, 1.0, 0);
+	
 
 	//敵の速度
 	enemyModel_ = Model::Create();
 	enemy_ = new Enemy();
 
-	enemy_->Initialize(enemyModel_, enemyPosition, enemyVelocity);
+	enemy_->Initialize(enemyModel_, enemy_->GetEnemyPosition(),enemy_->GetEnemyVelocity());
 	
 
 	

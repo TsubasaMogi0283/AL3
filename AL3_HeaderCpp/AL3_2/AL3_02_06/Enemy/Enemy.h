@@ -15,6 +15,12 @@ public:
 	//ビュープロジェクション
 	void Draw(const ViewProjection& viewProjection);
 
+	Vector3 GetEnemyPosition() { 
+		return enemyPosition_;
+	}
+	Vector3 GetEnemyVelocity() { 
+		return enemyVelocity_;
+	}
 
 
 private:
@@ -29,9 +35,14 @@ private:
 	Vector3 enemyPosition_;
 
 	//速度
-	Vector3 velocity_;
-	Vector3 leaveVelocity_;
+	const float kEnemySpeed_ = -0.5f;
+	Vector3 enemyPosition = {0, 1.0f, 0};
+	Vector3 enemyVelocity_ = {0, 0, kEnemySpeed_};
+	
+	
 
+	
+	
 	//enum宣言
 	enum class Phase {
 		Approach,	//接近

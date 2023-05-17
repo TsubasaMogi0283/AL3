@@ -65,40 +65,39 @@ void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velo
 	worldTransform_.Initialize();
 	//引数で受け取った初期座標をセット
 	worldTransform_.translation_ = position;
-	velocity_ = velocity;
+	enemyVelocity_ = velocity;
 
 }
 
 void Enemy::Update() { 
 
-	switch (phase_) { 
-		case Phase::Approach:
-	default:
-		//移動(ベクトルの加算)
-		worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
-		//規定の位置に到達したら離脱
-		if (worldTransform_.translation_.z < 0.0f) {
-			phase_ = Phase::Leave;
-		}
-
-
-		break;
-
-		case Phase::Leave:
-			//移動(ベクトルを加算)
-		worldTransform_.translation_ = Add(worldTransform_.translation_, leaveVelocity_);
-
-		break;
-
-	}
+	//switch (phase_) { 
+	//	case Phase::Approach:
+	//default:
+	//	//移動(ベクトルの加算)
+	//	//worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
+	//	//規定の位置に到達したら離脱
+	//	if (worldTransform_.translation_.z < 0.0f) {
+	//		phase_ = Phase::Leave;
+	//	}
+	//
+	//
+	//	break;
+	//
+	//	case Phase::Leave:
+	//		//移動(ベクトルを加算)
+	//	
+	//
+	//	break;
+	//
+	//}
 
 
 
 	//座標を移動させる(1フレーム分足す)
 	//ベクトルの足し算
-
-	velocity_ = TransformNormal(velocity_,worldTransform_.matWorld_ );
-	leaveVelocity_ = TransformNormal(leaveVelocity_, worldTransform_.matWorld_);
+	worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
+	enemyVelocity_ = TransformNormal(enemyVelocity_,worldTransform_.matWorld_ );
 	
 	//ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix(); 
