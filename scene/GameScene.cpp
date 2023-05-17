@@ -8,7 +8,7 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	delete debugCamera_;
-
+	delete enemy_;
 }
 
 void GameScene::Initialize() {
@@ -34,6 +34,22 @@ void GameScene::Initialize() {
 	//自キャラの初期化
 	player_->Initialize(playerModel_,playerTextureHandle_);
 
+	//敵の生成
+	
+	const float kEnemySpeed = -0.5f;
+	Vector3 enemyVelocity(0, 0, kEnemySpeed);
+	Vector3 enemyPosition(0, 1.0, 0);
+
+	//敵の速度
+	enemyModel_ = Model::Create();
+	enemy_ = new Enemy();
+
+	enemy_->Initialize(enemyModel_, enemyPosition, enemyVelocity);
+	
+
+	
+
+
 
 	//デバッグカメラの設定
 	debugCamera_ = new DebugCamera(1280, 720);
@@ -48,7 +64,7 @@ void GameScene::Initialize() {
 
 void GameScene::Update() {
 	player_->UpDate();
-
+	enemy_->Update();
 
 	Matrix4x4 cameraMatrix = {};
 	cameraMatrix.m[0][0] = 1.0f;
@@ -72,6 +88,14 @@ void GameScene::Update() {
 	cameraMatrix.m[2][3] = 1.0f;
 
 
+
+	
+
+
+	
+	
+
+
 	#ifdef _DEBUG
 	if (input_->TriggerKey(DIK_SPACE)) {
 		isDebugCameraActive_ = true;
@@ -88,7 +112,7 @@ void GameScene::Update() {
 		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
 		//プロジェクション行列(射影行列)
 		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
-		    ;
+		
 
 
 		//ビュープロジェクション行列の転送
@@ -129,6 +153,7 @@ void GameScene::Draw() {
 	/// </summary>
 
 	player_->Draw(viewProjection_);
+	enemy_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

@@ -10,6 +10,7 @@
 #include "WorldTransform.h"
 
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h>
+#include <AL3_HeaderCpp/AL3_2/AL3_02_06/Enemy/Enemy.h>
 #include <DebugCamera.h>
 
 /// <summary>
@@ -68,6 +69,11 @@ private: // メンバ変数
 	 
 	//自キャラ
 	Player* player_ = nullptr;
+
+
+	//敵キャラ
+	Model* enemyModel_ = nullptr;
+	Enemy* enemy_ = nullptr;
 
 
 	//デバッグカメラの切り替え

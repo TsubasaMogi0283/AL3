@@ -3,17 +3,12 @@
 #include <WorldTransform.h>
 #include <Model.h>
 
-class PlayerBullet {
+class Enemy {
 public:
+
 
 	//Initialize(mode,position,velocity)
 	void Initialize(Model* model,const Vector3& position,const Vector3& velocity);
-
-	//Getter
-	//このような関数は「インライン関数」と呼ばれる
-	bool IsDead() const { 
-		return isDead_;
-	}
 
 	void Update();
 
@@ -31,15 +26,11 @@ private:
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
 
-	//速度
-	Vector3 velocity_ ;
+	Vector3 enemyPosition_;
 
-	//寿命
-	static const int32_t kLifeTime = 60 * 5;
-	//デスタイマー
-	int32_t deathTimer_ = kLifeTime;
-	//デスフラグ
-	bool isDead_ = false;
+	//速度
+	Vector3 velocity_;
+
 
 
 
