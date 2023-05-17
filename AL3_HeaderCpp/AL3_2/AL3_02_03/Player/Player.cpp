@@ -167,7 +167,7 @@ void Player::UpDate() {
 
 	ImGui::Begin("Player");
 
-	
+	ImGui::Text("Space To BulletShot");
 	ImGui::InputFloat3("PlayerPosition", &worldTransform_.translation_.x);
 	ImGui::SliderFloat3("PlayerSlide", &worldTransform_.translation_.x, -20.0f,30.0f);
 	
