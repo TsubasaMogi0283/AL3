@@ -34,7 +34,7 @@ private:
 
 	//速度
 	const float kEnemySpeed_ = -0.5f;
-	Vector3 enemyPosition_ = {0, 5, 0};
+	Vector3 enemyPosition_ = {0, 3, 0};
 	Vector3 enemyVelocity_ = {0, 0, kEnemySpeed_};
 	
 	
