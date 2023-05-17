@@ -111,7 +111,6 @@
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\PlayerBullet\PlayerBullet.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Player\Player.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\WorldTransform\WorldTransformEx.cpp" />
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.cpp" />
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="main.cpp" />
@@ -138,7 +137,6 @@
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Function\Function.h" />
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\PlayerBullet\PlayerBullet.h" />
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Player\Player.h" />
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.h" />
     <ClInclude Include="audio\Audio.h" />
     <ClInclude Include="base\DirectXCommon.h" />
     <ClInclude Include="base\SafeDelete.h" />
