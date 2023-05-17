@@ -32,11 +32,9 @@ private:
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
 
-	Vector3 enemyPosition_;
-
 	//速度
 	const float kEnemySpeed_ = -0.5f;
-	Vector3 enemyPosition = {0, 1.0f, 0};
+	Vector3 enemyPosition_ = {0, 5, 0};
 	Vector3 enemyVelocity_ = {0, 0, kEnemySpeed_};
 	
 	
