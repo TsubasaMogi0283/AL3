@@ -32,6 +32,12 @@ private:
 	Vector3 velocity_;
 
 
+	//enum宣言
+	enum class Phase {
+		Approach,	//接近
+		Leave,		//離脱
+	};
 
+	Phase phase_ = Phase();
 
 };
