@@ -1,7 +1,8 @@
-﻿#pragma once
+#pragma once
 #include <ViewProjection.h>
 #include <WorldTransform.h>
 #include <Model.h>
+#include <AL3_HeaderCpp/AL3_2/AL3_02_07a/BaseEnemyState/BaseEnemyState.h>
 
 class Enemy {
 public:
@@ -22,10 +23,11 @@ public:
 		return enemyVelocity_;
 	}
 
-	void ApproachUpdate();
 
-	void LeaveUpdate();
+	
 
+
+	void ChangeState(BaseEnemyState*);
 
 private:
 
@@ -55,5 +57,11 @@ private:
 
 	//メンバ関数ポインタのテーブル
 	static void (Enemy::*spFuncTable[])();
+
+
+
+	//State Pattern
+	BaseEnemyState* state_;
+
 
 };

@@ -1,4 +1,4 @@
-﻿//#include <cassert>
+//#include <cassert>
 //
 //#include <AL3_HeaderCpp/AL3_2/AL3_02_06/Enemy/Enemy.h>
 //#include <AL3_HeaderCpp/AL3_2/AL3_02_03/PlayerBullet/PlayerBullet.h>
@@ -68,32 +68,24 @@ void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velo
 
 }
 
-void Enemy::ApproachUpdate() {
-	//移動(ベクトルの加算)
-		
-	worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
-	//規定の位置に到達したら離脱
-	if (worldTransform_.translation_.z < 0.0f) {
-		phase_ = Phase::Leave;
-	}
-	
-}
-
-void Enemy::LeaveUpdate() {
-	//移動(ベクトルを加算)
-	worldTransform_.translation_.x += 0.2f;
-	worldTransform_.translation_.y += 0.02f;
-}
+//void Enemy::ApproachUpdate() {
+//	//移動(ベクトルの加算)
+//		
+//	
+//	
+//}
 
 
-void (Enemy::*Enemy::spFuncTable[])()={
 
-	//0
-	&Enemy::ApproachUpdate,
-	//1
-	&Enemy::LeaveUpdate,
 
-};
+//void (Enemy::*Enemy::spFuncTable[])()={
+//
+//	//0
+//	&Enemy::ApproachUpdate,
+//	//1
+//	&Enemy::LeaveUpdate,
+//
+//};
 
 void Enemy::Update() { 
 
