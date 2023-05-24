@@ -84,6 +84,9 @@
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_07a\MemberFunction\MemberFunction.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
@@ -180,6 +183,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_07a\MemberFunction\MemberFunction.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

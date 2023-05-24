@@ -71,35 +71,49 @@ void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velo
 void Enemy::ApproachUpdate() {
 	//移動(ベクトルの加算)
 		
-		worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
-		//規定の位置に到達したら離脱
-		if (worldTransform_.translation_.z < 0.0f) {
-			phase_ = Phase::Leave;
-		}
+	worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
+	//規定の位置に到達したら離脱
+	if (worldTransform_.translation_.z < 0.0f) {
+		phase_ = Phase::Leave;
+	}
 	
 }
 
 void Enemy::LeaveUpdate() {
 	//移動(ベクトルを加算)
-		worldTransform_.translation_.x += 0.2f;
-		worldTransform_.translation_.y += 0.02f;
+	worldTransform_.translation_.x += 0.2f;
+	worldTransform_.translation_.y += 0.02f;
 }
 
 
+void (Enemy::*Enemy::spFuncTable[])()={
+
+	//0
+	&Enemy::ApproachUpdate,
+	//1
+	&Enemy::LeaveUpdate,
+
+};
+
 void Enemy::Update() { 
 
-	switch (phase_) { 
-		case Phase::Approach:
-	default:
-		    ApproachUpdate();
+	//switch (phase_) { 
+	//	case Phase::Approach:
+	//default:
+	//	    ApproachUpdate();
+	//
+	//	break;
+	//
+	//	case Phase::Leave:
+	//	LeaveUpdate();
+	//	break;
+	//
+	//}
 	
-		break;
 	
-		case Phase::Leave:
-		LeaveUpdate();
-		break;
-	
-	}
+	//メンバ関数ポインタに入っている関数を呼び出す
+	//ここではAppriachUpdate
+	(this->*spFuncTable[static_cast<size_t>(phase_)])();
 
 
 

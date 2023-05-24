@@ -37,12 +37,10 @@ private:
 	uint32_t textureHandle_ = 0u;
 
 	//速度
-	const float kEnemySpeed_ = -0.5f;
+	const float kEnemySpeed_ = -0.2f;
 	Vector3 enemyPosition_ = {0.0f, 3.0f, 20.0f};
 	Vector3 enemyVelocity_ = {0.0f, 0.0f, kEnemySpeed_};
 	
-	
-
 	
 	
 	//enum宣言
@@ -52,5 +50,10 @@ private:
 	};
 
 	Phase phase_ = Phase();
+
+	
+
+	//メンバ関数ポインタのテーブル
+	static void (Enemy::*spFuncTable[])();
 
 };
