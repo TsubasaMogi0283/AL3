@@ -28,6 +28,9 @@ public:
 	void LeaveUpdate();
 
 
+	//StatePattern
+	void ChangeState(BaseEnemyState*);
+
 private:
 
 	//ワールド変換データ
@@ -57,4 +60,31 @@ private:
 	//メンバ関数ポインタのテーブル
 	static void (Enemy::*spFuncTable[])();
 
+
+	//statepattern
+	BaseEnemyState* state_;
+
+};
+
+
+
+class BaseEnemyState {
+public:
+	virtual void Update();
+
+
+protected:
+	Enemy* enemy_;
+
+
+};
+
+class EnemyStateApproach :public BaseEnemyState{
+public:
+	void Update() override;
+};
+
+class EnemyStateLeave :public BaseEnemyState{
+public:
+	void Update() override;
 };
