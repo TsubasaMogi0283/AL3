@@ -112,9 +112,6 @@
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Player\Player.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\WorldTransform\WorldTransformEx.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.cpp" />
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_07a\BaseEnemyState\BaseEnemyState.cpp" />
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_07a\EnemyStateApproach\EnemyStateApproach.cpp" />
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_07a\EnemyStateLeave\EnemyStateLeave.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_07a\MemberFunction\MemberFunction.cpp" />
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
@@ -143,9 +140,6 @@
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\PlayerBullet\PlayerBullet.h" />
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Player\Player.h" />
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.h" />
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_07a\BaseEnemyState\BaseEnemyState.h" />
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_07a\EnemyStateApproach\EnemyStateApproach.h" />
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_07a\EnemyStateLeave\EnemyStateLeave.h" />
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_07a\MemberFunction\MemberFunction.h" />
     <ClInclude Include="audio\Audio.h" />
     <ClInclude Include="base\DirectXCommon.h" />

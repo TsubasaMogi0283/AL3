@@ -7,7 +7,6 @@
 class Enemy {
 public:
 
-
 	//Initialize(mode,position,velocity)
 	void Initialize(Model* model,const Vector3& position,const Vector3& velocity);
 
@@ -24,7 +23,9 @@ public:
 	}
 
 
-	
+	Vector3 GetEnemyTranslate() { 
+		return worldTransform_.translation_;
+	}
 
 
 	void ChangeState(BaseEnemyState*);
@@ -62,6 +63,8 @@ private:
 
 	//State Pattern
 	BaseEnemyState* state_;
+
+	
 
 
 };
