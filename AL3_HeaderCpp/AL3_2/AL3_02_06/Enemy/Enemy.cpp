@@ -142,8 +142,8 @@ void EnemyStateApproach::Update() {
 
 	//規定の位置に到達したら離脱
 	if (enemy_->worldTransform_.translation_.z < 0.0f) {
-		enemy_->ChangeState(new EnemyStateLeave());
-		//phase_ = Phase::Leave;
+		//enemy_->ChangeState(new EnemyStateLeave());
+		phase_ = Phase::Leave;
 	}
 }
 
