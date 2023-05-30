@@ -70,9 +70,9 @@ public:
 	
 	
 
-	//void ApproachUpdate();
+	void ApproachUpdate();
 
-	//void LeaveUpdate();
+	void LeaveUpdate();
 
 
 	//StatePattern
@@ -99,13 +99,13 @@ public:
 
 	
 	
-	////enum宣言
-	//enum class Phase {
-	//	Approach,	//接近
-	//	Leave,		//離脱
-	//};
+	//enum宣言
+	enum class Phase {
+		Approach,	//接近
+		Leave,		//離脱
+	};
 
-	//Phase phase_ = Phase();
+	Phase phase_ = Phase();
 
 	
 
