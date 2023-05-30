@@ -129,11 +129,15 @@ void EnemyStateApproach::Update() {
 	//enemyNewTranslate_ = enemy_->GetEnemyTranslate();
 	
 
-	enemy_->worldTransform_.translation_ = Add(enemy_->worldTransform_.translation_, {0.0f,0.0f,-0.2f});
+	enemy_->worldTransform_.translation_ = Add(enemy_->worldTransform_.translation_, enemy_->enemyVelocity_);
+	enemy_->enemyVelocity_ = TransformNormal(enemy_->enemyVelocity_,enemy_->worldTransform_.matWorld_ );
+
+
 	//enemy_->SetEnemyTranslate(enemyNewTranslate_);
+	//worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
+	
+	
 
-
-	//{0.0f, 0.0f, kEnemySpeed_};
 
 	//規定の位置に到達したら離脱
 	if (enemy_->worldTransform_.translation_.z < 0.0f) {
