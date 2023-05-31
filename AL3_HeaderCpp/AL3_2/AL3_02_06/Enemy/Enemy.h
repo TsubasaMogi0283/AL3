@@ -33,6 +33,7 @@ protected:
 class EnemyStateApproach :public BaseEnemyState{
 public:
 	void Update() override;
+
 };
 
 class EnemyStateLeave :public BaseEnemyState{
@@ -110,7 +111,7 @@ public:
 	
 
 	//メンバ関数ポインタのテーブル
-	//static void (Enemy::*spFuncTable[])();
+	static void (Enemy::*spFuncTable[])();
 
 
 	//statepattern

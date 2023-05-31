@@ -3,6 +3,15 @@
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
 
 
+Enemy::Enemy() {
+	state_ = new EnemyStateApproach();
+}
+
+BaseEnemyState::BaseEnemyState() {
+
+}
+
+
 void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
 	
 	//NULLチェック
@@ -31,6 +40,16 @@ void Enemy::SetEnemyTranslate(Vector3 translation) {
 
 }
 
+
+#pragma region 前回の
+void (Enemy::*Enemy::spFuncTable[])()={
+
+	//0
+	&Enemy::ApproachUpdate,
+	//1
+	&Enemy::LeaveUpdate,
+
+};
 void Enemy::ApproachUpdate() {
 	//移動(ベクトルの加算)
 		
@@ -41,45 +60,67 @@ void Enemy::ApproachUpdate() {
 	}
 	
 }
-
 void Enemy::LeaveUpdate() {
 	//移動(ベクトルを加算)
 	worldTransform_.translation_.x += 0.2f;
 	worldTransform_.translation_.y += 0.02f;
 }
 
+#pragma endregion
 
-void (Enemy::*Enemy::spFuncTable[])()={
 
-	//0
-	&Enemy::ApproachUpdate,
-	//1
-	&Enemy::LeaveUpdate,
+//接近
+void EnemyStateApproach::Update() {
+	
 
-};
+	//ここが原因
+	//Getterなどで設定しよう！
+
+
+	//enemy_->worldTransform_.translation_ = Add(enemy_->worldTransform_.translation_, enemy_->enemyVelocity_);
+	//enemy_->enemyVelocity_ = TransformNormal(enemy_->enemyVelocity_,enemy_->worldTransform_.matWorld_ );
+
+
+	//enemy_->SetEnemyTranslate(enemyNewTranslate_);
+	//worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
+	
+	enemy_->worldTransform_.translation_ = Add(enemy_->worldTransform_.translation_, {0.0f,0.0f,-0.2f});
+	enemy_->enemyVelocity_ = TransformNormal(enemy_->enemyVelocity_,enemy_->worldTransform_.matWorld_ );
+
+	
+	//規定の位置に到達したら離脱
+	if (enemy_->worldTransform_.translation_.z < 0.0f) {
+		//enemy_->ChangeState(new EnemyStateLeave);
+	}
+	
+}
+
+void EnemyStateLeave::Update() {
+	//移動(ベクトルを加算)
+	enemy_->SetEnemyTranslate(
+	    {enemy_->worldTransform_.translation_.x + 0.2f, 
+		enemy_->worldTransform_.translation_.y + 0.02f,
+	     enemy_->worldTransform_.translation_.z});
+
+	//worldTransform_.translation_.x += 0.2f,
+	//worldTransform_.translation_.y += 0.02f)
+	
+}
+
+
+
 
 void Enemy::Update() { 
 
-	//switch (phase_) { 
-	//	case Phase::Approach:
-	//default:
-	//	    ApproachUpdate();
-	//
-	//	break;
-	//
-	//	case Phase::Leave:
-	//	LeaveUpdate();
-	//	break;
-	//
-	//}
-	
-	
 	//メンバ関数ポインタに入っている関数を呼び出す
 	//ここではAppriachUpdate
 	//(this->*spFuncTable[static_cast<size_t>(phase_)])();
 	
-	//Updateが原因
+
+
 	state_->Update();
+
+
 
 
 	//座標を移動させる(1フレーム分足す)
@@ -102,10 +143,6 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 
 
 
-Enemy::Enemy() {
-	//最初はApproach
-	state_ = new EnemyStateApproach();
-}
 
 Enemy::~Enemy() {
 	delete state_;
@@ -117,48 +154,5 @@ void Enemy::ChangeState(BaseEnemyState* newState) {
 }
 
 
-BaseEnemyState::BaseEnemyState(){
-
-}
-
-//接近
-void EnemyStateApproach::Update() {
-	
-
-	//ここが原因
-	//Getterなどで設定しよう！
-
-	//enemyNewTranslate_ = enemy_->GetEnemyTranslate();
-	
-
-	//enemy_->worldTransform_.translation_ = Add(enemy_->worldTransform_.translation_, enemy_->enemyVelocity_);
-	//enemy_->enemyVelocity_ = TransformNormal(enemy_->enemyVelocity_,enemy_->worldTransform_.matWorld_ );
-
-
-	//enemy_->SetEnemyTranslate(enemyNewTranslate_);
-	//worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
-	
-	
-	(this->*spFuncTable[static_cast<size_t>(phase_)])();
-
-
-	//規定の位置に到達したら離脱
-	if (enemy_->worldTransform_.translation_.z < 0.0f) {
-		//enemy_->ChangeState(new EnemyStateLeave());
-		phase_ = Phase::Leave;
-	}
-}
-
-void EnemyStateLeave::Update() {
-	//移動(ベクトルを加算)
-	enemy_->SetEnemyTranslate(
-	    {enemy_->worldTransform_.translation_.x + 0.2f, 
-		enemy_->worldTransform_.translation_.y + 0.02f,
-	     enemy_->worldTransform_.translation_.z});
-
-	//worldTransform_.translation_.x += 0.2f,
-	//worldTransform_.translation_.y += 0.02f)
-	
-}
 
 
