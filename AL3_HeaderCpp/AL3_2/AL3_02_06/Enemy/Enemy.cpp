@@ -76,10 +76,8 @@ void EnemyStateApproach::Update() {
 	//ここが原因
 	//Getterなどで設定しよう！
 
-
 	//enemy_->worldTransform_.translation_ = Add(enemy_->worldTransform_.translation_, enemy_->enemyVelocity_);
 	//enemy_->enemyVelocity_ = TransformNormal(enemy_->enemyVelocity_,enemy_->worldTransform_.matWorld_ );
-
 
 	//enemy_->SetEnemyTranslate(enemyNewTranslate_);
 	//worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
