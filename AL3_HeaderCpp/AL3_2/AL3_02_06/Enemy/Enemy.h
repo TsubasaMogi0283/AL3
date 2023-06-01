@@ -67,7 +67,7 @@ public:
 	}
 	
 
-	void SetTranslation(Vector3 enemyTranslate);
+	void SetTranslation(Vector3 enemyTranslate,Vector3 enemyVelocity);
 	
 	void SetVelocity(Vector3 enemyVelocity);
 
