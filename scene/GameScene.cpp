@@ -42,7 +42,7 @@ void GameScene::Initialize() {
 	enemyModel_ = Model::Create();
 	enemy_ = new Enemy();
 
-	enemy_->Initialize(enemyModel_, enemy_->GetEnemyTranslate(),enemy_->GetEnemyVelocity());
+	enemy_->Initialize(enemyModel_, enemy_->GetTranslation(), enemy_->GetVelocity());
 	
 
 	

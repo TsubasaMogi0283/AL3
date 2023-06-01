@@ -58,18 +58,18 @@ public:
 	//ビュープロジェクション
 	void Draw(const ViewProjection& viewProjection);
 
-	Vector3 GetEnemyTranslate() { 
-		return enemyTranslate_;
+
+	Vector3 GetTranslation() { 
+		return worldTransform_.translation_;
 	}
-	Vector3 GetEnemyVelocity() { 
+	Vector3 GetVelocity() { 
 		return enemyVelocity_;
 	}
 	
-	
 
-	void SetEnemyTranslate(Vector3 translation);
+	void SetTranslation(Vector3 enemyTranslate);
 	
-	
+	void SetVelocity(Vector3 enemyVelocity);
 
 	void ApproachUpdate();
 
@@ -79,7 +79,7 @@ public:
 	//StatePattern
 	void ChangeState(BaseEnemyState* newState);
 
-public:
+private:
 
 	//ワールド変換データ
 	WorldTransform worldTransform_;
