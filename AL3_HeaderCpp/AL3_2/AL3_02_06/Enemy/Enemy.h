@@ -2,6 +2,7 @@
 #include <ViewProjection.h>
 #include <WorldTransform.h>
 #include <Model.h>
+#include <AL3_HeaderCpp/AL3_2/AL3_02_08/EnemyBullet/EnemyBullet.h>
 
 class Enemy {
 public:
@@ -9,6 +10,8 @@ public:
 
 	//Initialize(mode,position,velocity)
 	void Initialize(Model* model,const Vector3& position,const Vector3& velocity);
+
+	void Fire();
 
 	void Update();
 
@@ -52,5 +55,11 @@ private:
 	};
 
 	Phase phase_ = Phase();
+
+
+
+
+	EnemyBullet* enemyBullets_ = nullptr;
+
 
 };

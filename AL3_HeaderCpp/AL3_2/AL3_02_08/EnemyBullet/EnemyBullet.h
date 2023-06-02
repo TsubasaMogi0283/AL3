@@ -15,8 +15,6 @@ public:
 		return isDead_;
 	}
 
-	void Fire();
-
 	void Update();
 
 

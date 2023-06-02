@@ -20,9 +20,7 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3
 
 }
 
-void EnemyBullet::Fire() {
 
-}
 
 void EnemyBullet::Update() { 
 
