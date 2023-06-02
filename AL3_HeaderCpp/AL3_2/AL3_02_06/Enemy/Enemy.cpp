@@ -3,6 +3,14 @@
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
 
 
+Enemy::~Enemy() { 
+	//弾の解放処理
+	//複数出たのでfor文で解放しよう
+	for (EnemyBullet* bullet : bullets_) {
+		delete bullet;
+	}
+}
+
 void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
 	
 	//NULLチェック
