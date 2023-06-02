@@ -62,4 +62,13 @@ private:
 	EnemyBullet* enemyBullets_ = nullptr;
 	std::list<EnemyBullet*> bullets_;
 
+	int32_t enemyBulletShotTime = 30;
+
+public:
+	//静的メンバ変数
+	static const int kFireInterval = 60;
+
+
+
+
 };
