@@ -1,20 +1,20 @@
-#include <cassert>
+ï»¿#include <cassert>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_08/EnemyBullet/EnemyBullet.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
 
 void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
 	
-	//NULLƒ`ƒFƒbƒN
+	//NULLãƒã‚§ãƒƒã‚¯
 	assert(model);
 
 	model_ = model;
-	//ƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İ
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿
 	textureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_3/bullet.png");
 
-	//ƒ[ƒ‹ƒhƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚Ì‰Šú‰»
-	//’†‚É‚ ‚é‚æ
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã®åˆæœŸåŒ–
+	//ä¸­ã«ã‚ã‚‹ã‚ˆ
 	worldTransform_.Initialize();
-	//ˆø”‚Åó‚¯æ‚Á‚½‰ŠúÀ•W‚ğƒZƒbƒg
+	//å¼•æ•°ã§å—ã‘å–ã£ãŸåˆæœŸåº§æ¨™ã‚’ã‚»ãƒƒãƒˆ
 	worldTransform_.translation_ = position;
 	velocity_ = velocity;
 
@@ -24,21 +24,21 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3
 
 void EnemyBullet::Update() { 
 
-	//À•W‚ğˆÚ“®‚³‚¹‚é(1ƒtƒŒ[ƒ€•ª‘«‚·)
-	//ƒxƒNƒgƒ‹‚Ì‘«‚µZ
+	//åº§æ¨™ã‚’ç§»å‹•ã•ã›ã‚‹(1ãƒ•ãƒ¬ãƒ¼ãƒ åˆ†è¶³ã™)
+	//ãƒ™ã‚¯ãƒˆãƒ«ã®è¶³ã—ç®—
 	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
 
-	//ŠÔŒo‰ß‚ÅƒfƒX
+	//æ™‚é–“çµŒéã§ãƒ‡ã‚¹
 	if (--deathTimer_ <= 0) {
 		isDead_ = true;
 	}
 
 
-	//ƒ[ƒ‹ƒhƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚ÌXV
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã®æ›´æ–°
 	worldTransform_.UpdateMatrix(); 
 }
 
 void EnemyBullet::Draw(const ViewProjection& viewProjection) { 
-	//©ƒLƒƒƒ‰‚Æ“¯‚¶ˆ—‚È‚Ì‚Åo—ˆ‚ê‚ÎŒp³‚ğg‚¤‚Æ‚¢‚¢‚æI
+	//è‡ªã‚­ãƒ£ãƒ©ã¨åŒã˜å‡¦ç†ãªã®ã§å‡ºæ¥ã‚Œã°ç¶™æ‰¿ã‚’ä½¿ã†ã¨ã„ã„ã‚ˆï¼
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }

@@ -60,6 +60,6 @@ private:
 
 
 	EnemyBullet* enemyBullets_ = nullptr;
-
+	std::list<EnemyBullet*> bullets_;
 
 };

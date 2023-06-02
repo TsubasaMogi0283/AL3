@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <ViewProjection.h>
 #include <WorldTransform.h>
 #include <Model.h>
@@ -10,7 +10,7 @@ public:
 	void Initialize(Model* model,const Vector3& position,const Vector3& velocity);
 
 	//Getter
-	//‚±‚Ì‚æ‚¤‚ÈŠÖ”‚ÍuƒCƒ“ƒ‰ƒCƒ“ŠÖ”v‚ÆŒÄ‚Î‚ê‚é
+	//ã“ã®ã‚ˆã†ãªé–¢æ•°ã¯ã€Œã‚¤ãƒ³ãƒ©ã‚¤ãƒ³é–¢æ•°ã€ã¨å‘¼ã°ã‚Œã‚‹
 	bool IsDead() const { 
 		return isDead_;
 	}
@@ -19,28 +19,28 @@ public:
 
 
 
-	//ƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“
+	//ãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³
 	void Draw(const ViewProjection& viewProjection);
 
 
 
 private:
 
-	//ƒ[ƒ‹ƒh•ÏŠ·ƒf[ƒ^
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›ãƒ‡ãƒ¼ã‚¿
 	WorldTransform worldTransform_;
-	//ƒ‚ƒfƒ‹‚Ìƒ|ƒCƒ“ƒ^
+	//ãƒ¢ãƒ‡ãƒ«ã®ãƒã‚¤ãƒ³ã‚¿
 	Model* model_ = nullptr;
-	//ƒeƒNƒXƒ`ƒƒƒnƒ“ƒhƒ‹
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒ³ãƒ‰ãƒ«
 	uint32_t textureHandle_ = 0u;
 
-	//‘¬“x
+	//é€Ÿåº¦
 	Vector3 velocity_ ;
 
-	//õ–½
+	//å¯¿å‘½
 	static const int32_t kLifeTime = 60 * 5;
-	//ƒfƒXƒ^ƒCƒ}[
+	//ãƒ‡ã‚¹ã‚¿ã‚¤ãƒãƒ¼
 	int32_t deathTimer_ = kLifeTime;
-	//ƒfƒXƒtƒ‰ƒO
+	//ãƒ‡ã‚¹ãƒ•ãƒ©ã‚°
 	bool isDead_ = false;
 
 

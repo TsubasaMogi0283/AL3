@@ -19,8 +19,10 @@ void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velo
 	worldTransform_.translation_ = position;
 	enemyVelocity_ = velocity;
 
+	//同次に生成
+	Fire();
 
-	enemyBullets_->Initialize();
+
 
 }
 
@@ -45,7 +47,21 @@ void Enemy::LeaveUpdate() {
 
 //弾の発射に関する処理
 void Enemy::Fire() {
+	//弾の速度
+	//z方向に+1.0ずつ進むよ
+	const float kBulletSpeed = 1.0f;
+	Vector3 velocity(0, 0, -kBulletSpeed);
 
+	//速度ベクトルを自機の向きに合わせて回転させる
+	velocity = TransformNormal(velocity,worldTransform_.matWorld_ );
+
+	//弾を生成し、初期化
+	EnemyBullet* newEnemyBullet = new EnemyBullet();
+	newEnemyBullet->Initialize(model_, worldTransform_.translation_,velocity);
+
+	//弾を登録する
+	//bullets_に要素を追加
+	bullets_.push_back(newEnemyBullet);
 }
 
 
@@ -65,7 +81,10 @@ void Enemy::Update() {
 	
 	}
 
-
+	//弾の更新
+	for (EnemyBullet* bullet : bullets_) {
+		bullet->Update();
+	}
 
 	//座標を移動させる(1フレーム分足す)
 	//ベクトルの足し算
@@ -79,4 +98,10 @@ void Enemy::Update() {
 void Enemy::Draw(const ViewProjection& viewProjection) { 
 	//自キャラと同じ処理なので出来れば継承を使うといいよ！
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+
+
+	//弾の描画
+	for (EnemyBullet* bullet : bullets_) {
+		bullet->Draw(viewProjection);
+	}
 }
