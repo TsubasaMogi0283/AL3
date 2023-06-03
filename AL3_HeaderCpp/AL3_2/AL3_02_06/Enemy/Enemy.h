@@ -6,7 +6,7 @@
 
 class Enemy {
 public:
-
+	~Enemy();
 
 	//Initialize(mode,position,velocity)
 	void Initialize(Model* model,const Vector3& position,const Vector3& velocity);
@@ -25,6 +25,8 @@ public:
 		return enemyVelocity_;
 	}
 
+	void ApproachInitialize();
+
 	void ApproachUpdate();
 
 	void LeaveUpdate();
@@ -40,7 +42,7 @@ private:
 	uint32_t textureHandle_ = 0u;
 
 	//速度
-	const float kEnemySpeed_ = -0.5f;
+	const float kEnemySpeed_ = -0.05f;
 	Vector3 enemyPosition_ = {0.0f, 3.0f, 20.0f};
 	Vector3 enemyVelocity_ = {0.0f, 0.0f, kEnemySpeed_};
 	
@@ -62,7 +64,8 @@ private:
 	EnemyBullet* enemyBullets_ = nullptr;
 	std::list<EnemyBullet*> bullets_;
 
-	int32_t enemyBulletShotTime = 30;
+	//発射タイマー
+	int32_t enemyBulletShotTime = 0;
 
 public:
 	//静的メンバ変数

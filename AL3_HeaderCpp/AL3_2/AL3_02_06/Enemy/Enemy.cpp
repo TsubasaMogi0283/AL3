@@ -1,6 +1,7 @@
 ﻿#include <cassert>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_06/Enemy/Enemy.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
+#include <imgui.h>
 
 
 Enemy::~Enemy() { 
@@ -9,6 +10,12 @@ Enemy::~Enemy() {
 	for (EnemyBullet* bullet : bullets_) {
 		delete bullet;
 	}
+}
+
+
+void Enemy::ApproachInitialize() {
+	//発射タイマーを初期化
+	enemyBulletShotTime = kFireInterval;
 }
 
 void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
@@ -27,27 +34,44 @@ void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velo
 	worldTransform_.translation_ = position;
 	enemyVelocity_ = velocity;
 
-	//同次に生成
-	Fire();
+	//同時に生成
+	//Fire();
 
+	//同時生成は止める
+	//接近フェーズ初期化
+	ApproachInitialize();
 
 
 }
 
+
+
 void Enemy::ApproachUpdate() {
+
+	//発射タイマーをデクリメント
+	enemyBulletShotTime--;
+
+	//指定時間に達した
+	if (enemyBulletShotTime == 0) {
+		//弾を発射
+		Fire();
+
+		//発射タイマーを初期化
+		enemyBulletShotTime = kFireInterval;
+	}
+
 	//移動(ベクトルの加算)
-		
-		worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
-		//規定の位置に到達したら離脱
-		if (worldTransform_.translation_.z < 0.0f) {
-			phase_ = Phase::Leave;
-		}
+	worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
+	//規定の位置に到達したら離脱
+	if (worldTransform_.translation_.z < 0.0f) {
+		phase_ = Phase::Leave;
+	}
 	
 }
 
 void Enemy::LeaveUpdate() {
 	//移動(ベクトルを加算)
-		worldTransform_.translation_.x += 0.2f;
+		worldTransform_.translation_.x += 0.02f;
 		worldTransform_.translation_.y += 0.02f;
 }
 
@@ -101,6 +125,13 @@ void Enemy::Update() {
 	
 	//ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix(); 
+
+	ImGui::Begin("Enemy");
+
+	ImGui::Text("EnemyBulletTime");
+	ImGui::InputInt("Time", &enemyBulletShotTime);
+	ImGui::End();
+
 }
 
 void Enemy::Draw(const ViewProjection& viewProjection) { 
@@ -112,4 +143,8 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 	for (EnemyBullet* bullet : bullets_) {
 		bullet->Draw(viewProjection);
 	}
+
+	
+
+	//ImGui::SliderF
 }
