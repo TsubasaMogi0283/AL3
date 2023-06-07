@@ -71,6 +71,9 @@ public:
 	
 	void SetVelocity(Vector3 enemyVelocity);
 
+
+
+
 	void ApproachUpdate();
 
 	void LeaveUpdate();
