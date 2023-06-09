@@ -1,15 +1,19 @@
 #pragma once
 #include <functional>
+#include <stdio.h>
+#include <stdint.h>
 
 #include "AL3_HeaderCpp/AL3_2/AL3_02_06/Enemy/Enemy.h"
 
 class TimedCall {
 public:
 	//コンストラクタ
-	TimedCall((呼び出したい関数std::function), uint32_t, time);
+	TimedCall(std::function<int32_t(void)> f, int32_t, time);
 
+	//更新
 	void Update();
 
+	//完了ならtrueを返す
 	bool IsFinished() { 
 		return isFinish_;
 	}
@@ -18,10 +22,14 @@ public:
 private:
 	//コールバック
 	//呼び出したい関数std::function
+	std::function<int32_t(void)> f;
+
 
 	//残り時間
-	uint32_t time_;
+	int32_t time_;
 	//完了フラグ
 	bool isFinish_ = false;
+
+	Enemy* enemy_= nullptr;
 
 };
