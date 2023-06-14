@@ -87,8 +87,6 @@ void EnemyStateApproach::Update() {
 	//enemy_->SetWorldTranslate(enemyNewTranslate_);
 	//worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
 	
-	//enemy_->SetTranslation(enemyTranslate, enemyVelocity);
-	//enemy_->SetVelocity(enemyVelocity);
 
 	//enemy_->worldTransform_.translation_ = Add(enemy_->worldTransform_.translation_, enemy_->enemyVelocity_);
 	//enemy_->enemyVelocity_ = TransformNormal(enemy_->enemyVelocity_,enemy_->worldTransform_.matWorld_ );
