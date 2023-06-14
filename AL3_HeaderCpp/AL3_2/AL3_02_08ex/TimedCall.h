@@ -8,10 +8,15 @@
 class TimedCall {
 public:
 	//コンストラクタ
-	TimedCall(std::function<int32_t(void)> f, int32_t, time);
+	TimedCall(std::function<int32_t(void)> f, uint32_t time);
+
+	//発射してリセットする関数
+	void ShotAndReset();
 
 	//更新
 	void Update();
+
+	
 
 	//完了ならtrueを返す
 	bool IsFinished() { 
@@ -22,7 +27,7 @@ public:
 private:
 	//コールバック
 	//呼び出したい関数std::function
-	std::function<int32_t(void)> f;
+	std::function<int32_t(void)> f_;
 
 
 	//残り時間
@@ -31,5 +36,9 @@ private:
 	bool isFinish_ = false;
 
 	Enemy* enemy_= nullptr;
+
+	//時限発動のリスト
+	std::list<TimedCall*> timeCalls_;
+
 
 };
