@@ -67,7 +67,7 @@ public:
 	}
 	
 
-	void SetTranslation(Vector3 enemyTranslate,Vector3 enemyVelocity);
+	void SetTranslation(Vector3 enemyTranslate);
 	
 	void SetVelocity(Vector3 enemyVelocity);
 
@@ -117,7 +117,7 @@ private:
 	static void (Enemy::*spFuncTable[])();
 
 
-	//statepattern
+	//StatePattern
 	BaseEnemyState* state_=nullptr;
 
 };

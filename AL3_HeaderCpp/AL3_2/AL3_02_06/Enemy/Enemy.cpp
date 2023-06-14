@@ -4,6 +4,7 @@
 
 
 Enemy::Enemy() {
+	//Enemy enemy;
 	state_ = new EnemyStateApproach();
 }
 
@@ -30,12 +31,12 @@ void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velo
 
 }
 
-void Enemy::SetTranslation(Vector3 enemyTranslate,Vector3 enemyVelocity) {
-	this->worldTransform_.translation_ = Add(enemyTranslate , enemyVelocity);
+void Enemy::SetTranslation(Vector3 enemyTranslate) {
+	worldTransform_.translation_ = enemyTranslate;
 }
 
-void Enemy::SetVelocity(Vector3 enemyVelocity) {
-	this->enemyVelocity_ = TransformNormal(enemyVelocity,worldTransform_.matWorld_) ;
+void Enemy::SetVelocity(Vector3 enemyVelocity) { 
+	enemyVelocity_ = enemyVelocity; 
 }
 
 
@@ -50,8 +51,9 @@ void (Enemy::*Enemy::spFuncTable[])()={
 };
 void Enemy::ApproachUpdate() {
 	//移動(ベクトルの加算)
-		
-	worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
+	worldTransform_.translation_=Add(worldTransform_.translation_, enemyVelocity_);
+
+	//worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
 	//規定の位置に到達したら離脱
 	if (worldTransform_.translation_.z < 0.0f) {
 		phase_ = Phase::Leave;
@@ -85,8 +87,8 @@ void EnemyStateApproach::Update() {
 	//enemy_->SetWorldTranslate(enemyNewTranslate_);
 	//worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
 	
-	enemy_->SetTranslation(enemyTranslate, enemyVelocity);
-	enemy_->SetVelocity(enemyVelocity);
+	//enemy_->SetTranslation(enemyTranslate, enemyVelocity);
+	//enemy_->SetVelocity(enemyVelocity);
 
 	//enemy_->worldTransform_.translation_ = Add(enemy_->worldTransform_.translation_, enemy_->enemyVelocity_);
 	//enemy_->enemyVelocity_ = TransformNormal(enemy_->enemyVelocity_,enemy_->worldTransform_.matWorld_ );
