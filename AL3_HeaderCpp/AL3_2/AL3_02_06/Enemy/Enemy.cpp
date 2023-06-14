@@ -22,6 +22,7 @@ Enemy::~Enemy() {
 void Enemy::ApproachInitialize() {
 	//発射タイマーを初期化
 	//enemyBulletShotTime = kFireInterval;
+	
 	FireAndReset();
 	
 }

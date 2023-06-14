@@ -33,7 +33,6 @@ private:
 	//完了フラグ
 	bool isFinish_ = false;
 
-	Enemy* enemy_= nullptr;
 
 	
 
