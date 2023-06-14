@@ -45,8 +45,8 @@ void GameScene::Initialize() {
 	enemy_->Initialize(enemyModel_, enemy_->GetEnemyPosition(),enemy_->GetEnemyVelocity());
 	
 
-	
-
+	//敵キャラに自キャラのアドレスを渡す
+	enemy_->SetPlayer(player_);
 
 
 	//デバッグカメラの設定

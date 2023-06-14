@@ -2,6 +2,7 @@
 #include <AL3_HeaderCpp/AL3_2/AL3_02_06/Enemy/Enemy.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
 #include <imgui.h>
+#include <AL3_HeaderCpp/AL3_2/AL3_02_06/Player/Player.h>
 
 
 Enemy::~Enemy() { 
@@ -11,6 +12,8 @@ Enemy::~Enemy() {
 		delete bullet;
 	}
 }
+
+
 
 
 void Enemy::ApproachInitialize() {
@@ -44,6 +47,17 @@ void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velo
 
 }
 
+
+Vector3 Enemy::GetWorldPosition() { 
+	//ワールド座標を取得
+	Vector3 worldPos; 
+	//ワールド行列の平行移動成分を取得(ワールド座標)
+	worldPos.x = worldTransform_.translation_.x;
+	worldPos.y = worldTransform_.translation_.y;
+	worldPos.z = worldTransform_.translation_.z;
+
+	return worldPos;
+}
 
 
 void Enemy::ApproachUpdate() {
@@ -79,13 +93,35 @@ void Enemy::LeaveUpdate() {
 
 //弾の発射に関する処理
 void Enemy::Fire() {
-	//弾の速度
-	//z方向に+1.0ずつ進むよ
-	const float kBulletSpeed = 1.0f;
-	Vector3 velocity(0, 0, -kBulletSpeed);
+	assert(player_);
 
+	//弾の速度
+	//z方向に1.0ずつ進むよ
+	const float kBulletSpeed = 1.0f;
+	//Vector3 velocity(0, 0, -kBulletSpeed);
+
+
+	//敵キャラのワールド座標を取得
+	
+	Vector3 playerPosition = {0.0f,0.0f,0.0f};
+	Vector3 enemyPosition = GetWorldPosition();
+	//敵と自キャラの差分ベクトル
+	Vector3 diffenrence = Subtract(enemyPosition,playerPosition);
+	//正規化
+	Vector3 velocity = NormalizeVector3(diffenrence);
+	Vector3 afterVelocity = {
+	    velocity.x, 
+		velocity.y, 
+		velocity.z * kBulletSpeed
+	};
+
+	
 	//速度ベクトルを自機の向きに合わせて回転させる
-	velocity = TransformNormal(velocity,worldTransform_.matWorld_ );
+	afterVelocity = TransformNormal(afterVelocity,worldTransform_.matWorld_ );
+
+
+
+
 
 	//弾を生成し、初期化
 	EnemyBullet* newEnemyBullet = new EnemyBullet();

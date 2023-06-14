@@ -4,6 +4,13 @@
 #include <Model.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_08/EnemyBullet/EnemyBullet.h>
 
+//前方宣言で
+class Player {
+
+};
+
+
+
 class Enemy {
 public:
 	~Enemy();
@@ -24,6 +31,20 @@ public:
 	Vector3 GetEnemyVelocity() { 
 		return enemyVelocity_;
 	}
+
+
+	//敵キャラに自キャラのアドレスを渡す
+	//GameSceneからPlayerを借りる
+	void SetPlayer(Player* player) { 
+		player_ = player;
+	}
+
+	//ワールド座標を取得
+	Vector3 GetWorldPosition();
+
+
+
+
 
 	void ApproachInitialize();
 
@@ -66,6 +87,13 @@ private:
 
 	//発射タイマー
 	int32_t enemyBulletShotTime = 0;
+
+
+
+	//自キャラ
+	Player* player_ = nullptr;
+
+
 
 public:
 	//静的メンバ変数

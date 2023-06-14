@@ -12,6 +12,16 @@ Vector3 Add(const Vector3 v1, const Vector3 v2) {
 	return result;
 }
 
+Vector3 Subtract(const Vector3 v1, const Vector3 v2) {
+	Vector3 result;
+	result.x = v1.x - v2.x;
+	result.y = v1.y - v2.y;
+	result.z = v1.z - v2.z;
+	return result;
+}
+
+
+
 //Scale
 Matrix4x4 MakeScaleMatrix(const Vector3 scale) {
 	Matrix4x4 result = {};
@@ -505,4 +515,33 @@ Vector3 TransformNormal(const Vector3& v, const Matrix4x4& m) {
 	    v.x * m.m[0][2] + v.y * m.m[1][2] + v.z * m.m[2][2],
 	};
 	return result;
+}
+
+float Length(const Vector3 v) {
+	float result;
+	result = sqrtf(v.x*v.x+ v.y* v.y + v.z * v.z);
+	return result;
+}
+
+Vector3 NormalizeVector3(Vector3& v1) { 
+	Vector3 result = {};
+	
+	float length = Length(v1);
+
+	result.x = v1.x;
+	result.y = v1.y;
+	result.z = v1.z;
+
+
+	if (length != 0.0f) {
+		result.x = v1.x / length;
+		result.y = v1.y / length;
+		result.z = v1.z / length;
+
+
+	}
+
+	return result;
+
+
 }
