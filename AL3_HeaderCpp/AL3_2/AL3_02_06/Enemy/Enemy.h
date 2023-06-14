@@ -34,6 +34,9 @@ class EnemyStateApproach :public BaseEnemyState{
 public:
 	void Update() override;
 
+private:
+	Vector3 enemyVelocity = {0.0f, 0.0f, -0.2f};
+
 };
 
 class EnemyStateLeave :public BaseEnemyState{
@@ -74,10 +77,6 @@ public:
 
 
 
-	void ApproachUpdate();
-
-	void LeaveUpdate();
-
 
 	//StatePattern
 	void ChangeState(BaseEnemyState* newState);
@@ -92,15 +91,8 @@ private:
 	uint32_t textureHandle_ = 0u;
 
 
-	//速度
+	Vector3 enemyVelocity_ = {0.0f,0.0f,0.0f};
 	const float kEnemySpeed_ = -0.2f;
-	Vector3 enemyTranslate_ = {0.0f, 3.0f, 20.0f};
-	
-
-	Vector3 enemyVelocity_ = {0.0f, 0.0f, kEnemySpeed_};
-	
-
-
 	
 	
 	//enum宣言

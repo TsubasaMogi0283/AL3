@@ -25,6 +25,10 @@ void Enemy::Initialize(Model* model,uint32_t textureHandle) {
 	//中にあるよ
 	worldTransform_.Initialize();
 
+	//Vector3 enemyTranslate = {0.0f, 3.0f, 20.0f};
+	this->worldTransform_.translation_ = {0.0f, 3.0f, 20.0f};
+	this->enemyVelocity_ = {0.0f, 0.0f, 0.0f};
+
 }
 
 
@@ -33,40 +37,13 @@ void Enemy::SetTranslation(Vector3 enemyTranslate) {
 	worldTransform_.translation_ = enemyTranslate;
 }
 
-void Enemy::SetVelocity(Vector3 enemyVelocity) { 
-	enemyVelocity_ = enemyVelocity; 
+void Enemy::SetVelocity(Vector3 enemyVelocity) {
+	enemyVelocity_ = enemyVelocity;
 }
 
 #pragma endregion
 
 
-#pragma region 前回の
-void (Enemy::*Enemy::spFuncTable[])()={
-
-	//0
-	&Enemy::ApproachUpdate,
-	//1
-	&Enemy::LeaveUpdate,
-
-};
-void Enemy::ApproachUpdate() {
-	//移動(ベクトルの加算)
-	worldTransform_.translation_=Add(worldTransform_.translation_, enemyVelocity_);
-
-	//worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
-	//規定の位置に到達したら離脱
-	if (worldTransform_.translation_.z < 0.0f) {
-		phase_ = Phase::Leave;
-	}
-	
-}
-void Enemy::LeaveUpdate() {
-	//移動(ベクトルを加算)
-	worldTransform_.translation_.x += 0.2f;
-	worldTransform_.translation_.y += 0.02f;
-}
-
-#pragma endregion
 
 
 
@@ -74,17 +51,15 @@ void Enemy::LeaveUpdate() {
 
 //接近
 void EnemyStateApproach::Update() {
-	Vector3 enemyTranslate = {0.0f, 3.0f, 20.0f};
-	const float kEnemySpeed_ = -0.2f;
+	//速度
+	//enemy_->SetVelocity(enemyVelocity);
+	Vector3 instance;
+	instance = Add(enemy_->GetTranslation(), {0.0f, 0.0f, -0.2f});
 
-	Vector3 enemyVelocity = {0.0f, 0.0f, kEnemySpeed_};
-	
+	enemy_->SetTranslation(instance);
 
 	//ここが原因
-	//Getterなどで設定しよう！
-
-	
-	//enemy_->SetWorldTranslate(enemyNewTranslate_);
+	//enemy_->SetTranslation();
 	//worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
 	
 
@@ -93,7 +68,7 @@ void EnemyStateApproach::Update() {
 
 
 	//規定の位置に到達したら離脱
-	if (enemy_->GetTranslation().z< 0.0f) {
+	if (enemy_->GetTranslation().z < 0.0f) {
 		enemy_->ChangeState(new EnemyStateLeave);
 	}
 	
@@ -111,10 +86,13 @@ void EnemyStateLeave::Update() {
 	
 }
 
-
+void BaseEnemyState::Update() {
+	//enemy_->ChangeState(new EnemyStateApproach);
+}
 
 
 void Enemy::Update() { 
+	
 
 	//メンバ関数ポインタに入っている関数を呼び出す
 	//ここではAppriachUpdate
