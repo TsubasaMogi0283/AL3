@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <functional>
 #include <stdio.h>
 #include <stdint.h>
@@ -7,38 +7,35 @@
 
 class TimedCall {
 public:
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	TimedCall(std::function<int32_t(void)> f, uint32_t time);
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	TimedCall(std::function<void()> f, uint32_t time);
 
-	//”­Ë‚µ‚ÄƒŠƒZƒbƒg‚·‚éŠÖ”
-	void ShotAndReset();
-
-	//XV
+	
+	//æ›´æ–°
 	void Update();
 
 	
 
-	//Š®—¹‚È‚çtrue‚ğ•Ô‚·
+	//å®Œäº†ãªã‚‰trueã‚’è¿”ã™
 	bool IsFinished() { 
 		return isFinish_;
 	}
 
 
 private:
-	//ƒR[ƒ‹ƒoƒbƒN
-	//ŒÄ‚Ño‚µ‚½‚¢ŠÖ”std::function
-	std::function<int32_t(void)> f_;
+	//ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯
+	//å‘¼ã³å‡ºã—ãŸã„é–¢æ•°std::function
+	std::function<void()> f_;
 
 
-	//c‚èŠÔ
+	//æ®‹ã‚Šæ™‚é–“
 	int32_t time_;
-	//Š®—¹ƒtƒ‰ƒO
+	//å®Œäº†ãƒ•ãƒ©ã‚°
 	bool isFinish_ = false;
 
 	Enemy* enemy_= nullptr;
 
-	//ŒÀ”­“®‚ÌƒŠƒXƒg
-	std::list<TimedCall*> timeCalls_;
+	
 
 
 };

@@ -1,13 +1,11 @@
-#include "AL3_HeaderCpp/AL3_2/AL3_02_08ex/TimedCall.h"
+ï»¿#include "AL3_HeaderCpp/AL3_2/AL3_02_08ex/TimedCall.h"
 
-TimedCall::TimedCall(std::function<int32_t(void)> f, uint32_t time) {
+TimedCall::TimedCall(std::function<void()> f, uint32_t time) {
 	f_ = f;
 	time_ = time;
 }
 
-void TimedCall::ShotAndReset() {
 
-}
 
 void TimedCall::Update() { 
 	if (isFinish_) {
@@ -16,8 +14,8 @@ void TimedCall::Update() {
 	time_--;
 	if (time_ <= 0) {
 		isFinish_ = true;
-		//ƒR[ƒ‹ƒoƒbƒNŠÖ”ŒÄ‚Ño‚µ
-		//ŒÄ‚Ño‚µ‚½‚¢ŠÖ”‚Ìstd::function()
+		//ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°å‘¼ã³å‡ºã—
+		//å‘¼ã³å‡ºã—ãŸã„é–¢æ•°ã®std::function()
 		f_();
 	}
 

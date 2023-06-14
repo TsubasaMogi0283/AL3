@@ -3,6 +3,7 @@
 #include <WorldTransform.h>
 #include <Model.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_08/EnemyBullet/EnemyBullet.h>
+#include <AL3_HeaderCpp/AL3_2/AL3_02_08ex/TimedCall.h>
 
 class Enemy {
 public:
@@ -11,7 +12,13 @@ public:
 	//Initialize(mode,position,velocity)
 	void Initialize(Model* model,const Vector3& position,const Vector3& velocity);
 
+	
+
 	void Fire();
+	
+	
+	//発射してリセットする関数
+	void FireAndReset();
 
 	void Update();
 
@@ -66,6 +73,11 @@ private:
 
 	//発射タイマー
 	int32_t enemyBulletShotTime = 0;
+
+
+	//時限発動のリスト
+	std::list<TimedCall*> timedCalls_;
+
 
 public:
 	//静的メンバ変数

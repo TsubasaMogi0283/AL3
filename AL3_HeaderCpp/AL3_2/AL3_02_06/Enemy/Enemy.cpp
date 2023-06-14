@@ -10,12 +10,20 @@ Enemy::~Enemy() {
 	for (EnemyBullet* bullet : bullets_) {
 		delete bullet;
 	}
+
+
+	//timedCall_の解放
+	for (TimedCall* timedCall : timedCalls_) {
+		delete timedCall;
+	}
 }
 
 
 void Enemy::ApproachInitialize() {
 	//発射タイマーを初期化
-	enemyBulletShotTime = kFireInterval;
+	//enemyBulletShotTime = kFireInterval;
+	FireAndReset();
+	
 }
 
 void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
@@ -43,8 +51,6 @@ void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velo
 
 
 }
-
-
 
 void Enemy::ApproachUpdate() {
 
@@ -97,6 +103,29 @@ void Enemy::Fire() {
 }
 
 
+//発射してリセットする関数
+void Enemy::FireAndReset() { 
+	//弾を発射
+	Fire(); 
+
+	//発射タイマーをセットする
+	timedCalls_.push_back(new TimedCall(std::bind(&Enemy::FireAndReset, this), kFireInterval));
+
+	#pragma region 上のを分解するとこうなるよ
+	//メンバ関数と呼び出し元をbindしてstd::functionに代入
+	//std::function<void(void)> callBack = std::bind(&Enemy::FireAndReset, this);
+
+	//時限発動イベントを生成
+	//TimedCall* timedCall = new TimedCall(callBack, kFireInterval);
+
+	//時限発動イベントを時限発動イベントリストに追加
+	//timedCalls_.push_back(timedCall);
+
+	#pragma endregion
+
+}
+
+
 
 void Enemy::Update() { 
 
@@ -113,6 +142,21 @@ void Enemy::Update() {
 	
 	}
 
+
+	//終了したタイマーを削除
+	timedCalls_.remove_if([](TimedCall* timedCall) {
+        if (timedCall->IsFinished()) {
+            delete timedCall;
+            return true;
+        }
+        return false;
+    });
+
+	//範囲forでリストの全要素について回す
+	for (TimedCall* timedCall : timedCalls_) {
+		timedCall->Update();
+	}
+
 	//弾の更新
 	for (EnemyBullet* bullet : bullets_) {
 		bullet->Update();
@@ -126,11 +170,16 @@ void Enemy::Update() {
 	//ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix(); 
 
+
+	#pragma region ImGui
+
 	ImGui::Begin("Enemy");
 
 	ImGui::Text("EnemyBulletTime");
 	ImGui::InputInt("Time", &enemyBulletShotTime);
 	ImGui::End();
+
+	#pragma endregion
 
 }
 
