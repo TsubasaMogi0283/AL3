@@ -73,6 +73,7 @@ private: // メンバ変数
 
 	//敵キャラ
 	Model* enemyModel_ = nullptr;
+	uint32_t enemyTextureHandle_ = 0;
 	Enemy* enemy_ = nullptr;
 
 

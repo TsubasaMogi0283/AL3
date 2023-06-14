@@ -41,8 +41,8 @@ void GameScene::Initialize() {
 	//敵の速度
 	enemyModel_ = Model::Create();
 	enemy_ = new Enemy();
-
-	enemy_->Initialize(enemyModel_, enemy_->GetTranslation(), enemy_->GetVelocity());
+	enemyTextureHandle_=TextureManager::Load("AL3_Resources/AL3_2/AL3_2_6/Enemy/Enemy.png");
+	enemy_->Initialize(enemyModel_,enemyTextureHandle_);
 	
 
 	

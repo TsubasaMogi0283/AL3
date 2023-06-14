@@ -31,6 +31,8 @@ void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velo
 
 }
 
+
+#pragma region Setter
 void Enemy::SetTranslation(Vector3 enemyTranslate) {
 	worldTransform_.translation_ = enemyTranslate;
 }
@@ -38,6 +40,8 @@ void Enemy::SetTranslation(Vector3 enemyTranslate) {
 void Enemy::SetVelocity(Vector3 enemyVelocity) { 
 	enemyVelocity_ = enemyVelocity; 
 }
+
+#pragma endregion
 
 
 #pragma region 前回の
