@@ -20,19 +20,18 @@ class BaseEnemyState {
 public:
 	BaseEnemyState();
 
-	virtual void Update()=0;
+	virtual void Update(Enemy* enemy)=0;
 
 
 protected:
-	Enemy* enemy_=nullptr;
 
-	Vector3 enemyNewTranslate_ = {};
+
 
 };
 
 class EnemyStateApproach :public BaseEnemyState{
 public:
-	void Update() override;
+	void Update(Enemy* enemy) override;
 
 private:
 	Vector3 enemyVelocity = {0.0f, 0.0f, -0.2f};
@@ -41,7 +40,7 @@ private:
 
 class EnemyStateLeave :public BaseEnemyState{
 public:
-	void Update() override;
+	void Update(Enemy* enemy) override;
 };
 
 
@@ -92,7 +91,7 @@ private:
 
 	Vector3 enemyPosition_ = {0.0f,0.0f,0.0f};
 
-	Vector3 enemyVelocity_ = {0.0f,0.0f,0.0f};
+	Vector3 enemyVelocity_;
 	const float kEnemySpeed_ = -0.2f;
 	
 	

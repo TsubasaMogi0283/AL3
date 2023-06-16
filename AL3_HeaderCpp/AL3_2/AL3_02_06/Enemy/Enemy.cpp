@@ -27,7 +27,7 @@ void Enemy::Initialize(Model* model,uint32_t textureHandle) {
 
 	//Vector3 enemyTranslate = {0.0f, 3.0f, 20.0f};
 	this->worldTransform_.translation_ = {0.0f, 3.0f, 20.0f};
-	this->enemyVelocity_ = {0.0f, 0.0f, 0.0f};
+	
 
 }
 
@@ -50,13 +50,13 @@ void Enemy::SetVelocity(Vector3 enemyVelocity) {
 
 
 //接近
-void EnemyStateApproach::Update() {
+void EnemyStateApproach::Update(Enemy* enemy) {
 	//速度
 	//enemy_->SetVelocity(enemyVelocity);
-	Vector3 instance;
-	instance = Add(enemy_->GetTranslation(), {0.0f, 0.0f, -0.2f});
+	
+	enemy->SetVelocity({0.0f, 0.0f, -0.2f});
 
-	enemy_->SetTranslation(instance);
+	enemy->SetTranslation(Add(enemy->GetTranslation(), enemy->GetVelocity()));
 
 	//ここが原因
 	//enemy_->SetTranslation();
@@ -68,13 +68,13 @@ void EnemyStateApproach::Update() {
 
 
 	//規定の位置に到達したら離脱
-	if (enemy_->GetTranslation().z < 0.0f) {
-		enemy_->ChangeState(new EnemyStateLeave);
+	if (enemy->GetTranslation().z < 0.0f) {
+		enemy->ChangeState(new EnemyStateLeave());
 	}
 	
 }
 
-void EnemyStateLeave::Update() {
+void EnemyStateLeave::Update(Enemy* enemy) {
 	//移動(ベクトルを加算)
 	//enemy_->SetWorldTranslate(
 	//    {enemy_->GetEnemyTranslate().x + 0.2f, 
@@ -84,9 +84,11 @@ void EnemyStateLeave::Update() {
 	//worldTransform_.translation_.x += 0.2f,
 	//worldTransform_.translation_.y += 0.02f)
 	
+	enemy->SetVelocity({0.3f, 0.3f, -0.2f});
+
 }
 
-void BaseEnemyState::Update() {
+void BaseEnemyState::Update(Enemy* enemy) {
 	//enemy_->ChangeState(new EnemyStateApproach);
 }
 
@@ -106,7 +108,7 @@ void Enemy::Update() {
 	//(this->*spFuncTable[static_cast<size_t>(phase_)])();
 
 	
-	state_->Update();
+	state_->Update(this);
 
 
 	//座標を移動させる(1フレーム分足す)
