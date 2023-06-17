@@ -2,8 +2,7 @@
 #include <AL3_HeaderCpp/AL3_2/AL3_02_06/Enemy/Enemy.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
 #include <imgui.h>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_06/Player/Player.h>
-
+#include "AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h"
 
 Enemy::~Enemy() { 
 	//弾の解放処理
@@ -85,11 +84,10 @@ void Enemy::ApproachUpdate() {
 
 void Enemy::LeaveUpdate() {
 	//移動(ベクトルを加算)
-		worldTransform_.translation_.x += 0.02f;
-		worldTransform_.translation_.y += 0.02f;
+	worldTransform_.translation_.x += 0.02f;
+	worldTransform_.translation_.y += 0.02f;
+
 }
-
-
 
 //弾の発射に関する処理
 void Enemy::Fire() {
@@ -102,13 +100,13 @@ void Enemy::Fire() {
 
 
 	//敵キャラのワールド座標を取得
-	
-	Vector3 playerPosition = {0.0f,0.0f,0.0f};
+	Vector3 playerPosition = player_->GetWorldPosition();
 	Vector3 enemyPosition = GetWorldPosition();
 	//敵と自キャラの差分ベクトル
-	Vector3 diffenrence = Subtract(enemyPosition,playerPosition);
+	Vector3 diffenrence = Subtract(playerPosition,enemyPosition);
 	//正規化
 	Vector3 velocity = NormalizeVector3(diffenrence);
+	//速さに合わせる
 	Vector3 afterVelocity = {
 	    velocity.x, 
 		velocity.y, 

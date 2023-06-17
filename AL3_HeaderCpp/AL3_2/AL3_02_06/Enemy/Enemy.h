@@ -5,9 +5,7 @@
 #include <AL3_HeaderCpp/AL3_2/AL3_02_08/EnemyBullet/EnemyBullet.h>
 
 //前方宣言で
-class Player {
-
-};
+class Player;
 
 
 
