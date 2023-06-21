@@ -1,7 +1,9 @@
 ﻿#include "AL3_HeaderCpp/AL3_2/AL3_02_08ex/TimedCall.h"
 
 TimedCall::TimedCall(std::function<void()> f, uint32_t time) {
+	//FireAndReset
 	f_ = f;
+	//kFireInterval
 	time_ = time;
 }
 

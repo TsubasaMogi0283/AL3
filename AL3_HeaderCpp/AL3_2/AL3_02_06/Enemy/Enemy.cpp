@@ -23,6 +23,7 @@ void Enemy::ApproachInitialize() {
 	//発射タイマーを初期化
 	//enemyBulletShotTime = kFireInterval;
 	
+	//発射タイマーをセットする
 	FireAndReset();
 	
 }
@@ -49,7 +50,6 @@ void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velo
 	//同時生成は止める
 	//接近フェーズ初期化
 	ApproachInitialize();
-
 
 }
 
@@ -110,7 +110,8 @@ void Enemy::FireAndReset() {
 	Fire(); 
 
 	//発射タイマーをセットする
-	timedCalls_.push_back(new TimedCall(std::bind(&Enemy::FireAndReset, this), kFireInterval));
+	timedCalls_.push_back(
+		new TimedCall(std::bind(&Enemy::FireAndReset, this), kFireInterval));
 
 	#pragma region 上のを分解するとこうなるよ
 	//メンバ関数と呼び出し元をbindしてstd::functionに代入
@@ -145,6 +146,7 @@ void Enemy::Update() {
 
 
 	//終了したタイマーを削除
+	//リストを削除するなら「remove_if」だよ！
 	timedCalls_.remove_if([](TimedCall* timedCall) {
         if (timedCall->IsFinished()) {
             delete timedCall;
@@ -183,6 +185,7 @@ void Enemy::Update() {
 	#pragma endregion
 
 }
+
 
 void Enemy::Draw(const ViewProjection& viewProjection) { 
 	//自キャラと同じ処理なので出来れば継承を使うといいよ！
