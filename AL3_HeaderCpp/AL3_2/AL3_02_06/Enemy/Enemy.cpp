@@ -3,6 +3,8 @@
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
 
 
+#pragma comment(lib, "dxguid.lib")
+
 Enemy::Enemy() {
 	//Enemy enemy;
 	state_ = new EnemyStateApproach();
