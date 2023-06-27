@@ -10,6 +10,9 @@ Enemy::~Enemy() {
 	for (EnemyBullet* bullet : bullets_) {
 		delete bullet;
 	}
+	delete enemyBullets_;
+	delete player_;
+	delete model_;
 }
 
 
