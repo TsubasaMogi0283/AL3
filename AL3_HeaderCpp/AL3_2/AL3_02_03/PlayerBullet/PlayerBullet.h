@@ -15,7 +15,8 @@ public:
 		return isDead_;
 	}
 
-	void OnCollision()
+	//衝突を検出したら呼び出されるコールバック関数
+	void OnCollision();
 
 	void Update();
 

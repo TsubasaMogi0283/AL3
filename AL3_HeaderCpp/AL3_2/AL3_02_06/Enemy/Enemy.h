@@ -18,6 +18,11 @@ public:
 
 	void Fire();
 
+	//弾リストを取得
+	const std::list<EnemyBullet*>& GetBullets() const { 
+		return bullets_;
+	}
+
 	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision();
 

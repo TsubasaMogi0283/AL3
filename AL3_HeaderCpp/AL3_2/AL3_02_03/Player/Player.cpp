@@ -88,6 +88,13 @@ void Player::Attack() {
 }
 
 
+//衝突を検出したら呼び出されるコールバック関数
+void Player::OnCollision() {
+
+}
+
+
+
 void Player::UpDate() {
 
 	//旋回処理
