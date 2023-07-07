@@ -15,6 +15,8 @@ public:
 		return isDead_;
 	}
 
+	void OnCollision()
+
 	void Update();
 
 	//ビュープロジェクション
