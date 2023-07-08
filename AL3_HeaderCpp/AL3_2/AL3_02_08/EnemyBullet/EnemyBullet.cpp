@@ -9,7 +9,7 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3
 
 	model_ = model;
 	//テクスチャ読み込み
-	textureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_3/bullet.png");
+	textureHandle_ = TextureManager::Load("white1x1.png");
 
 	//ワールドトランスフォームの初期化
 	//中にあるよ
