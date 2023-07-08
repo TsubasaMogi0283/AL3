@@ -37,9 +37,9 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3
 	//底辺と高さから角度を求める
 	//atan2(高さ,底辺)
 	//Y軸回りの角度
-	worldTransform_.rotation_.y = std::atan2(velocity_.z,velocity_.x);
+	worldTransform_.rotation_.y = std::atan2(velocity_.x,velocity_.z);
 	//Y軸周りに-θy回す回転行列を計算
-	Matrix4x4 rotateYMatrix = MakeRotateYMatrix(worldTransform_.rotation_.y);
+	Matrix4x4 rotateYMatrix = MakeRotateYMatrix(-worldTransform_.rotation_.y);
 	//velocity_に回転行列を掛け算してvelocityZを求める
 	Vector3 velocityZ = TransformNormal(velocity_, rotateYMatrix);
 	
