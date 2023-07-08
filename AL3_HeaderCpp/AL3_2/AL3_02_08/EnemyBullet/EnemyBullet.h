@@ -15,6 +15,14 @@ public:
 		return isDead_;
 	}
 
+	// ワールド座標を取得
+	Vector3 GetWorldPosition();
+
+
+	float_t GetRadius() { 
+		return radius_;
+	}
+
 	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision();
 
@@ -38,6 +46,8 @@ private:
 
 	//速度
 	Vector3 velocity_ ;
+
+	const float_t radius_=1.0f;
 
 	//寿命
 	static const int32_t kLifeTime = 60 * 5;

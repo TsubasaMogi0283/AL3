@@ -20,9 +20,22 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3
 
 }
 
+// ワールド座標を取得
+Vector3 EnemyBullet::GetWorldPosition() {
+	Vector3 worldPos; 
+
+	//ワールド行列の「平行移動成分」を取得(ワールド座標)
+	worldPos.x = worldTransform_.translation_.x;
+	worldPos.y = worldTransform_.translation_.y;
+	worldPos.z = worldTransform_.translation_.z;
+
+	return worldPos;
+}
+
+
 //衝突を検出したら呼び出されるコールバック関数
 void EnemyBullet::OnCollision() {
-
+	isDead_ = true;
 }
 
 void EnemyBullet::Update() { 

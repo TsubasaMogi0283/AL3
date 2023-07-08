@@ -35,6 +35,11 @@ public: // メンバ関数
 	void Initialize();
 
 	/// <summary>
+	/// 衝突判定と応答
+	/// </summary>
+	void CheckAllCollision();
+
+	/// <summary>
 	/// 毎フレーム処理
 	/// </summary>
 	void Update();
@@ -53,7 +58,7 @@ private: // メンバ変数
 	/// ゲームシーン用
 	/// </summary>
 	/// 
-	 
+	
 	 
 	 ///テクスチャハンドル
 	uint32_t playerTextureHandle_ = 0;

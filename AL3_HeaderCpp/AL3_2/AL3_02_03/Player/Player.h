@@ -27,7 +27,9 @@ public:
 	//弾リストを取得
 	const std::list<PlayerBullet*>& GetBullets() const { 
 		return bullets_;
-	}
+	};
+
+	const float_t GetRadius() { return radius_; };
 
 	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision();
@@ -49,6 +51,9 @@ private:
 	Player* player_ = nullptr;
 
 	Input* input_ = nullptr;
+
+	const float_t radius_ = 2.0f;
+
 
 	// 弾
 	// メンバ「変数」なのでprivate

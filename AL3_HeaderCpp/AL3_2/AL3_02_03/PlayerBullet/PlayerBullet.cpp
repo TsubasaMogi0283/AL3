@@ -21,8 +21,8 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position,const Vector
 }
 
 //衝突を検出したら呼び出されるコールバック関数
-void PlayerBullet::OnCollision() {
-
+void PlayerBullet::OnCollision() { 
+	isDead_ = true;
 }
 
 void PlayerBullet::Update() { 
