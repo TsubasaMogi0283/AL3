@@ -455,6 +455,10 @@ float Cot(float theta) {
 	return (1.0f / tan(theta));
 }
 
+float Dot(Vector3 V1, Vector3 V2) {
+	return V1.x * V2.x + V1.y * V2.y;
+}
+
 Matrix4x4 MakePerspectiveFovMatrix(float fovY, float aspectRatio, float nearClip, float farClip) {
 	Matrix4x4 result = {};
 	float theta = fovY / 2.0f;
@@ -523,7 +527,7 @@ float Length(const Vector3 v) {
 	return result;
 }
 
-Vector3 NormalizeVector3(Vector3& v1) { 
+Vector3 NormalizeVector3(const Vector3& v1) { 
 	Vector3 result = {};
 	
 	float length = Length(v1);
@@ -543,5 +547,92 @@ Vector3 NormalizeVector3(Vector3& v1) {
 
 	return result;
 
+
+}
+
+//線形補間
+Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t) { 
+	Vector3 result = {};
+
+	//高校の時にやったない分するベクトルから求める
+	//P=s*v1+t*v2
+	//	   t+s	
+	//t+s=1→s=1-t
+
+
+	//result.x = (1.0f - t) * v1.x + t * v2.x;
+	//result.y = (1.0f - t) * v1.y + t * v2.y;
+	//result.z = (1.0f - t) * v1.z + t * v2.z;
+
+	//さらに変形するとこうなる
+	//個人的には上の方が好き
+	result.x = v1.x + t * (v2.x-v1.x);
+	result.y = v1.y + t * (v2.y-v1.y);
+	result.z = v1.z + t * (v2.z-v1.z);
+
+
+	
+
+	return result;
+
+}
+
+//球面線形補間
+Vector3 Slerp(const Vector3& v1, const Vector3& v2, float t) {
+	
+          
+	//            |
+	//     sin(θ)|----Start
+	//            |
+	//sin(θ(1-t))|- - - - - -t
+	//            |
+	//            |
+	//            |-----------End---
+
+	//Start側
+	//sinθ:sin(θ(1-t))=1:Ps(t)
+	//Ps(t)=sin(θ(1-t))
+	//		sin(θ)
+
+
+
+
+
+	//        |
+	// sin(θ)|----End
+	//        |
+	//sin(θt)|- - - - - -t
+	//        |
+	//        |
+	//        |-----------Start---
+
+	//End側
+	//sinθ:sin(θt)=1:Pe(t)
+	//Pe(t)=sin(θt)
+	//	    sin(θ)
+
+	//線形補間の位置Iは
+	//I=Ps(t)*S+Pe(t)*E
+
+	Vector3 result = {};
+
+	Vector3 NormalizeLengthV1 = NormalizeVector3(v1);
+	Vector3 NormalizeLengthV2 = NormalizeVector3(v2);
+
+	//角度を求めたい
+	float angle=std::acos(Dot(NormalizeLengthV1,NormalizeLengthV2));
+	
+	float sinThetaT = std::sinf(angle);
+
+	float ps = std::sinf(angle*(1-t));
+	float pe = std::sinf(angle*t);
+
+	result = {
+		(ps * NormalizeLengthV1.x + pe * NormalizeLengthV2.x) / sinThetaT,
+		(ps * NormalizeLengthV1.x + pe * NormalizeLengthV2.x) / sinThetaT,
+		(ps * NormalizeLengthV1.x + pe * NormalizeLengthV2.x) / sinThetaT	
+	};
+
+	return result;
 
 }

@@ -26,6 +26,8 @@ Matrix4x4 MakePerspectiveFovMatrix(float fovY, float aspectRatio, float nearClip
 
 float Cot(float theta);
 
+float Dot(Vector3 V1, Vector3 V2);
+
 //Projection
 Matrix4x4 MakeOrthographicMatrix(float left, float top, float right, float bottom, float neaClip, float farClip);
 
@@ -37,4 +39,11 @@ Vector3 TransformNormal(const Vector3& v, const Matrix4x4& m);
 float Length(const Vector3 v);
 
 //ベクトルの正規化
-Vector3 NormalizeVector3(Vector3& v1);
+Vector3 NormalizeVector3(const Vector3& v1);
+
+//線形補間
+Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t); 
+
+//球面線形補間
+Vector3 Slerp(const Vector3& v1, const Vector3& v2, float t); 
+
