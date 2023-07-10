@@ -101,8 +101,7 @@ void GameScene::CheckAllCollision() {
 
 
 	}
-
-
+	
 	#pragma endregion
 
 
@@ -113,6 +112,8 @@ void GameScene::CheckAllCollision() {
 void GameScene::Update() {
 	player_->UpDate();
 	enemy_->Update();
+
+	CheckAllCollision();
 
 	Matrix4x4 cameraMatrix = {};
 	cameraMatrix.m[0][0] = 1.0f;
@@ -170,6 +171,14 @@ void GameScene::Update() {
 		//ビュープロジェクション行列の更新と転送
 		viewProjection_.UpdateMatrix();
 	}
+
+
+	//忘れていたのでここに書いておく
+	//ImGuiはUpdateで！！！！！！！！
+	ImGui::Begin("aaaa");
+	
+	
+	ImGui::End();
 
 }
 

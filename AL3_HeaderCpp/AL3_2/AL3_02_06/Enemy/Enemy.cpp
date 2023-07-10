@@ -172,7 +172,12 @@ void Enemy::Update() {
 
 	ImGui::Text("EnemyBulletTime");
 	ImGui::InputInt("Time", &enemyBulletShotTime);
+	
 	ImGui::End();
+
+
+	
+
 
 }
 

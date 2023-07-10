@@ -1,6 +1,7 @@
 ﻿#include <cassert>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_08/EnemyBullet/EnemyBullet.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
+#include <imgui.h>
 
 void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
 	
@@ -18,6 +19,7 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3
 	worldTransform_.translation_ = position;
 	velocity_ = velocity;
 
+	isDead_ = false;
 }
 
 // ワールド座標を取得
@@ -36,6 +38,7 @@ Vector3 EnemyBullet::GetWorldPosition() {
 //衝突を検出したら呼び出されるコールバック関数
 void EnemyBullet::OnCollision() {
 	isDead_ = true;
+	
 }
 
 void EnemyBullet::Update() { 
@@ -56,5 +59,9 @@ void EnemyBullet::Update() {
 
 void EnemyBullet::Draw(const ViewProjection& viewProjection) { 
 	//自キャラと同じ処理なので出来れば継承を使うといいよ！
-	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+	if (isDead_==false) {
+		
+		model_->Draw(worldTransform_, viewProjection, textureHandle_);
+	}
+
 }
