@@ -67,7 +67,7 @@ void Player::Rotate() {
 void Player::Attack() { 
 	//SPACEキーで発射
 	if (input_->TriggerKey(DIK_SPACE)) {
-
+		count_ += 1;
 		//弾の速度
 		//z方向に+1.0ずつ進むよ
 		const float kBulletSpeed = 1.0f;
@@ -192,7 +192,8 @@ void Player::UpDate() {
 	ImGui::Text("Space To BulletShot");
 	ImGui::InputFloat3("PlayerPosition", &worldTransform_.translation_.x);
 	ImGui::SliderFloat3("PlayerSlide", &worldTransform_.translation_.x, -20.0f,30.0f);
-	
+	ImGui::InputInt("count", &count_);
+
 	//ImGui::SliderFloat3()
 	ImGui::End();
 

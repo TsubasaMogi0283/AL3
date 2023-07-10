@@ -204,10 +204,7 @@ void GameScene::Update() {
 
 	//忘れていたのでここに書いておく
 	//ImGuiはUpdateで！！！！！！！！
-	ImGui::Begin("aaaa");
 	
-	
-	ImGui::End();
 
 }
 

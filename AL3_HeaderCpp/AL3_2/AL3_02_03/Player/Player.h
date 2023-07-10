@@ -54,6 +54,7 @@ private:
 
 	const float_t radius_ = 2.0f;
 
+	int32_t count_ = 0;
 
 	// 弾
 	// メンバ「変数」なのでprivate
