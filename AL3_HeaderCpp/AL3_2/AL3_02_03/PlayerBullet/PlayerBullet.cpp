@@ -20,6 +20,19 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position,const Vector
 
 }
 
+// ワールド座標を取得
+Vector3 PlayerBullet::GetWorldPosition() {
+	Vector3 worldPos; 
+
+	//ワールド行列の「平行移動成分」を取得(ワールド座標)
+	worldPos.x = worldTransform_.translation_.x;
+	worldPos.y = worldTransform_.translation_.y;
+	worldPos.z = worldTransform_.translation_.z;
+
+	return worldPos;
+}
+
+
 //衝突を検出したら呼び出されるコールバック関数
 void PlayerBullet::OnCollision() { 
 	isDead_ = true;
@@ -43,5 +56,8 @@ void PlayerBullet::Update() {
 
 void PlayerBullet::Draw(const ViewProjection& viewProjection) { 
 	//自キャラと同じ処理なので出来れば継承を使うといいよ！
-	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+	if (isDead_ == false) {
+		model_->Draw(worldTransform_, viewProjection, textureHandle_);
+	}
+	
 }

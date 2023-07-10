@@ -23,6 +23,10 @@ public:
 		return bullets_;
 	}
 
+	const float_t GetRadius() { 
+		return radius_; 
+	};
+
 	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision();
 
@@ -73,7 +77,7 @@ private:
 	Vector3 enemyPosition_ = {0.0f, 3.0f, 20.0f};
 	Vector3 enemyVelocity_ = {0.0f, 0.0f, kEnemySpeed_};
 	
-	
+	float_t radius_=2.0f;
 
 	
 	

@@ -61,7 +61,8 @@ void EnemyBullet::Draw(const ViewProjection& viewProjection) {
 	//自キャラと同じ処理なので出来れば継承を使うといいよ！
 	if (isDead_==false) {
 		
-		model_->Draw(worldTransform_, viewProjection, textureHandle_);
+		
 	}
+	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
 }

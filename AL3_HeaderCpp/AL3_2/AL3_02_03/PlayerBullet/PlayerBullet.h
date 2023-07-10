@@ -15,6 +15,13 @@ public:
 		return isDead_;
 	}
 
+	// ワールド座標を取得
+	Vector3 GetWorldPosition();
+
+	float_t GetRadius() { 
+		return radius_;
+	}
+
 	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision();
 
@@ -46,6 +53,9 @@ private:
 	//デスフラグ
 	bool isDead_ = false;
 
+
+	//半径
+	const float_t radius_ = 1.0f;
 
 
 };
