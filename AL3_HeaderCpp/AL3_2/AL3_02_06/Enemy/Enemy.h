@@ -3,7 +3,7 @@
 #include <WorldTransform.h>
 #include <Model.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_08/EnemyBullet/EnemyBullet.h>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_08ex/TimedCall.h>
+#include "AL3_HeaderCpp/AL3_2/AL3_02_08ex/TimedCall.h"
 
 class Enemy {
 public:
@@ -76,6 +76,7 @@ private:
 
 
 	//時限発動のリスト
+	TimedCall* timeCall_ = nullptr;
 	std::list<TimedCall*> timedCalls_;
 
 

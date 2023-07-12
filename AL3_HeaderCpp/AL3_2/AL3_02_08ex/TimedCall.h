@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#include "AL3_HeaderCpp/AL3_2/AL3_02_06/Enemy/Enemy.h"
 
 class TimedCall {
 public:

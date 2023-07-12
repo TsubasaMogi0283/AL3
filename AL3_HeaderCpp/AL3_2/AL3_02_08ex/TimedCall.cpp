@@ -17,8 +17,8 @@ void TimedCall::Update() {
 	if (time_ <= 0) {
 		isFinish_ = true;
 		//コールバック関数呼び出し
-		//呼び出したい関数のstd::function()
 		f_();
+		
 	}
 
 
