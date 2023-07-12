@@ -13,4 +13,5 @@ void Skydome::Update() {
 //•`‰æ
 void Skydome::Draw() {
 
+
 }
