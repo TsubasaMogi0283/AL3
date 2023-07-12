@@ -89,7 +89,7 @@ void Enemy::LeaveUpdate() {
 	//移動(ベクトルを加算)
 	worldTransform_.translation_.x += 0.02f;
 	worldTransform_.translation_.y += 0.02f;
-
+	worldTransform_.translation_.z += 0.00f;
 }
 
 //弾の発射に関する処理

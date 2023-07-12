@@ -67,8 +67,8 @@ void GameScene::CheckAllCollision() {
 	//判定対象AとBの座標
 	Vector3 posA, posB; 
 	//自弾
-	Vector3 posC,posD;
-
+	Vector3 posC;
+	Vector3 posD;
 	//自弾リストの取得
 	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
 	//敵弾リストの取得
@@ -99,7 +99,12 @@ void GameScene::CheckAllCollision() {
 			bullet->OnCollision();
 
 		}
+		ImGui::Begin("EnemyBulletCondition");
+		ImGui::InputFloat3("PlayerPosition", &posA.x);
+		ImGui::InputFloat3("EnemyBulletPosition", &posB.x);
+		ImGui::InputFloat("distance", &distanceAB);
 
+		ImGui::End();
 
 
 	}
@@ -109,8 +114,8 @@ void GameScene::CheckAllCollision() {
 	//ここが原因。自機の弾がすぐ消えてしまう
 	#pragma region 自弾と敵キャラの当たり判定
 
-	//自キャラの座標
-	posC = player_->GetWorldPosition();
+	//敵キャラの位置
+	posC = enemy_->GetWorldPosition();
 
 	
 
@@ -121,7 +126,7 @@ void GameScene::CheckAllCollision() {
 	
 	
 		//座標CとDの距離を求める
-		float distanceCD = Length(Subtract(posC, posD));
+		float distanceCD = Length(Subtract(posD,posC));
 		
 		if (distanceCD < enemy_->GetRadius() + playerBullet->GetRadius()) {
 			//敵キャラの衝突時コールバックを呼び出す
@@ -129,18 +134,24 @@ void GameScene::CheckAllCollision() {
 			
 			//自弾の衝突時コールバックを呼び出す
 			playerBullet->OnCollision();
-	
+		
 			
 			
 			
 		}
 	
-	
+		ImGui::Begin("PlayerBulletCondition");
+		ImGui::InputFloat3("PlayerPosition", &posC.x);
+		ImGui::InputFloat3("PlayerBulletPosition", &posD.x);
+		ImGui::InputFloat("distance", &distanceCD);
+
+		ImGui::End();
 	
 	}
 
 	#pragma endregion
 
+	
 
 
 }
@@ -183,7 +194,7 @@ void GameScene::Update() {
 
 
 	#ifdef _DEBUG
-	if (input_->TriggerKey(DIK_SPACE)) {
+	if (input_->TriggerKey(DIK_C)) {
 		isDebugCameraActive_ = true;
 	}
 
@@ -212,7 +223,10 @@ void GameScene::Update() {
 
 	//忘れていたのでここに書いておく
 	//ImGuiはUpdateで！！！！！！！！
-	
+	ImGui::Begin("Camera");
+	ImGui::Text("Key C To DeBugCameraIsActive!!");
+	ImGui::End();
+
 
 }
 
