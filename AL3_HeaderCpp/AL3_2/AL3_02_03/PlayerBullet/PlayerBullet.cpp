@@ -1,6 +1,7 @@
 ﻿#include <cassert>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/PlayerBullet/PlayerBullet.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
+#include <imgui.h>
 
 void PlayerBullet::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
 	
@@ -49,15 +50,21 @@ void PlayerBullet::Update() {
 		isDead_ = true;
 	}
 
+	ImGui::Begin("PlayerBullet");
+
+	ImGui::InputFloat3("PlayerBulletPosition", &worldTransform_.translation_.x);
+	
+
+	//ImGui::SliderFloat3()
+	ImGui::End();
 
 	//ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix(); 
+
 }
 
 void PlayerBullet::Draw(const ViewProjection& viewProjection) { 
 	//自キャラと同じ処理なので出来れば継承を使うといいよ！
-	if (isDead_ == false) {
-		
-	}
+	
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }

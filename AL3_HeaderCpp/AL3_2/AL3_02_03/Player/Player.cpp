@@ -100,6 +100,7 @@ void Player::UpDate() {
 	//旋回処理
 	Rotate();
 
+
 	//デスフラグの経った弾を削除
 	//remove ifは条件に当てはまる要素をリストから排除する関数
 	//trueを返すとlistから取り除かれる

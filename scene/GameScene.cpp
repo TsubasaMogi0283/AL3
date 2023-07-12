@@ -67,7 +67,7 @@ void GameScene::CheckAllCollision() {
 	//判定対象AとBの座標
 	Vector3 posA, posB; 
 	//自弾
-	Vector3 posC;
+	Vector3 posC,posD;
 
 	//自弾リストの取得
 	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
@@ -106,29 +106,37 @@ void GameScene::CheckAllCollision() {
 	
 	#pragma endregion
 
-
+	//ここが原因。自機の弾がすぐ消えてしまう
 	#pragma region 自弾と敵キャラの当たり判定
+
+	//自キャラの座標
+	posC = player_->GetWorldPosition();
+
+	
+
 	//自キャラと敵弾全ての当たり判定
 	for (PlayerBullet* playerBullet : playerBullets) {
 		//自弾の座標
-		posC = playerBullet->GetWorldPosition();
-
-
-		//座標AとCの距離を求める
-		float distanceAC = Length(Subtract(posA, posC));
+		posD = playerBullet->GetWorldPosition();
+	
+	
+		//座標CとDの距離を求める
+		float distanceCD = Length(Subtract(posC, posD));
 		
-		if (distanceAC < enemy_->GetRadius() + playerBullet->GetRadius()) {
-			//自弾の衝突時コールバックを呼び出す
-			playerBullet->OnCollision();
-
-			
+		if (distanceCD < enemy_->GetRadius() + playerBullet->GetRadius()) {
 			//敵キャラの衝突時コールバックを呼び出す
 			enemy_->OnCollision();
 			
+			//自弾の衝突時コールバックを呼び出す
+			playerBullet->OnCollision();
+	
+			
+			
+			
 		}
-
-
-
+	
+	
+	
 	}
 
 	#pragma endregion
