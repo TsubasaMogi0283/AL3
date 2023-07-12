@@ -3,8 +3,9 @@
 #include <WorldTransform.h>
 #include <Model.h>
 
+#include "AL3_HeaderCpp/AL3_2/AL3_02_10_ex1/Collider/Collider.h"
 
-class PlayerBullet {
+class PlayerBullet : public Collider {
 public:
 
 	//Initialize(mode,position,velocity)
@@ -17,7 +18,7 @@ public:
 	}
 
 	// ワールド座標を取得
-	Vector3 GetWorldPosition();
+	Vector3 GetWorldPosition() override;
 
 	float_t GetRadius() { 
 		return radius_;

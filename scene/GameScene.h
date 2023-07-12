@@ -94,4 +94,9 @@ private: // メンバ変数
 
 
 
+private:
+	//GameSceneのにで使うよ!!
+	//コライダー２つの衝突判定と応答
+	void CheckCollisionPair(Collider* colliderA, Collider* colliderB);
+
 };

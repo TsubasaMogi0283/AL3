@@ -52,6 +52,24 @@
     <Filter Include="ソース ファイル\2d">
       <UniqueIdentifier>{814a0f6d-f847-4c45-856d-4688fa4c9e6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Enemy">
+      <UniqueIdentifier>{20f00232-7d07-4e56-91b8-3eeeddbe512a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Player">
+      <UniqueIdentifier>{784bb308-c857-4aad-929b-f20157273a90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Collider">
+      <UniqueIdentifier>{5df2ea64-2742-425b-a23f-78a643a27f11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Player">
+      <UniqueIdentifier>{c4aa058e-6bf5-409a-9567-40c8a2c386d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Enemy">
+      <UniqueIdentifier>{2b278c44-96e7-4094-9da8-d8d3fe2bdfa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Collider">
+      <UniqueIdentifier>{2da4571f-98a0-4f5c-b763-054861f5dc11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -69,29 +87,29 @@
     <ClCompile Include="2d\ImGuiManager.cpp">
       <Filter>ソース ファイル\2d</Filter>
     </ClCompile>
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Function\Function.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\PlayerBullet\PlayerBullet.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Player\Player.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\WorldTransform\WorldTransformEx.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_08ex\TimedCall.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_08\EnemyBullet\EnemyBullet.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.cpp">
+      <Filter>ソース ファイル\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_11\Skydome.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_08\EnemyBullet\EnemyBullet.cpp">
+      <Filter>ソース ファイル\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Player\Player.cpp">
+      <Filter>ソース ファイル\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\PlayerBullet\PlayerBullet.cpp">
+      <Filter>ソース ファイル\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_10_ex1\Collider\Collider.cpp">
+      <Filter>ソース ファイル\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Function\Function.cpp">
+      <Filter>ソース ファイル\math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,26 +197,26 @@
     <ClInclude Include="2d\ImGuiManager.h">
       <Filter>ヘッダー ファイル\2d</Filter>
     </ClInclude>
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Function\Function.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\PlayerBullet\PlayerBullet.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Player\Player.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_08ex\TimedCall.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_08\EnemyBullet\EnemyBullet.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Player\Player.h">
+      <Filter>ヘッダー ファイル\Player</Filter>
     </ClInclude>
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_11\Skydome.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\PlayerBullet\PlayerBullet.h">
+      <Filter>ヘッダー ファイル\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.h">
+      <Filter>ヘッダー ファイル\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_08\EnemyBullet\EnemyBullet.h">
+      <Filter>ヘッダー ファイル\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Function\Function.h">
+      <Filter>ヘッダー ファイル\math</Filter>
+    </ClInclude>
+    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_10_ex1\Collider\Collider.h">
+      <Filter>ヘッダー ファイル\Collider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

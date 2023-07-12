@@ -6,8 +6,10 @@
 #include <WorldTransform.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/PlayerBullet/PlayerBullet.h>
+#include "AL3_HeaderCpp/AL3_2/AL3_02_10_ex1/Collider/Collider.h"
 
-class Player {
+
+class Player : public Collider{
 public:
 	// デストラクタ
 	~Player();
@@ -16,7 +18,7 @@ public:
 	void Initialize(Model* model, uint32_t textureHandle);
 
 	// ワールド座標を取得
-	Vector3 GetWorldPosition();
+	Vector3 GetWorldPosition() override;
 
 
 	// 回転
@@ -32,7 +34,8 @@ public:
 	const float_t GetRadius() { return radius_; };
 
 	//衝突を検出したら呼び出されるコールバック関数
-	void OnCollision();
+	//オーバーライドするよ!!
+	void OnCollision() override;
 
 	// 更新
 	void UpDate();

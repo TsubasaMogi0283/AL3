@@ -65,10 +65,10 @@ void GameScene::Initialize() {
 
 void GameScene::CheckAllCollision() { 
 	//判定対象AとBの座標
-	Vector3 posA, posB; 
-	//自弾
-	Vector3 posC;
-	Vector3 posD;
+	//Vector3 posA, posB; 
+	////自弾
+	//Vector3 posC;
+	//Vector3 posD;
 	//自弾リストの取得
 	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
 	//敵弾リストの取得
@@ -76,83 +76,131 @@ void GameScene::CheckAllCollision() {
 
 
 	
-	#pragma region 自キャラと敵弾の当たり判定
+	//#pragma region 自キャラと敵弾の当たり判定
+	//
+	////自キャラの座標
+	//posA = player_->GetWorldPosition();
+	//
+	//
+	//
+	////自キャラと敵弾全ての当たり判定
+	//for (EnemyBullet* bullet : enemyBullets) {
+	//	//敵弾の座標
+	//	posB = bullet->GetWorldPosition();
+	//
+	//
+	//	//座標AとBの距離を求める
+	//	float distanceAB = Length(Subtract(posA, posB));
+	//	
+	//	if (distanceAB < player_->GetRadius() + bullet->GetRadius()) {
+	//		//自キャラの衝突時コールバックを呼び出す
+	//		player_->OnCollision();
+	//		//敵弾の衝突時コールバックを呼び出す
+	//		bullet->OnCollision();
+	//
+	//	}
+	//	ImGui::Begin("EnemyBulletCondition");
+	//	ImGui::InputFloat3("PlayerPosition", &posA.x);
+	//	ImGui::InputFloat3("EnemyBulletPosition", &posB.x);
+	//	ImGui::InputFloat("distance", &distanceAB);
+	//
+	//	ImGui::End();
+	//
+	//
+	//}
+	//
+	//#pragma endregion
+	//
+	////ここが原因。自機の弾がすぐ消えてしまう
+	//#pragma region 自弾と敵キャラの当たり判定
+	//
+	////敵キャラの位置
+	//posC = enemy_->GetWorldPosition();
+	//
+	//
+	//
+	////自キャラと敵弾全ての当たり判定
+	//for (PlayerBullet* playerBullet : playerBullets) {
+	//	//自弾の座標
+	//	posD = playerBullet->GetWorldPosition();
+	//
+	//
+	//
+	//	//座標CとDの距離を求める
+	//	float distanceCD = Length(Subtract(posD,posC));
+	//	
+	//	if (distanceCD < enemy_->GetRadius() + playerBullet->GetRadius()) {
+	//		//敵キャラの衝突時コールバックを呼び出す
+	//		enemy_->OnCollision();
+	//		
+	//		//自弾の衝突時コールバックを呼び出す
+	//		playerBullet->OnCollision();
+	//	
+	//		
+	//		
+	//		
+	//	}
+	//
+	//	ImGui::Begin("PlayerBulletCondition");
+	//	ImGui::InputFloat3("PlayerPosition", &posC.x);
+	//	ImGui::InputFloat3("PlayerBulletPosition", &posD.x);
+	//	ImGui::InputFloat("distance", &distanceCD);
+	//
+	//	ImGui::End();
+	//
+	//}
+	//
+	//#pragma endregion
 
-	//自キャラの座標
-	posA = player_->GetWorldPosition();
 
-	
-
-	//自キャラと敵弾全ての当たり判定
-	for (EnemyBullet* bullet : enemyBullets) {
-		//敵弾の座標
-		posB = bullet->GetWorldPosition();
-
-
-		//座標AとBの距離を求める
-		float distanceAB = Length(Subtract(posA, posB));
-		
-		if (distanceAB < player_->GetRadius() + bullet->GetRadius()) {
-			//自キャラの衝突時コールバックを呼び出す
-			player_->OnCollision();
-			//敵弾の衝突時コールバックを呼び出す
-			bullet->OnCollision();
-
-		}
-		ImGui::Begin("EnemyBulletCondition");
-		ImGui::InputFloat3("PlayerPosition", &posA.x);
-		ImGui::InputFloat3("EnemyBulletPosition", &posB.x);
-		ImGui::InputFloat("distance", &distanceAB);
-
-		ImGui::End();
-
-
+	//全部こっちに引っ越し
+#pragma region 自キャラと敵弾の当たり判定
+	for (EnemyBullet* enemyBullet : enemyBullets) {
+		//ペアの衝突判定
+		CheckCollisionPair(player_,enemyBullet);
 	}
-	
-	#pragma endregion
 
-	//ここが原因。自機の弾がすぐ消えてしまう
-	#pragma region 自弾と敵キャラの当たり判定
 
-	//敵キャラの位置
-	posC = enemy_->GetWorldPosition();
 
-	
+#pragma endregion
 
-	//自キャラと敵弾全ての当たり判定
+
+#pragma region 敵キャラと自弾の当たり判定
 	for (PlayerBullet* playerBullet : playerBullets) {
-		//自弾の座標
-		posD = playerBullet->GetWorldPosition();
-	
-
-	
-		//座標CとDの距離を求める
-		float distanceCD = Length(Subtract(posD,posC));
-		
-		if (distanceCD < enemy_->GetRadius() + playerBullet->GetRadius()) {
-			//敵キャラの衝突時コールバックを呼び出す
-			enemy_->OnCollision();
-			
-			//自弾の衝突時コールバックを呼び出す
-			playerBullet->OnCollision();
-		
-			
-			
-			
-		}
-	
-		ImGui::Begin("PlayerBulletCondition");
-		ImGui::InputFloat3("PlayerPosition", &posC.x);
-		ImGui::InputFloat3("PlayerBulletPosition", &posD.x);
-		ImGui::InputFloat("distance", &distanceCD);
-
-		ImGui::End();
-	
+		//ペアの衝突判定
+		CheckCollisionPair(enemy_,playerBullet);
 	}
 
-	#pragma endregion
 
+
+#pragma endregion
+
+
+}
+
+
+//コライダー２つの衝突判定と応答
+void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
 	
+	//それぞれの座標を取得
+	Vector3 worldPositionA = colliderA->GetWorldPosition();
+	Vector3 worldPositionB = colliderB->GetWorldPosition();
+
+	float collisionDistance = Length(Subtract(worldPositionA, worldPositionB));
+
+
+
+
+
+	//球と球の交差判定
+	if (collisionDistance < colliderA->GetCollisionRadius() + colliderB->GetCollisionRadius()) {
+		//ステップインで確認
+		//コライダーAの衝突判定時コールバックを呼び出す
+		colliderA->OnCollision();
+		
+		//コライダーBの衝突判定時コールバックを呼び出す
+		colliderB->OnCollision();
+	}
 
 
 }

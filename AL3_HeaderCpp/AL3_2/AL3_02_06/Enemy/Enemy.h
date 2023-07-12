@@ -2,14 +2,16 @@
 #include <ViewProjection.h>
 #include <WorldTransform.h>
 #include <Model.h>
+
 #include <AL3_HeaderCpp/AL3_2/AL3_02_08/EnemyBullet/EnemyBullet.h>
+#include "AL3_HeaderCpp/AL3_2/AL3_02_10_ex1/Collider/Collider.h"
 
 //前方宣言で
 class Player;
 
 
 
-class Enemy {
+class Enemy : public Collider{
 public:
 	~Enemy();
 
@@ -28,7 +30,7 @@ public:
 	};
 
 	//衝突を検出したら呼び出されるコールバック関数
-	void OnCollision();
+	void OnCollision() override;
 
 	void Update();
 
