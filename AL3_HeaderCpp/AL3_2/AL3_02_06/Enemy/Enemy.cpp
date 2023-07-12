@@ -67,6 +67,11 @@ void Enemy::ApproachUpdate() {
 		enemyBulletShotTime = kFireInterval;
 	}
 
+	//範囲forでリストの全要素について回す
+	for (TimedCall* timedCall : timedCalls_) {
+		timedCall->Update();
+	}
+
 	//移動(ベクトルの加算)
 	worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
 	//規定の位置に到達したら離脱
@@ -155,10 +160,7 @@ void Enemy::Update() {
         return false;
     });
 
-	//範囲forでリストの全要素について回す
-	for (TimedCall* timedCall : timedCalls_) {
-		timedCall->Update();
-	}
+	
 
 	//弾の更新
 	for (EnemyBullet* bullet : bullets_) {
