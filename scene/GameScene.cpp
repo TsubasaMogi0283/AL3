@@ -124,6 +124,7 @@ void GameScene::CheckAllCollision() {
 		//自弾の座標
 		posD = playerBullet->GetWorldPosition();
 	
+
 	
 		//座標CとDの距離を求める
 		float distanceCD = Length(Subtract(posD,posC));
