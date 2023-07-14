@@ -9,8 +9,8 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {
 	delete debugCamera_;
 	delete enemy_;
-	//delete player_;
 	delete playerModel_;
+	delete skydomeModel_;
 }
 
 void GameScene::Initialize() {
@@ -19,6 +19,7 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
+	//プレイヤー
 
 	//テクスチャ読み込み
 	playerTextureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_3/Player1.png");
@@ -26,9 +27,6 @@ void GameScene::Initialize() {
 	//3Dモデルの生成
 	//CreateはnewとInitializeの呼び出しをまとめた関数
 	playerModel_= Model::Create();
-
-	//ビュープロジェクション
-	viewProjection_.Initialize();
 
 	//自キャラの生成
 	player_ = new Player();
@@ -38,8 +36,6 @@ void GameScene::Initialize() {
 
 	//敵の生成
 	
-	
-
 	//敵の速度
 	enemyModel_ = Model::Create();
 	enemy_ = new Enemy();
@@ -50,6 +46,26 @@ void GameScene::Initialize() {
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
 
+
+
+	//天球
+
+	//生成
+	skydome_ = new Skydome();
+
+	//フォルダの名前を指定してね
+	//読み込むファイルと同じフォルダ名にしないと✕
+	skydomeModel_ = Model::CreateFromOBJ("CelestialSphere", true);
+
+	//テクスチャ読み込み
+	skydomeTextureHandle_ = TextureManager::Load("CelestialSphere/uvChecker.png");
+
+	//天球の初期化
+	skydome_->Initialize(skydomeModel_,skydomeTextureHandle_);
+
+
+	//ビュープロジェクション
+	viewProjection_.Initialize();
 
 	//デバッグカメラの設定
 	debugCamera_ = new DebugCamera(1280, 720);
@@ -161,6 +177,7 @@ void GameScene::CheckAllCollision() {
 void GameScene::Update() {
 	player_->UpDate();
 	enemy_->Update();
+	skydome_->Update();
 
 	CheckAllCollision();
 
@@ -260,6 +277,7 @@ void GameScene::Draw() {
 
 	player_->Draw(viewProjection_);
 	enemy_->Draw(viewProjection_);
+	skydome_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

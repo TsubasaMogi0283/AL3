@@ -14,6 +14,7 @@
 #include <DebugCamera.h>
 
 #include <imgui.h>
+#include <AL3_HeaderCpp/AL3_2/AL3_02_11/Skydome.h>
 
 /// <summary>
 /// ゲームシーン
@@ -61,37 +62,53 @@ private: // メンバ変数
 	/// </summary>
 	/// 
 	
-	 
+#pragma region プレイヤーのメンバ変数
 	 ///テクスチャハンドル
 	uint32_t playerTextureHandle_ = 0;
 
 	//3Dモデル
 	Model* playerModel_=nullptr;
 	
-	//ワールドトランスフォーム
-	WorldTransform worldTransform_;
-	
-	//ビュープロジェクション
-	ViewProjection viewProjection_;
-	 
 	//自キャラ
 	Player* player_ = nullptr;
+#pragma endregion
 
+
+
+#pragma region 敵のメンバ変数
 
 	//敵キャラ
 	Model* enemyModel_ = nullptr;
 	Enemy* enemy_ = nullptr;
 
+#pragma endregion
+
+	#pragma region 天球のメンバ変数
+	//テクスチャハンドル
+	uint32_t skydomeTextureHandle_ = 0u;
+
+	//3Dモデル
+	Model* skydomeModel_ = nullptr;
+
+	//天球ポインタ
+	Skydome* skydome_ = nullptr;
+
+#pragma endregion
+
+	//ワールドトランスフォーム
+	WorldTransform worldTransform_;
+	
+	//ビュープロジェクション
+	ViewProjection viewProjection_;
+
+	#pragma region カメラのメンバ変数
 
 	//デバッグカメラの切り替え
 	bool isDebugCameraActive_ = false;
 
-
-
-
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
-
+	#pragma endregion
 
 
 };

@@ -1,25 +1,27 @@
-#pragma once
+ï»¿#pragma once
 #include <WorldTransform.h>
 #include <Model.h>
 
 class Skydome {
 public:
-	//‰Šú‰»
-	void Initialize();
+	//åˆæœŸåŒ–
+	void Initialize(Model* model,uint32_t textureHandle);
 
-	//XV
+	//æ›´æ–°
 	void Update();
 
-	//•`‰æ
-	void Draw();
+	//æç”»
+	void Draw(ViewProjection viewProjection);
 
 
 private:
 
-	//ƒ[ƒ‹ƒh•ÏŠ·ƒf[ƒ^
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›ãƒ‡ãƒ¼ã‚¿
 	WorldTransform worldTransform_;
-	//ƒ‚ƒfƒ‹
+	//ãƒ¢ãƒ‡ãƒ«
 	Model* model_ = nullptr;
 
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒ³ãƒ‰ãƒ«
+	uint32_t textureHandle_ = 0u;
 };
 
