@@ -114,7 +114,8 @@
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_08ex\TimedCall.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_08\EnemyBullet\EnemyBullet.cpp" />
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_11\Skydome.cpp" />
+    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_11\Skydome\Skydome.cpp" />
+    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_12\RailCamera\RailCamera.cpp" />
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="main.cpp" />
@@ -144,7 +145,8 @@
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.h" />
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_08ex\TimedCall.h" />
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_08\EnemyBullet\EnemyBullet.h" />
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_11\Skydome.h" />
+    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_11\Skydome\Skydome.h" />
+    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_12\RailCamera\RailCamera.h" />
     <ClInclude Include="audio\Audio.h" />
     <ClInclude Include="base\DirectXCommon.h" />
     <ClInclude Include="base\SafeDelete.h" />
