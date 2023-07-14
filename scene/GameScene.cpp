@@ -65,6 +65,10 @@ void GameScene::Initialize() {
 
 
 	//ビュープロジェクション
+	//forZを適度に大きい値に変更する
+	//大きくしすぎるとZファイティングになるよ
+	viewProjection_.farZ = 1200.0f;
+	//初期化
 	viewProjection_.Initialize();
 
 	//デバッグカメラの設定
@@ -228,7 +232,7 @@ void GameScene::Update() {
 		//プロジェクション行列(射影行列)
 		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
 		
-
+		
 
 		//ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
@@ -243,6 +247,9 @@ void GameScene::Update() {
 	//ImGuiはUpdateで！！！！！！！！
 	ImGui::Begin("Camera");
 	ImGui::Text("Key C To DeBugCameraIsActive!!");
+	ImGui::InputFloat3("CameraTranslation", &viewProjection_.translation_.x);
+	ImGui::SliderFloat3("CameraTranslationSlide", &viewProjection_.translation_.x, 1000.0f,1000.0f);
+
 	ImGui::End();
 
 
