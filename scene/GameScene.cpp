@@ -108,6 +108,7 @@ void GameScene::Initialize() {
 
 }
 
+//登録用の関数
 void GameScene::AddEnemyBullet(EnemyBullet* enemyBullet) {
 	//リストに登録する
 	enemyBullets_.push_back(enemyBullet);

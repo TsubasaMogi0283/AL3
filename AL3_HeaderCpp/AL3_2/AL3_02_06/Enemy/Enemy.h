@@ -98,6 +98,7 @@ private:
 
 
 	EnemyBullet* enemyBullets_ = nullptr;
+	//これをゲームシーンへ
 	std::list<EnemyBullet*> bullets_;
 
 	//発射タイマー
