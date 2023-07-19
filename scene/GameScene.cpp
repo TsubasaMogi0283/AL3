@@ -102,6 +102,7 @@ void GameScene::Update() {
 	}
 
 
+
 	#endif
 
 	if (isDebugCameraActive_) {
