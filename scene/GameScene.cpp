@@ -3,7 +3,7 @@
 #include <cassert>
 #include <ImGuiManager.h>
 #include <AxisIndicator.h>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_12/RailCamera/RailCamera.h>
+
 
 GameScene::GameScene() {}
 
@@ -12,6 +12,7 @@ GameScene::~GameScene() {
 	delete enemy_;
 	delete playerModel_;
 	delete skydomeModel_;
+	delete railcamera_;
 }
 
 void GameScene::Initialize() {
@@ -74,13 +75,13 @@ void GameScene::Initialize() {
 #pragma region レールカメラ
 
 	//生成
-	RailCamera* railcamera = new RailCamera();
+	railcamera_ = new RailCamera();
 
 	//初期化
 	Vector3 worldCoodinate = {0.0f, 0.0f, 0.0f};
 	Vector3 radian = {0.0f,0.0f,0.0f};
 
-	railcamera->Initialize(worldCoodinate,radian);
+	railcamera_->Initialize(worldCoodinate,radian);
 
 
 
@@ -204,6 +205,7 @@ void GameScene::Update() {
 	player_->UpDate();
 	enemy_->Update();
 	skydome_->Update();
+	railcamera_->Update();
 
 	CheckAllCollision();
 
