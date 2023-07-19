@@ -50,6 +50,9 @@ void GameScene::Initialize() {
 	//初期化
 	enemy_->Initialize(enemyModel_, enemy_->GetEnemyPosition(),enemy_->GetEnemyVelocity());
 	
+	//敵キャラにゲームシーンを渡す
+	enemy_->SetGameScene(this);
+
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
 
