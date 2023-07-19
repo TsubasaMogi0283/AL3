@@ -10,6 +10,8 @@ void RailCamera::Initialize(Vector3 worldCoodinate,Vector3 rotateRadian) {
 	worldTransform_.rotation_ = rotateRadian;
 
 	//ビュープロジェクションの初期化
+	viewProjection_.farZ=
+
 	viewProjection_.Initialize();
 
 }
