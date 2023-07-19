@@ -117,31 +117,32 @@ void Player::UpDate() {
 	//行列を定数バッファに転送
 	worldTransform_.TransferMatrix(); 
 
-	//キャラクターも異動ベクトル
-	Vector3 move = {0.0f, 0.0f, 0.0f};
-	
 	//キャラクターの移動の速さ
-	const float kCharacterSpeed = 0.2f;
+	
+
+	
+	
+	
 	
 
 
 	#pragma region キーボード入力による移動処理
 	//押した方向で移動
 	if (input_->PushKey(DIK_LEFT)) {
-		move.x -= kCharacterSpeed;
+		move_.x -= kCharacterSpeed_;
 	}
 	else if (input_->PushKey(DIK_RIGHT)) {
-		move.x += kCharacterSpeed;
+		move_.x += kCharacterSpeed_;
 	}
 	else if(input_->PushKey(DIK_DOWN)) {
-		move.y -= kCharacterSpeed;
+		move_.y -= kCharacterSpeed_;
 	}
 	else if (input_->PushKey(DIK_UP)) {
-		move.y += kCharacterSpeed;
+		move_.y += kCharacterSpeed_;
 	} 
 	else {
-		move.x = 0.0f;
-		move.y = 0.0f;
+		move_.x = 0.0f;
+		move_.y = 0.0f;
 	}
 	#pragma endregion
 	
@@ -160,7 +161,7 @@ void Player::UpDate() {
 	
 	//行列更新
 	//座標移動(ベクトルの加算)
-	worldTransform_.translation_= Add(worldTransform_.translation_, move);
+	worldTransform_.translation_= Add(worldTransform_.translation_, move_);
 	
 	
 

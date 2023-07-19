@@ -9,7 +9,7 @@ public:
 	void Initialize(Vector3 worldCoodinate,Vector3 rotateRadian);
 
 	//更新
-	void Update();
+	void Update(Vector3 translate);
 
 	ViewProjection GetViewProjection() { 
 		return viewProjection_;

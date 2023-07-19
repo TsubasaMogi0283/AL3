@@ -274,7 +274,7 @@ void GameScene::Update() {
 
 	} 
 	else if (isDebugRailCameraActive_) {
-		railcamera_->Update();
+		railcamera_->Update(player_->GetVelocity());
 
 		viewProjection_.matView = railcamera_->GetViewProjection().matView;
 		viewProjection_.matProjection = railcamera_->GetViewProjection().matProjection;

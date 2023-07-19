@@ -29,8 +29,13 @@ public:
 		return bullets_;
 	};
 
-	const float_t GetRadius() { return radius_; };
+	const float_t GetRadius() { 
+		return radius_;
+	};
 
+	Vector3 GetVelocity() { 
+		return move_;
+	}
 	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision();
 
@@ -52,6 +57,9 @@ private:
 
 	Input* input_ = nullptr;
 
+	//キャラクターも異動ベクトル
+	const float kCharacterSpeed_ = 0.2f;
+	Vector3 move_ = {0.0f, 0.0f, kCharacterSpeed_};
 	const float_t radius_ = 2.0f;
 
 	int32_t count_ = 0;
