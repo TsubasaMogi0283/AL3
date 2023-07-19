@@ -117,11 +117,13 @@ void Player::UpDate() {
 	//行列を定数バッファに転送
 	worldTransform_.TransferMatrix(); 
 
-	//キャラクターも異動ベクトル
-	Vector3 move = {0.0f, 0.0f, 0.0f};
-	
 	//キャラクターの移動の速さ
 	const float kCharacterSpeed = 0.2f;
+
+	//キャラクターも異動ベクトル
+	Vector3 move = {0.0f, 0.0f, kCharacterSpeed};
+	
+	
 	
 
 
@@ -184,6 +186,8 @@ void Player::UpDate() {
 	}
 
 
+	
+
 	#pragma region デバッグテキスト
 
 	ImGui::Begin("Player");
@@ -193,7 +197,6 @@ void Player::UpDate() {
 	ImGui::SliderFloat3("PlayerSlide", &worldTransform_.translation_.x, -20.0f,30.0f);
 	ImGui::InputInt("count", &count_);
 
-	//ImGui::SliderFloat3()
 	ImGui::End();
 
 	#pragma endregion

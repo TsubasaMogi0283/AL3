@@ -78,7 +78,6 @@ void GameScene::Initialize() {
 	railcamera_ = new RailCamera();
 
 	//初期化
-	Vector3 worldCoodinate = {0.0f, 0.0f, 0.0f};
 	Vector3 radian = {0.0f,0.0f,0.0f};
 
 	railcamera_->Initialize(player_->GetWorldPosition(), radian);
@@ -240,42 +239,42 @@ void GameScene::Update() {
 
 
 	#ifdef _DEBUG
-	if (isDebugCameraActive_ == false && input_->TriggerKey(DIK_C)) {
+	if (input_->PushKey(DIK_C)) {
 		isDebugCameraActive_ = true;
 	}
-	if (isDebugRailCameraActive_ == false && input_->TriggerKey(DIK_R)) {
-		isDebugRailCameraActive_ = true;
-	}
+	
 
 	#endif
 
 	if (isDebugCameraActive_) {
-		//デバッグカメラの更新
-		debugCamera_->Update();
-		
-		//ビュー行列(逆行列)
-		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-		//プロジェクション行列(射影行列)
-		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
-		
-		viewProjection_.TransferMatrix();
+		////デバッグカメラの更新
+		//debugCamera_->Update();
+		//
+		////ビュー行列(逆行列)
+		//viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+		////プロジェクション行列(射影行列)
+		//viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+		//
+		//viewProjection_.TransferMatrix();
 
 		
 
+		
 
 	} 
-	else if (isDebugRailCameraActive_) {
+	
+	else {
+
 		railcamera_->Update();
 
 		viewProjection_.matView = railcamera_->GetViewProjection().matView;
 		viewProjection_.matProjection = railcamera_->GetViewProjection().matProjection;
 		//ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
-
-	}
-	else {
 		//ビュープロジェクション行列の更新と転送
-		viewProjection_.UpdateMatrix();
+		//viewProjection_.UpdateMatrix();
+
+		
 	}
 
 	
