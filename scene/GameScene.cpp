@@ -90,7 +90,7 @@ void GameScene::Initialize() {
 	//ビュープロジェクション
 	//forZを適度に大きい値に変更する
 	//大きくしすぎるとZファイティングになるよ
-	viewProjection_.farZ = 120.0f;
+	viewProjection_.farZ = 1200.0f;
 	//初期化
 	viewProjection_.Initialize();
 
@@ -205,7 +205,7 @@ void GameScene::Update() {
 	player_->UpDate();
 	enemy_->Update();
 	skydome_->Update();
-	railcamera_->Update();
+	
 
 	CheckAllCollision();
 
@@ -243,7 +243,9 @@ void GameScene::Update() {
 	if (isDebugCameraActive_ == false && input_->TriggerKey(DIK_C)) {
 		isDebugCameraActive_ = true;
 	}
-
+	if (isDebugRailCameraActive_ == false && input_->TriggerKey(DIK_R)) {
+		isDebugRailCameraActive_ = true;
+	}
 
 	#endif
 
@@ -256,19 +258,28 @@ void GameScene::Update() {
 		//プロジェクション行列(射影行列)
 		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
 		
-		
-
-		//ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
 
 		
 
 
-	} else {
+	} 
+	else if (isDebugRailCameraActive_) {
+		railcamera_->Update();
+
+		viewProjection_.matView = railcamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = railcamera_->GetViewProjection().matProjection;
+		//ビュープロジェクション行列の転送
+		viewProjection_.TransferMatrix();
+
+	}
+	else {
 		//ビュープロジェクション行列の更新と転送
 		viewProjection_.UpdateMatrix();
 	}
 
+	
+	
 
 	//忘れていたのでここに書いておく
 	//ImGuiはUpdateで！！！！！！！！

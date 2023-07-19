@@ -113,6 +113,9 @@ private: // メンバ変数
 	//デバッグカメラの切り替え
 	bool isDebugCameraActive_ = false;
 
+	//RailCamera
+	bool isDebugRailCameraActive_ = false;
+
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
 	#pragma endregion
