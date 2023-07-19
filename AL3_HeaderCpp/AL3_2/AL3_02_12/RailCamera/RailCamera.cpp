@@ -8,9 +8,10 @@ void RailCamera::Initialize(Vector3 worldCoodinate,Vector3 rotateRadian) {
 	//ワールドトランスフォームの初期設定
 	worldTransform_.translation_ = worldCoodinate;
 	worldTransform_.rotation_ = rotateRadian;
+	worldTransform_.Initialize();
 
 	//ビュープロジェクションの初期化
-	viewProjection_.farZ = 1200.0f;
+	viewProjection_.farZ = 120.0f;
 
 	viewProjection_.Initialize();
 

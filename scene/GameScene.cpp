@@ -90,7 +90,7 @@ void GameScene::Initialize() {
 	//ビュープロジェクション
 	//forZを適度に大きい値に変更する
 	//大きくしすぎるとZファイティングになるよ
-	viewProjection_.farZ = 1200.0f;
+	viewProjection_.farZ = 120.0f;
 	//初期化
 	viewProjection_.Initialize();
 
