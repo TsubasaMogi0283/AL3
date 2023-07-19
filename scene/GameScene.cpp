@@ -3,6 +3,7 @@
 #include <cassert>
 #include <ImGuiManager.h>
 #include <AxisIndicator.h>
+#include <AL3_HeaderCpp/AL3_2/AL3_02_12/RailCamera/RailCamera.h>
 
 GameScene::GameScene() {}
 
@@ -19,7 +20,10 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
-	//プレイヤー
+#pragma region プレイヤーの生成
+
+	//自キャラの生成
+	player_ = new Player();
 
 	//テクスチャ読み込み
 	playerTextureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_3/Player1.png");
@@ -28,27 +32,29 @@ void GameScene::Initialize() {
 	//CreateはnewとInitializeの呼び出しをまとめた関数
 	playerModel_= Model::Create();
 
-	//自キャラの生成
-	player_ = new Player();
-	
 	//自キャラの初期化
 	player_->Initialize(playerModel_,playerTextureHandle_);
 
-	//敵の生成
+#pragma endregion
+
+
+#pragma region 敵の生成
 	
-	//敵の速度
-	enemyModel_ = Model::Create();
+	//生成
 	enemy_ = new Enemy();
 
+	//敵の速度
+	enemyModel_ = Model::Create();
+
+	//初期化
 	enemy_->Initialize(enemyModel_, enemy_->GetEnemyPosition(),enemy_->GetEnemyVelocity());
 	
-
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
 
+#pragma endregion
 
-
-	//天球
+#pragma region 天球の生成
 
 	//生成
 	skydome_ = new Skydome();
@@ -63,6 +69,22 @@ void GameScene::Initialize() {
 	//天球の初期化
 	skydome_->Initialize(skydomeModel_,skydomeTextureHandle_);
 
+#pragma endregion
+
+#pragma region レールカメラ
+
+	//生成
+	RailCamera* railcamera = new RailCamera();
+
+	//初期化
+	Vector3 worldCoodinate = {0.0f, 0.0f, 0.0f};
+	Vector3 radian = {0.0f,0.0f,0.0f};
+
+	railcamera->Initialize(worldCoodinate,radian);
+
+
+
+#pragma endregion
 
 	//ビュープロジェクション
 	//forZを適度に大きい値に変更する
@@ -216,7 +238,7 @@ void GameScene::Update() {
 
 
 	#ifdef _DEBUG
-	if (input_->TriggerKey(DIK_C)) {
+	if (isDebugCameraActive_ == false && input_->TriggerKey(DIK_C)) {
 		isDebugCameraActive_ = true;
 	}
 
@@ -237,6 +259,9 @@ void GameScene::Update() {
 		//ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
 
+		
+
+
 	} else {
 		//ビュープロジェクション行列の更新と転送
 		viewProjection_.UpdateMatrix();
@@ -248,7 +273,6 @@ void GameScene::Update() {
 	ImGui::Begin("Camera");
 	ImGui::Text("Key C To DeBugCameraIsActive!!");
 	ImGui::InputFloat3("CameraTranslation", &viewProjection_.translation_.x);
-	ImGui::SliderFloat3("CameraTranslationSlide", &viewProjection_.translation_.x, 1000.0f,1000.0f);
 
 	ImGui::End();
 

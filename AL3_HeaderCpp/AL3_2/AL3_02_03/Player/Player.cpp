@@ -124,8 +124,6 @@ void Player::UpDate() {
 	const float kCharacterSpeed = 0.2f;
 	
 
-	
-
 
 	#pragma region キーボード入力による移動処理
 	//押した方向で移動
