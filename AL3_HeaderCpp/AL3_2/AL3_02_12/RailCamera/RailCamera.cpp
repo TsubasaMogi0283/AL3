@@ -22,15 +22,14 @@ void RailCamera::Initialize(Vector3 worldCoodinate,Vector3 rotateRadian) {
 //更新
 void RailCamera::Update() {
 	//移動量の加算
-	Vector3 translate = {0.0f, 0.0f, -2.0f};
+	Vector3 translate = {0.0f, 0.0f, 0.5f};
 	worldTransform_.translation_ = Add(worldTransform_.translation_, translate);
 
 
 	//回転量の加算
-	Vector3 rotate = {0.0f, 0.0, 1.0f};
+	Vector3 rotate = {0.0f, 0.0, 0.0f};
 	worldTransform_.rotation_ = Add(worldTransform_.rotation_, rotate);
 
-	worldTransform_.scale_ = {1.0f, 1.0f, 1.0f};
 
 	//かめらの座標を画面表示する処理
 	ImGui::Begin("RailCamera");
