@@ -81,7 +81,7 @@ void GameScene::Initialize() {
 	Vector3 worldCoodinate = {0.0f, 0.0f, 0.0f};
 	Vector3 radian = {0.0f,0.0f,0.0f};
 
-	railcamera_->Initialize(player_->GetWorldPosition(), player_->GetRadius());
+	railcamera_->Initialize(player_->GetWorldPosition(), radian);
 
 
 

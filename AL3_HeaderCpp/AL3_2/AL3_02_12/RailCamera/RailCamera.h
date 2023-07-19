@@ -11,6 +11,11 @@ public:
 	//更新
 	void Update();
 
+	ViewProjection GetViewProjection() { 
+		return viewProjection_;
+	}
+
+
 	//カメラなので基本Draw関数は作らない
 
 private:
