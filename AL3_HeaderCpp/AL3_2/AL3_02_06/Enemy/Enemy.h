@@ -7,7 +7,8 @@
 //前方宣言で
 class Player;
 
-
+//GameSceneの前方宣言
+class GameScene;
 
 class Enemy {
 public:
@@ -30,18 +31,21 @@ public:
 	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision();
 
+	//更新
 	void Update();
 
 	//ビュープロジェクション
 	void Draw(const ViewProjection& viewProjection);
 
+
+	#pragma region アクセッサ
 	Vector3 GetEnemyPosition() { 
 		return enemyPosition_;
 	}
 	Vector3 GetEnemyVelocity() { 
 		return enemyVelocity_;
 	}
-
+	#pragma endregion
 
 	//敵キャラに自キャラのアドレスを渡す
 	//GameSceneからPlayerを借りる
@@ -49,12 +53,13 @@ public:
 		player_ = player;
 	}
 
+	//ゲームシーン追加
+	void SetGameScene(GameScene* gameScene) { 
+		gameScene_ = gameScene;
+	}
+
 	//ワールド座標を取得
 	Vector3 GetWorldPosition();
-
-
-
-
 
 	void ApproachInitialize();
 
@@ -104,6 +109,8 @@ private:
 	Player* player_ = nullptr;
 
 
+	//ゲームシーン
+	GameScene* gameScene_ = nullptr;
 
 public:
 	//静的メンバ変数

@@ -105,6 +105,11 @@ void GameScene::Initialize() {
 
 }
 
+void GameScene::AddEnemyBullet(EnemyBullet* enemyBullet) {
+	//リストに登録する
+	enemyBullets_.push_back(enemyBullet);
+	
+}
 
 void GameScene::CheckAllCollision() { 
 	//判定対象AとBの座標

@@ -47,6 +47,9 @@ public: // メンバ関数
 	/// </summary>
 	void CheckAllCollision();
 
+	/// 敵弾を追加
+	void AddEnemyBullet(EnemyBullet* enemyBullet);
+
 	/// <summary>
 	/// 毎フレーム処理
 	/// </summary>
@@ -78,7 +81,10 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 #pragma endregion
 
+#pragma region 敵弾
+	std::list<EnemyBullet*> enemyBullets_;
 
+#pragma endregion
 
 #pragma region 敵のメンバ変数
 
