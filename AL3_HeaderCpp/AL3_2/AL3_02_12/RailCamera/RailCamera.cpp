@@ -20,9 +20,9 @@ void RailCamera::Initialize(Vector3 worldCoodinate,Vector3 rotateRadian) {
 
 
 //更新
-void RailCamera::Update(Vector3 translate) {
+void RailCamera::Update() {
 	//移動量の加算
-	//Vector3 translate = {0.0f, 0.0f, 0.05f};
+	Vector3 translate = {0.0f, 0.0f, 1.0f};
 	worldTransform_.translation_ = Add(worldTransform_.translation_, translate);
 
 

@@ -70,7 +70,7 @@ void Player::Attack() {
 		count_ += 1;
 		//弾の速度
 		//z方向に+1.0ずつ進むよ
-		const float kBulletSpeed = 1.0f;
+		const float kBulletSpeed = 0.3f;
 		Vector3 velocity(0, 0, kBulletSpeed);
 
 		//速度ベクトルを自機の向きに合わせて回転させる

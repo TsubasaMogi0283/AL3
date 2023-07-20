@@ -252,9 +252,7 @@ void GameScene::Update() {
 	if (isDebugCameraActive_ == false && input_->TriggerKey(DIK_C)) {
 		isDebugCameraActive_ = true;
 	}
-	if (isDebugRailCameraActive_ == false && input_->TriggerKey(DIK_R)) {
-		isDebugRailCameraActive_ = true;
-	}
+	
 
 	#endif
 
@@ -273,18 +271,18 @@ void GameScene::Update() {
 
 
 	} 
-	else if (isDebugRailCameraActive_) {
-		railcamera_->Update(player_->GetVelocity());
+	
+	else {
+		//ビュープロジェクション行列の更新と転送
+		///viewProjection_.UpdateMatrix();
+
+		railcamera_->Update();
 
 		viewProjection_.matView = railcamera_->GetViewProjection().matView;
 		viewProjection_.matProjection = railcamera_->GetViewProjection().matProjection;
 		//ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
 
-	}
-	else {
-		//ビュープロジェクション行列の更新と転送
-		viewProjection_.UpdateMatrix();
 	}
 
 	

@@ -16,9 +16,10 @@ void Skydome::Update() {
 	//行列を定数バッファに転送
 	worldTransform_.TransferMatrix(); 
 
-	worldTransform_.translation_ = {0.0f, 0.0f, 0.0f};
+	worldTransform_.translation_ = {0.0f, 0.0f, 0.3f};
 	//小さすぎたかも・・
-	worldTransform_.scale_ = {200.0f, 200.0f, 200.0f};
+	const float_t SCALE = 300.0f;
+	worldTransform_.scale_ = {SCALE, SCALE, SCALE};
 
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
