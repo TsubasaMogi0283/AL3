@@ -58,7 +58,8 @@ private:
 	Input* input_ = nullptr;
 
 	//キャラクターも異動ベクトル
-	const float kCharacterSpeed_ = 0.2f;
+	const float kCharacterSpeed_ = 0.03f;
+	const float kCharacterSpeedPlayer_ = 0.005f;
 	Vector3 move_ = {0.0f, 0.0f, kCharacterSpeed_};
 	const float_t radius_ = 2.0f;
 

@@ -129,16 +129,16 @@ void Player::UpDate() {
 	#pragma region キーボード入力による移動処理
 	//押した方向で移動
 	if (input_->PushKey(DIK_LEFT)) {
-		move_.x -= kCharacterSpeed_;
+		move_.x -= kCharacterSpeedPlayer_;
 	}
 	else if (input_->PushKey(DIK_RIGHT)) {
-		move_.x += kCharacterSpeed_;
+		move_.x += kCharacterSpeedPlayer_;
 	}
 	else if(input_->PushKey(DIK_DOWN)) {
-		move_.y -= kCharacterSpeed_;
+		move_.y -= kCharacterSpeedPlayer_;
 	}
 	else if (input_->PushKey(DIK_UP)) {
-		move_.y += kCharacterSpeed_;
+		move_.y += kCharacterSpeedPlayer_;
 	} 
 	else {
 		move_.x = 0.0f;

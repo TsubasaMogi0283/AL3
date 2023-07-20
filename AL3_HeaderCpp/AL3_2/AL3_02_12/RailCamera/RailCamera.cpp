@@ -6,7 +6,11 @@
 void RailCamera::Initialize(Vector3 worldCoodinate,Vector3 rotateRadian) {
 
 	//ワールドトランスフォームの初期設定
-	worldTransform_.translation_ = worldCoodinate;
+	worldTransform_.translation_.x = worldCoodinate.x;
+	worldTransform_.translation_.y = worldCoodinate.y;
+	worldTransform_.translation_.z = worldCoodinate.z-20.0f;
+
+
 	worldTransform_.rotation_ = rotateRadian;
 	worldTransform_.Initialize();
 
@@ -22,7 +26,7 @@ void RailCamera::Initialize(Vector3 worldCoodinate,Vector3 rotateRadian) {
 //更新
 void RailCamera::Update() {
 	//移動量の加算
-	Vector3 translate = {0.0f, 0.0f, 1.0f};
+	Vector3 translate = {0.0f, 0.0f, 0.03f};
 	worldTransform_.translation_ = Add(worldTransform_.translation_, translate);
 
 
