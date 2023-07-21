@@ -47,6 +47,7 @@ void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velo
 	//同時に生成
 	//Fire();
 
+
 	SetGameScene(gameScene_);
 	//同時生成は止める
 	//接近フェーズ初期化
@@ -107,14 +108,14 @@ void Enemy::Fire() {
 	const float kBulletSpeed = 1.0f;
 	//Vector3 velocity(0, 0, -kBulletSpeed);
 
-
 	//敵キャラのワールド座標を取得
 	Vector3 playerPosition = player_->GetWorldPosition();
 	Vector3 enemyPosition = GetWorldPosition();
 	//敵と自キャラの差分ベクトル
 	Vector3 diffenrence = Subtract(playerPosition,enemyPosition);
 	//正規化
-	Vector3 velocity = NormalizeVector3(diffenrence);
+	Vector3 velocity = NormalizeVector3(diffenrence);	
+
 	//速さに合わせる
 	Vector3 afterVelocity = {
 	    velocity.x, 

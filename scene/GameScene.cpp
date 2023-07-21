@@ -56,7 +56,6 @@ void GameScene::Initialize() {
 
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
-	AddEnemyBullet(enemyBullets_);
 
 #pragma endregion
 
