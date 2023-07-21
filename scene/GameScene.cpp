@@ -65,7 +65,7 @@ void GameScene::Initialize() {
 	skydomeModel_ = Model::CreateFromOBJ("CelestialSphere", true);
 
 	//テクスチャ読み込み
-	skydomeTextureHandle_ = TextureManager::Load("CelestialSphere/uvChecker.png");
+	//skydomeTextureHandle_ = TextureManager::Load("CelestialSphere/uvChecker.png");
 
 	//天球の初期化
 	skydome_->Initialize(skydomeModel_,skydomeTextureHandle_);

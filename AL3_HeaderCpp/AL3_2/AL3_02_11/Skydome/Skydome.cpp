@@ -5,7 +5,9 @@
 void Skydome::Initialize(Model* model,uint32_t textureHandle) { 
 	this->model_ = model; 
 	this->textureHandle_ = textureHandle;
-
+	worldTransform_.translation_ = {0.0f, 0.0f, 0.0f};
+	//小さすぎたかも・・
+	worldTransform_.scale_ = {100.0f, 100.0f, 100.0f};
 	//ワールド変数の初期化
 	worldTransform_.Initialize();
 }
@@ -16,9 +18,7 @@ void Skydome::Update() {
 	//行列を定数バッファに転送
 	worldTransform_.TransferMatrix(); 
 
-	worldTransform_.translation_ = {0.0f, 0.0f, 0.0f};
-	//小さすぎたかも・・
-	worldTransform_.scale_ = {100.0f, 100.0f, 100.0f};
+	
 
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
