@@ -1,8 +1,13 @@
 ﻿#include <cassert>
+
+#include <imgui.h>
+
 #include <AL3_HeaderCpp/AL3_2/AL3_02_06/Enemy/Enemy.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
-#include <imgui.h>
 #include "AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h"
+
+#include <GameScene.h>
+
 
 Enemy::~Enemy() { 
 	//弾の解放処理
@@ -42,6 +47,7 @@ void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velo
 	//同時に生成
 	//Fire();
 
+	SetGameScene(gameScene_);
 	//同時生成は止める
 	//接近フェーズ初期化
 	ApproachInitialize();
@@ -130,7 +136,9 @@ void Enemy::Fire() {
 
 	//弾を登録する
 	//bullets_に要素を追加
-	bullets_.push_back(newEnemyBullet);
+	//bullets_.push_back(newEnemyBullet);
+	//↑中身同じだね
+	gameScene_->AddEnemyBullet(newEnemyBullet);
 }
 
 
@@ -192,6 +200,4 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 	}
 
 	
-
-	//ImGui::SliderF
 }

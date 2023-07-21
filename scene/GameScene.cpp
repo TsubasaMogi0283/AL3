@@ -51,10 +51,12 @@ void GameScene::Initialize() {
 	enemy_->Initialize(enemyModel_, enemy_->GetEnemyPosition(),enemy_->GetEnemyVelocity());
 	
 	//敵キャラにゲームシーンを渡す
+	//今のGameSceneが入ってる
 	enemy_->SetGameScene(this);
 
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
+	AddEnemyBullet(enemyBullets_);
 
 #pragma endregion
 
