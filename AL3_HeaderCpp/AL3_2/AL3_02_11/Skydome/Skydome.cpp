@@ -24,7 +24,7 @@ void Skydome::Update() {
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 
 	//更新処理
-	worldTransform_.UpdateMatrix();
+	//worldTransform_.UpdateMatrix();
 
 }
 
