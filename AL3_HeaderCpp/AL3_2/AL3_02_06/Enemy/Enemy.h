@@ -20,9 +20,9 @@ public:
 	void Fire();
 
 	//弾リストを取得
-	const std::list<EnemyBullet*>& GetBullets() const { 
-		return bullets_;
-	}
+	//const std::list<EnemyBullet*>& GetBullets() const { 
+	//	return bullets_;
+	//}
 
 	const float_t GetRadius() { 
 		return radius_; 
@@ -79,7 +79,7 @@ private:
 
 	//速度
 	const float kEnemySpeed_ = -0.05f;
-	Vector3 enemyPosition_ = {0.0f, 3.0f, 20.0f};
+	Vector3 enemyPosition_ = {0.0f, 3.0f, 100.0f};
 	Vector3 enemyVelocity_ = {0.0f, 0.0f, kEnemySpeed_};
 	
 	float_t radius_=1.0f;
@@ -98,11 +98,13 @@ private:
 
 
 	EnemyBullet* enemyBullets_ = nullptr;
-	std::list<EnemyBullet*> bullets_;
+	//std::list<EnemyBullet*> bullets_;
 
 	//発射タイマー
 	int32_t enemyBulletShotTime = 0;
 
+	//ライフ
+	bool isAlive_ = true;
 
 
 	//自キャラ

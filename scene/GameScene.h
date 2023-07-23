@@ -68,7 +68,7 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
-	/// 
+	
 	
 #pragma region プレイヤーのメンバ変数
 	 ///テクスチャハンドル
@@ -89,8 +89,14 @@ private: // メンバ変数
 #pragma region 敵のメンバ変数
 
 	//敵キャラ
+
+
+
 	Model* enemyModel_ = nullptr;
 	Enemy* enemy_ = nullptr;
+
+
+	std::list<Enemy*> enemyes_;
 
 #pragma endregion
 

@@ -8,7 +8,7 @@ void RailCamera::Initialize(Vector3 worldCoodinate,Vector3 rotateRadian) {
 	//ワールドトランスフォームの初期設定
 	worldTransform_.translation_.x = worldCoodinate.x;
 	worldTransform_.translation_.y = worldCoodinate.y;
-	worldTransform_.translation_.z = worldCoodinate.z-20.0f;
+	worldTransform_.translation_.z = worldCoodinate.z-30.0f;
 
 
 	worldTransform_.rotation_ = rotateRadian;

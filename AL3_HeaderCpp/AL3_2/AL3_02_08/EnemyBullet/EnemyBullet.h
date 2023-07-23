@@ -50,7 +50,7 @@ private:
 	const float_t radius_=1.0f;
 
 	//寿命
-	static const int32_t kLifeTime = 60 * 5;
+	static const int32_t kLifeTime = 60 * 7;
 	//デスタイマー
 	int32_t deathTimer_ = kLifeTime;
 	//デスフラグ

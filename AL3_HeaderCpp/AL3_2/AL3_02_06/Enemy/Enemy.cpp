@@ -12,9 +12,9 @@
 Enemy::~Enemy() { 
 	//弾の解放処理
 	//複数出たのでfor文で解放しよう
-	for (EnemyBullet* bullet : bullets_) {
-		delete bullet;
-	}
+	//for (EnemyBullet* bullet : bullets_) {
+	//	delete bullet;
+	//}
 	delete enemyBullets_;
 	delete player_;
 	delete model_;
@@ -47,13 +47,15 @@ void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velo
 	//同時に生成
 	//Fire();
 
+	isAlive_ = true;
 
-	SetGameScene(gameScene_);
+	
 	//同時生成は止める
 	//接近フェーズ初期化
 	ApproachInitialize();
 
 
+	
 }
 
 
@@ -86,7 +88,7 @@ void Enemy::ApproachUpdate() {
 	//移動(ベクトルの加算)
 	worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
 	//規定の位置に到達したら離脱
-	if (worldTransform_.translation_.z < 0.0f) {
+	if (worldTransform_.translation_.z < player_->GetWorldPosition().z) {
 		phase_ = Phase::Leave;
 	}
 	
@@ -144,8 +146,8 @@ void Enemy::Fire() {
 
 
 //衝突を検出したら呼び出されるコールバック関数
-void Enemy::OnCollision() {
-
+void Enemy::OnCollision() { 
+	isAlive_ = false;
 }
 
 
@@ -165,9 +167,9 @@ void Enemy::Update() {
 	}
 
 	//弾の更新
-	for (EnemyBullet* bullet : bullets_) {
-		bullet->Update();
-	}
+	//for (EnemyBullet* bullet : bullets_) {
+	//	bullet->Update();
+	//}
 
 	//座標を移動させる(1フレーム分足す)
 	//ベクトルの足し算
@@ -192,13 +194,17 @@ void Enemy::Update() {
 
 void Enemy::Draw(const ViewProjection& viewProjection) { 
 	//自キャラと同じ処理なので出来れば継承を使うといいよ！
-	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+	if (isAlive_ == true) {
+		model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
+	}
+
+	
 
 	//弾の描画
-	for (EnemyBullet* bullet : bullets_) {
-		bullet->Draw(viewProjection);
-	}
+	//for (EnemyBullet* bullet : bullets_) {
+	//	bullet->Draw(viewProjection);
+	//}
 
 	
 }
