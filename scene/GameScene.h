@@ -113,7 +113,7 @@ private: // メンバ変数
 	//敵発生コマンド
 	std::stringstream enemyPopCommands_;
 
-	Vector3 enemyPosition_ = {};
+	Vector3 enemyPosition_ = {0.0f,0.0f,50.0f};
 
 	//待機中フラグ
 	bool isWait_ ;

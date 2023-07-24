@@ -15,7 +15,7 @@ public:
 	~Enemy();
 
 	//Initialize(mode,position,velocity)
-	void Initialize(Model* model,uint32_t textureHandle);
+	void Initialize(Model* model,uint32_t textureHandle,Vector3 position);
 
 	void Fire();
 
@@ -116,7 +116,7 @@ private:
 
 public:
 	//静的メンバ変数
-	static const int kFireInterval = 60;
+	static const int kFireInterval = 120;
 
 
 

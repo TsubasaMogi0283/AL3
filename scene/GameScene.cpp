@@ -57,23 +57,8 @@ void GameScene::Initialize() {
 
 	enemyTexture_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_6/Enemy/Enemy.png");
 
-	
-	//初期化
-	//enemy_->Initialize(enemyModel_, enemy_->GetEnemyPosition(),enemy_->GetEnemyVelocity());
-	enemy_->Initialize(enemyModel_,enemyTexture_);
-
 	//データ読み込み
 	LoadEnemyPopData();
-
-	//敵を登録
-	enemyes_.push_back(enemy_);
-
-	//敵キャラにゲームシーンを渡す
-	//今のGameSceneが入ってる
-	enemy_->SetGameScene(this);
-
-	//敵キャラに自キャラのアドレスを渡す
-	enemy_->SetPlayer(player_);
 	
 
 #pragma endregion
@@ -132,7 +117,22 @@ void GameScene::Initialize() {
 void GameScene::GenerateEnemy(Vector3 position) {
 	
 	this->enemyPosition_ = position;
+	//初期化
+	//enemy_->Initialize(enemyModel_, enemy_->GetEnemyPosition(),enemy_->GetEnemyVelocity());
+	enemy_->Initialize(enemyModel_,enemyTexture_,position);
 
+	
+
+	//敵を登録
+	enemyes_.push_back(enemy_);
+
+	//敵キャラにゲームシーンを渡す
+	//今のGameSceneが入ってる
+	enemy_->SetGameScene(this);
+
+	//敵キャラに自キャラのアドレスを渡す
+	enemy_->SetPlayer(player_);
+	
 }
 
 //敵発生データの読み込み
@@ -221,7 +221,6 @@ void GameScene::UpdateEnemyPopCommands() {
 		}
 
 
-
 	}
 
 
@@ -290,12 +289,6 @@ void GameScene::CheckAllCollision() {
 	#pragma endregion
 
 	#pragma region 自弾と敵キャラの当たり判定
-
-	
-	
-	
-
-	
 
 	//自キャラと敵弾全ての当たり判定
 	for (PlayerBullet* playerBullet : playerBullets) {
@@ -375,13 +368,6 @@ void GameScene::CheckAllCollision() {
 		
 		}
 
-		
-
-
-
-		
-	
-	
 	}
 
 
@@ -401,6 +387,7 @@ void GameScene::Update() {
 	skydome_->Update();
 	
 
+	UpdateEnemyPopCommands();
 	//敵の更新
 	for (Enemy* enemy : enemyes_) {
 		enemy->Update();
@@ -412,10 +399,14 @@ void GameScene::Update() {
 	}
 
 
-
-
+	//当たり判定
 	CheckAllCollision();
 
+
+
+
+
+	#pragma region カメラ行列
 	Matrix4x4 cameraMatrix = {};
 	cameraMatrix.m[0][0] = 1.0f;
 	cameraMatrix.m[0][1] = 0.0f;
@@ -440,17 +431,15 @@ void GameScene::Update() {
 
 
 	
-
+	#pragma endregion
 
 	
-	
-
-
 	#ifdef _DEBUG
-	if (isDebugCameraActive_ == false && input_->TriggerKey(DIK_C)) {
+	if (isDebugCameraActive_ == false && input_->PushKey(DIK_C)) {
 		isDebugCameraActive_ = true;
 	}
 	
+
 
 	#endif
 
@@ -466,10 +455,9 @@ void GameScene::Update() {
 		viewProjection_.TransferMatrix();
 
 		
+		
 
-
-	} 
-	
+	}
 	else {
 		//ビュープロジェクション行列の更新と転送
 		///viewProjection_.UpdateMatrix();
