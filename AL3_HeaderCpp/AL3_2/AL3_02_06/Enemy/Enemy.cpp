@@ -36,18 +36,18 @@ void Enemy::Initialize(Model* model,uint32_t textureHandle,Vector3 position) {
 	model_ = model;
 	//ワールドトランスフォームの初期化
 	//中にあるよ
+	
+	
+	
 	worldTransform_.translation_ = position;
 	worldTransform_.Initialize();
-	
-
 
 	this->textureHandle_ = textureHandle;
 
 	//同時に生成
 	//Fire();
 
-	isAlive_ = true;
-
+	this->isAlive_ = true;
 	
 	//同時生成は止める
 	//接近フェーズ初期化
@@ -146,7 +146,7 @@ void Enemy::Fire() {
 
 //衝突を検出したら呼び出されるコールバック関数
 void Enemy::OnCollision() { 
-	isAlive_ = false;
+	this->isAlive_ = false;
 }
 
 
@@ -196,6 +196,7 @@ void Enemy::Update() {
 void Enemy::Draw(const ViewProjection& viewProjection) { 
 	//自キャラと同じ処理なので出来れば継承を使うといいよ！
 	if (isAlive_ == true) {
+		//これが原因
 		model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
 	}

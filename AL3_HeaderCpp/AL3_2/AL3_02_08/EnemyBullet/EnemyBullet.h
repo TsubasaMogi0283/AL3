@@ -45,9 +45,9 @@ private:
 	uint32_t textureHandle_ = 0u;
 
 	//速度
-	Vector3 velocity_ ;
+	Vector3 velocity_ = {0.0f,0.0f,0.0f};
 
-	const float_t radius_=1.0f;
+	const float_t radius_=0.5f;
 
 	//寿命
 	static const int32_t kLifeTime = 60 * 7;

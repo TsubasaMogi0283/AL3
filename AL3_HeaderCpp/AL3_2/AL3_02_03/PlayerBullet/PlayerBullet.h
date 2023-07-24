@@ -48,7 +48,7 @@ private:
 	
 
 	//寿命
-	static const int32_t kLifeTime = 60 * 2;
+	static const int32_t kLifeTime = 60 * 5;
 	//デスタイマー
 	int32_t deathTimer_ = kLifeTime;
 	//デスフラグ
@@ -56,7 +56,7 @@ private:
 
 
 	//半径
-	const float_t radius_ = 1.0f;
+	const float_t radius_ = 0.5f;
 
 
 };

@@ -46,20 +46,18 @@ void GameScene::Initialize() {
 
 #pragma region 敵の生成
 	
-	
-
 	//生成
 	enemy_ = new Enemy();
 
-	//敵の速度
+	//敵のモデル
 	enemyModel_ = Model::Create();
 
 
 	enemyTexture_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_6/Enemy/Enemy.png");
 
+	
 	//データ読み込み
 	LoadEnemyPopData();
-	
 
 #pragma endregion
 
@@ -115,16 +113,22 @@ void GameScene::Initialize() {
 
 //敵発生用関数
 void GameScene::GenerateEnemy(Vector3 position) {
-	
-	this->enemyPosition_ = position;
-	//初期化
-	//enemy_->Initialize(enemyModel_, enemy_->GetEnemyPosition(),enemy_->GetEnemyVelocity());
-	enemy_->Initialize(enemyModel_,enemyTexture_,position);
-
-	
-
 	//敵を登録
+	//this->enemyPosition_ = position;
+	
+	
+
 	enemyes_.push_back(enemy_);
+	
+	
+	//敵の更新
+	for (Enemy* enemy : enemyes_) {
+		//初期化
+		//enemy_->Initialize(enemyModel_, enemy_->GetEnemyPosition(),enemy_->GetEnemyVelocity());
+		enemy->Initialize(enemyModel_,enemyTexture_,position);
+
+
+	}
 
 	//敵キャラにゲームシーンを渡す
 	//今のGameSceneが入ってる
@@ -132,6 +136,11 @@ void GameScene::GenerateEnemy(Vector3 position) {
 
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
+	
+	
+	
+	
+	
 	
 }
 
@@ -187,18 +196,18 @@ void GameScene::UpdateEnemyPopCommands() {
 		if (word.find("POP") == 0) {
 			//x座標
 			getline(line_stream, word, ',');
-			float x = (float)std::atof(word.c_str());
+			//float x = (float)std::atof(word.c_str());
 
 			//y座標
 			getline(line_stream, word, ',');
-			float y = (float)std::atof(word.c_str());
+			//float y = (float)std::atof(word.c_str());
 
 			//z座標
 			getline(line_stream, word, ',');
-			float z = (float)std::atof(word.c_str());
+			//float z = (float)std::atof(word.c_str());
 
 			//敵を発生させる
-			GenerateEnemy({x,y,z});
+			GenerateEnemy({0.0f,0.0f,50.0f});
 
 		} 
 		else if (word.find("WAIT") == 0) {

@@ -82,7 +82,7 @@ private:
 	Vector3 enemyPosition_ = {0.0f, 3.0f, 100.0f};
 	Vector3 enemyVelocity_ = {0.0f, 0.0f, kEnemySpeed_};
 	
-	float_t radius_=1.0f;
+	float_t radius_=2.0f;
 
 	
 	
