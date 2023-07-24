@@ -11,7 +11,7 @@ public:
 	//更新
 	void Update();
 
-	const WorldTransform GetWorldTransform() { 
+	WorldTransform GetWorldTransform() const { 
 		return worldTransform_;
 	}
 
