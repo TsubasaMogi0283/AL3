@@ -29,6 +29,9 @@ public:
 		return bullets_;
 	};
 
+	//親となるワールドトランスフォームをセット
+	void SetParent(const WorldTransform* parent);
+
 	const float_t GetRadius() { return radius_; };
 
 	//衝突を検出したら呼び出されるコールバック関数

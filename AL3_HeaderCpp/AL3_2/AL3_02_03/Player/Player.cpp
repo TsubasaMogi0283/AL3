@@ -45,6 +45,10 @@ Vector3 Player::GetWorldPosition() {
 
 }
 
+//親となるワールドトランスフォームをセット
+void Player::SetParent(const WorldTransform* parent) { 
+	worldTransform_.parent_ = parent;
+}
 
 
 //旋回

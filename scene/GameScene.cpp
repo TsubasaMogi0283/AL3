@@ -12,7 +12,7 @@ GameScene::~GameScene() {
 	delete enemy_;
 	delete playerModel_;
 	delete skydomeModel_;
-	delete railcamera_;
+	delete railCamera_;
 }
 
 void GameScene::Initialize() {
@@ -75,14 +75,14 @@ void GameScene::Initialize() {
 #pragma region レールカメラ
 
 	//生成
-	railcamera_ = new RailCamera();
+	railCamera_ = new RailCamera();
 
 	//初期化
 	Vector3 radian = {0.0f,0.0f,0.0f};
 
-	railcamera_->Initialize(player_->GetWorldPosition(), radian);
+	railCamera_->Initialize(player_->GetWorldPosition(), radian);
 
-
+	player_->SetParent(&railCamera_->GetWorldTransform());
 
 #pragma endregion
 
@@ -265,10 +265,10 @@ void GameScene::Update() {
 	
 	else {
 
-		railcamera_->Update();
+		railCamera_->Update();
 
-		viewProjection_.matView = railcamera_->GetViewProjection().matView;
-		viewProjection_.matProjection = railcamera_->GetViewProjection().matProjection;
+		viewProjection_.matView = railCamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
 		//ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
 		//ビュープロジェクション行列の更新と転送

@@ -100,7 +100,7 @@ private: // メンバ変数
 
 #pragma endregion
 
-	RailCamera* railcamera_ = nullptr;
+	RailCamera* railCamera_ = nullptr;
 
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_;
