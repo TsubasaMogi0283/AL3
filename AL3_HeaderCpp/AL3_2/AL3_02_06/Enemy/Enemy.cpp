@@ -173,6 +173,8 @@ void Enemy::Update() {
 	//座標を移動させる(1フレーム分足す)
 	//ベクトルの足し算
 	worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
+
+
 	enemyVelocity_ = TransformNormal(enemyVelocity_,worldTransform_.matWorld_ );
 	
 	//ワールドトランスフォームの更新
