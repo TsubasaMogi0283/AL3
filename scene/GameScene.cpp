@@ -39,7 +39,10 @@ void GameScene::Initialize() {
 	playerModel_= Model::Create();
 
 	//自キャラの初期化
-	player_->Initialize(playerModel_,playerTextureHandle_);
+	Vector3 playerPosition = {0.0f, 0.0f, 10.0f};
+	player_->Initialize(playerModel_,playerTextureHandle_,playerPosition);
+
+	
 
 #pragma endregion
 
@@ -90,7 +93,8 @@ void GameScene::Initialize() {
 	railcamera_->Initialize(player_->GetWorldPosition(), radian);
 
 
-
+	//自キャラとレールカメラの親子関係を結ぶ
+	player_->SetParent(&railcamera_->GetWorldTransform());
 #pragma endregion
 
 	//ビュープロジェクション

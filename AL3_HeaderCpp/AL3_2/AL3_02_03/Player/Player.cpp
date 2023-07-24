@@ -18,7 +18,7 @@ Player::~Player() {
 
 
 
-void Player::Initialize(Model* model,uint32_t textureHandle) {
+void Player::Initialize(Model* model,uint32_t textureHandle ,Vector3 position) {
 	
 	assert(model);
 
@@ -27,6 +27,7 @@ void Player::Initialize(Model* model,uint32_t textureHandle) {
 	this->textureHandle_ = textureHandle;
 
 	//ワールド変数の初期化
+	worldTransform_.translation_ = position;
 	worldTransform_.Initialize();
 
 	input_ = Input::GetInstance();
@@ -45,7 +46,11 @@ Vector3 Player::GetWorldPosition() {
 
 }
 
+void Player::SetParent(const WorldTransform* parent) { 
+	this->worldTransform_.parent_ = parent;
 
+
+}
 
 //旋回
 void Player::Rotate() {

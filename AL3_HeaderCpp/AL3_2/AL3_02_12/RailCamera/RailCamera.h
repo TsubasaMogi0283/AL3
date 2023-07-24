@@ -11,6 +11,10 @@ public:
 	//更新
 	void Update();
 
+	WorldTransform GetWorldTransform()const{ 
+		return worldTransform_;
+	}
+
 	ViewProjection GetViewProjection() { 
 		return viewProjection_;
 	}

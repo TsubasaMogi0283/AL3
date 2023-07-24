@@ -13,7 +13,7 @@ public:
 	~Player();
 
 	// 初期化
-	void Initialize(Model* model, uint32_t textureHandle);
+	void Initialize(Model* model, uint32_t textureHandle,Vector3 position);
 
 	// ワールド座標を取得
 	Vector3 GetWorldPosition();
@@ -36,6 +36,14 @@ public:
 	Vector3 GetVelocity() { 
 		return move_;
 	}
+
+	//親となるワールドトランスフォームをセット
+	void SetParent(const WorldTransform* parent);
+
+
+
+
+
 	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision();
 
