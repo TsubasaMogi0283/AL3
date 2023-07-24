@@ -8,6 +8,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "sstream"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -42,6 +43,10 @@ public: // メンバ関数
 	/// </summary>
 	void Initialize();
 
+
+	//敵発生用関数
+	void GenerateEnemy(Vector3 position);
+
 	/// <summary>
 	/// 衝突判定と応答
 	/// </summary>
@@ -49,6 +54,13 @@ public: // メンバ関数
 
 	/// 敵弾を追加
 	void AddEnemyBullet(EnemyBullet* enemyBullet);
+
+	//敵発生データの読み込み
+	void LoadEnemyPopData();
+
+	//敵発生コマンドの更新
+	void UpdateEnemyPopCommands();
+
 
 	/// <summary>
 	/// 毎フレーム処理
@@ -90,13 +102,23 @@ private: // メンバ変数
 
 	//敵キャラ
 
-
+	uint32_t enemyTexture_ = 0;
 
 	Model* enemyModel_ = nullptr;
 	Enemy* enemy_ = nullptr;
 
 
 	std::list<Enemy*> enemyes_;
+
+	//敵発生コマンド
+	std::stringstream enemyPopCommands_;
+
+	Vector3 enemyPosition_ = {};
+
+	//待機中フラグ
+	bool isWait_ ;
+	//待機タイマー
+	int32_t waitingTimer_ = 0;
 
 #pragma endregion
 
