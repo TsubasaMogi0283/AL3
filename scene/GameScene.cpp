@@ -94,7 +94,7 @@ void GameScene::Initialize() {
 
 
 	//自キャラとレールカメラの親子関係を結ぶ
-	player_->SetParent(&railcamera_->GetWorldTransform());
+	//player_->SetParent(&railcamera_->GetWorldTransform());
 #pragma endregion
 
 	//ビュープロジェクション
