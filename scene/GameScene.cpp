@@ -12,7 +12,6 @@ GameScene::~GameScene() {
 	delete enemy_;
 	delete playerModel_;
 	delete skydomeModel_;
-	delete railCamera_;
 }
 
 void GameScene::Initialize() {
@@ -34,7 +33,7 @@ void GameScene::Initialize() {
 	playerModel_= Model::Create();
 
 	//自キャラの初期化
-	Vector3 playerPosition = {0.0f, 0.0f, 10.0f};
+	Vector3 playerPosition = {0.0f, 0.0f, 0.0f};
 	player_->Initialize(playerModel_,playerTextureHandle_,playerPosition);
 
 #pragma endregion
@@ -75,15 +74,11 @@ void GameScene::Initialize() {
 
 #pragma region レールカメラ
 
-	//生成
-	railCamera_ = new RailCamera();
 
 	//初期化
 	Vector3 radian = {0.0f,0.0f,0.0f};
 
-	railCamera_->Initialize(player_->GetWorldPosition(), radian);
 
-	player_->SetParent(&railCamera_->GetWorldTransform());
 
 #pragma endregion
 
@@ -154,9 +149,6 @@ void GameScene::CheckAllCollision() {
 	
 	#pragma endregion
 
-	//ここが原因。自機の弾がすぐ消えてしまう
-
-	//なんかおかしい
 	#pragma region 自弾と敵キャラの当たり判定
 
 	//敵キャラの位置
@@ -198,7 +190,33 @@ void GameScene::CheckAllCollision() {
 	#pragma endregion
 
 	
+	#pragma region 
+	//自弾と敵弾全ての当たり判定
+	for (PlayerBullet* playerBullet : playerBullets) {
+		//自弾の座標
+		posD = playerBullet->GetWorldPosition();
+	
+		for (EnemyBullet* enemyBullet : enemyBullets) {
+			//敵弾の座標
+			posB = enemyBullet->GetWorldPosition();
 
+
+			//座標AとBの距離を求める
+			float distanceDB = Length(Subtract(posD, posB));
+			
+			if (distanceDB < player_->GetRadius() + enemyBullet->GetRadius()) {
+				//自キャラの衝突時コールバックを呼び出す
+				player_->OnCollision();
+				//敵弾の衝突時コールバックを呼び出す
+				enemyBullet->OnCollision();
+
+			}
+			
+
+		}
+	
+	}
+	#pragma endregion
 
 }
 
@@ -270,10 +288,7 @@ void GameScene::Update() {
 
 		//ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
-		railCamera_->Update();
 
-		viewProjection_.matView = railCamera_->GetViewProjection().matView;
-		viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
 		
 		//ビュープロジェクション行列の更新と転送
 		//viewProjection_.UpdateMatrix();
