@@ -5,14 +5,14 @@
 //初期化
 void RailCamera::Initialize(Vector3 worldCoodinate,Vector3 rotateRadian) {
 
+	worldTransform_.Initialize();
+
 	//ワールドトランスフォームの初期設定
-	worldTransform_.translation_.x = worldCoodinate.x;
-	worldTransform_.translation_.y = worldCoodinate.y;
-	worldTransform_.translation_.z = worldCoodinate.z-10.0f;
+	worldTransform_.translation_ = worldCoodinate;
 
 
 	worldTransform_.rotation_ = rotateRadian;
-	worldTransform_.Initialize();
+	//worldTransform_.Initialize();
 
 	//ビュープロジェクションの初期化
 	viewProjection_.farZ = 1200.0f;
@@ -26,7 +26,7 @@ void RailCamera::Initialize(Vector3 worldCoodinate,Vector3 rotateRadian) {
 //更新
 void RailCamera::Update() {
 	//移動量の加算
-	worldTransform_.translation_ = Add(worldTransform_.translation_, {0.0f,0.0f,0.2f});
+	worldTransform_.translation_ = Add(worldTransform_.translation_, {0.0f,0.0f,0.1f});
 
 
 	//回転量の加算
@@ -34,7 +34,6 @@ void RailCamera::Update() {
 	worldTransform_.rotation_ = Add(worldTransform_.rotation_, rotate);
 
 
-	
 
 	//ワールド行列の再計算
 	//ここで問題

@@ -266,14 +266,15 @@ void GameScene::Update() {
 	
 	else {
 
+		//ビュープロジェクション行列の転送
+		viewProjection_.TransferMatrix();
 		railCamera_->Update();
 
 		viewProjection_.matView = railCamera_->GetViewProjection().matView;
 		viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
-		//ビュープロジェクション行列の転送
-		viewProjection_.TransferMatrix();
+		
 		//ビュープロジェクション行列の更新と転送
-		viewProjection_.UpdateMatrix();
+		//viewProjection_.UpdateMatrix();
 
 		
 	}

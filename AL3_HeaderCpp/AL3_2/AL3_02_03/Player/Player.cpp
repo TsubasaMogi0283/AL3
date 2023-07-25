@@ -124,7 +124,7 @@ void Player::UpDate() {
 	worldTransform_.TransferMatrix(); 
 
 	//キャラクターの移動の速さ
-	const float kCharacterSpeed = 0.2f;
+	const float kCharacterSpeed = 0.00f;
 
 	//キャラクターも異動ベクトル
 	Vector3 move = {0.0f, 0.0f, kCharacterSpeed};
