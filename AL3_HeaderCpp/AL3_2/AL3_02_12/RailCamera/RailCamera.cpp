@@ -26,7 +26,7 @@ void RailCamera::Initialize(Vector3 worldCoodinate,Vector3 rotateRadian) {
 //更新
 void RailCamera::Update() {
 	//移動量の加算
-	worldTransform_.translation_ = Add(worldTransform_.translation_, {0.0f,0.0f,0.1f});
+	worldTransform_.translation_ = Add(worldTransform_.translation_, {0.0f,0.0f,0.0f});
 
 
 	//回転量の加算

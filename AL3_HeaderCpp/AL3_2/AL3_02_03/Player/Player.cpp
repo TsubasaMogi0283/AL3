@@ -125,9 +125,9 @@ void Player::UpDate() {
 
 	//キャラクターの移動の速さ
 	const float kCharacterSpeed = 0.00f;
-
+	const float kCharacterSpeedZ = 0.0f;
 	//キャラクターも異動ベクトル
-	Vector3 move = {0.0f, 0.0f, kCharacterSpeed};
+	Vector3 move = {0.0f, 0.0f, kCharacterSpeedZ};
 	
 	
 	
