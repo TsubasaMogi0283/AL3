@@ -49,7 +49,7 @@ void GameScene::Initialize() {
 	enemyModel_ = Model::Create();
 
 	//初期化
-	enemy_->Initialize(enemyModel_, enemy_->GetEnemyPosition(),enemy_->GetEnemyVelocity());
+	enemy_->Initialize(enemyModel_, {0.0f,0.0f,50.0f}, enemy_->GetEnemyVelocity());
 	
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
@@ -155,6 +155,8 @@ void GameScene::CheckAllCollision() {
 	#pragma endregion
 
 	//ここが原因。自機の弾がすぐ消えてしまう
+
+	//なんかおかしい
 	#pragma region 自弾と敵キャラの当たり判定
 
 	//敵キャラの位置
@@ -185,7 +187,7 @@ void GameScene::CheckAllCollision() {
 		}
 	
 		ImGui::Begin("PlayerBulletCondition");
-		ImGui::InputFloat3("PlayerPosition", &posC.x);
+		ImGui::InputFloat3("EnemyPositipn", &posC.x);
 		ImGui::InputFloat3("PlayerBulletPosition", &posD.x);
 		ImGui::InputFloat("distance", &distanceCD);
 
@@ -248,15 +250,15 @@ void GameScene::Update() {
 	#endif
 
 	if (isDebugCameraActive_) {
-		////デバッグカメラの更新
-		//debugCamera_->Update();
-		//
-		////ビュー行列(逆行列)
-		//viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-		////プロジェクション行列(射影行列)
-		//viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
-		//
-		//viewProjection_.TransferMatrix();
+		//デバッグカメラの更新
+		debugCamera_->Update();
+		
+		//ビュー行列(逆行列)
+		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+		//プロジェクション行列(射影行列)
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+		
+		viewProjection_.TransferMatrix();
 
 		
 
