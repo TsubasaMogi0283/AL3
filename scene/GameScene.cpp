@@ -34,7 +34,8 @@ void GameScene::Initialize() {
 	playerModel_= Model::Create();
 
 	//自キャラの初期化
-	player_->Initialize(playerModel_,playerTextureHandle_);
+	Vector3 playerPosition = {0.0f, 0.0f, 10.0f};
+	player_->Initialize(playerModel_,playerTextureHandle_,playerPosition);
 
 #pragma endregion
 
@@ -272,7 +273,7 @@ void GameScene::Update() {
 		//ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
 		//ビュープロジェクション行列の更新と転送
-		//viewProjection_.UpdateMatrix();
+		viewProjection_.UpdateMatrix();
 
 		
 	}

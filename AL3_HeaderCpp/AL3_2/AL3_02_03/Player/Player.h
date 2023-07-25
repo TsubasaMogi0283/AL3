@@ -13,7 +13,7 @@ public:
 	~Player();
 
 	// 初期化
-	void Initialize(Model* model, uint32_t textureHandle);
+	void Initialize(Model* model, uint32_t textureHandle,Vector3 position);
 
 	// ワールド座標を取得
 	Vector3 GetWorldPosition();
