@@ -19,6 +19,7 @@
 
 #include <imgui.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_11/Skydome/Skydome.h>
+#include <AL3_HeaderCpp/AL3_2/AL3_02_12/RailCamera/RailCamera.h>
 
 /// <summary>
 /// ゲームシーン
@@ -99,6 +100,11 @@ private: // メンバ変数
 
 #pragma endregion
 
+#pragma region
+
+	RailCamera* railCamera_ = nullptr;
+
+#pragma endregion
 
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_;

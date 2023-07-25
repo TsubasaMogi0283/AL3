@@ -12,6 +12,7 @@ GameScene::~GameScene() {
 	delete enemy_;
 	delete playerModel_;
 	delete skydomeModel_;
+	delete railCamera_;
 }
 
 void GameScene::Initialize() {
@@ -78,7 +79,9 @@ void GameScene::Initialize() {
 	//初期化
 	Vector3 radian = {0.0f,0.0f,0.0f};
 
+	railCamera_ = new RailCamera();
 
+	railCamera_->Initialize();
 
 #pragma endregion
 
@@ -225,7 +228,7 @@ void GameScene::Update() {
 	player_->UpDate();
 	enemy_->Update();
 	skydome_->Update();
-	
+	railCamera_->Update();
 
 	CheckAllCollision();
 
