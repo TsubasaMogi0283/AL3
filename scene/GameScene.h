@@ -8,7 +8,6 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
-#include "sstream"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -43,24 +42,10 @@ public: // メンバ関数
 	/// </summary>
 	void Initialize();
 
-
-	//敵発生用関数
-	void GenerateEnemy(Vector3 position);
-
 	/// <summary>
 	/// 衝突判定と応答
 	/// </summary>
 	void CheckAllCollision();
-
-	/// 敵弾を追加
-	void AddEnemyBullet(EnemyBullet* enemyBullet);
-
-	//敵発生データの読み込み
-	void LoadEnemyPopData();
-
-	//敵発生コマンドの更新
-	void UpdateEnemyPopCommands();
-
 
 	/// <summary>
 	/// 毎フレーム処理
@@ -80,7 +65,7 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
-	
+	/// 
 	
 #pragma region プレイヤーのメンバ変数
 	 ///テクスチャハンドル
@@ -93,32 +78,13 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 #pragma endregion
 
-#pragma region 敵弾
-	std::list<EnemyBullet*> enemyBullets_;
 
-#pragma endregion
 
 #pragma region 敵のメンバ変数
 
 	//敵キャラ
-
-	uint32_t enemyTexture_ = 0;
-
 	Model* enemyModel_ = nullptr;
 	Enemy* enemy_ = nullptr;
-
-
-	std::list<Enemy*> enemyes_;
-
-	//敵発生コマンド
-	std::stringstream enemyPopCommands_;
-
-	Vector3 enemyPosition_ = {0.0f,0.0f,50.0f};
-
-	//待機中フラグ
-	bool isWait_ ;
-	//待機タイマー
-	int32_t waitingTimer_ = 0;
 
 #pragma endregion
 
@@ -134,7 +100,11 @@ private: // メンバ変数
 
 #pragma endregion
 
-	RailCamera* railcamera_ = nullptr;
+#pragma region
+
+	RailCamera* railCamera_ = nullptr;
+
+#pragma endregion
 
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_;
