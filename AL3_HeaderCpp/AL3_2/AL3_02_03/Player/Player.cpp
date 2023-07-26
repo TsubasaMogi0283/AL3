@@ -77,14 +77,14 @@ void Player::Attack() {
 		//z方向に+1.0ずつ進むよ
 		const float kBulletSpeed = 1.0f;
 		Vector3 velocity(0, 0, kBulletSpeed);
-		Vector3 bulletPosition = GetWorldPosition();
+		//Vector3 bulletPosition = GetWorldPosition();
 
 		//速度ベクトルを自機の向きに合わせて回転させる
 		velocity = TransformNormal(velocity,worldTransform_.matWorld_ );
 
 		//弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, bulletPosition, velocity);
+		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
 
 		//弾を登録する
 		//bullets_に要素を追加
@@ -125,9 +125,9 @@ void Player::UpDate() {
 
 	//キャラクターの移動の速さ
 	const float kCharacterSpeed = 0.05f;
-	const float kCharacterSpeedZ = 0.0f;
+	
 	//キャラクターも異動ベクトル
-	Vector3 move = {0.0f, 0.0f, kCharacterSpeedZ};
+	Vector3 move = {kCharacterSpeed_};
 	
 	
 	
@@ -168,7 +168,7 @@ void Player::UpDate() {
 	
 	//行列更新
 	//座標移動(ベクトルの加算)
-	worldTransform_.translation_= Add(worldTransform_.translation_, move);
+	worldTransform_.translation_ = Add(GetWorldPosition(), move);
 	
 	
 

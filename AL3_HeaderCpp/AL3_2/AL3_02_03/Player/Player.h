@@ -17,6 +17,9 @@ public:
 
 	// ワールド座標を取得
 	Vector3 GetWorldPosition();
+	Vector3 GetMoveSpeed() { 
+		return kCharacterSpeed_;
+	}
 
 
 	// 回転
@@ -58,6 +61,8 @@ private:
 	const float_t radius_ = 2.0f;
 
 	int32_t count_ = 0;
+
+	Vector3 kCharacterSpeed_ = {0.0f,0.0f,0.05f};
 
 	// 弾
 	// メンバ「変数」なのでprivate

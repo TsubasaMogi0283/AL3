@@ -14,6 +14,13 @@ public:
 	/// </summary>
 	void Update();
 
+	WorldTransform &GetWorldTransform() {
+		return worldTransform_; 
+	};
+
+	ViewProjection GetViewProjection() { 
+		return viewProjection_;
+	};
 
 private:
 	//ワールド変換データ

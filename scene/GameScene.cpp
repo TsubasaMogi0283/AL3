@@ -33,9 +33,7 @@ void GameScene::Initialize() {
 	//CreateはnewとInitializeの呼び出しをまとめた関数
 	playerModel_= Model::Create();
 
-	//自キャラの初期化
-	Vector3 playerPosition = {0.0f, 0.0f, 0.0f};
-	player_->Initialize(playerModel_,playerTextureHandle_,playerPosition);
+	
 
 #pragma endregion
 
@@ -77,12 +75,15 @@ void GameScene::Initialize() {
 
 
 	//初期化
-	Vector3 radian = {0.0f,0.0f,0.0f};
 
 	railCamera_ = new RailCamera();
 
-	railCamera_->Initialize();
+	railCamera_->Initialize(player_->GetWorldPosition(), {0.0f,0.0f,0.0f});
 
+	player_->SetParent(&railCamera_->GetWorldTransform());
+	//自キャラの初期化
+	Vector3 playerPosition = {0.0f, 0.0f, 10.0f};
+	player_->Initialize(playerModel_,playerTextureHandle_,playerPosition);
 #pragma endregion
 
 	//ビュープロジェクション
@@ -288,6 +289,15 @@ void GameScene::Update() {
 	} 
 	
 	else {
+
+		
+		//ビュー行列(逆行列)
+		viewProjection_.matView = railCamera_->GetViewProjection().matView;
+		//プロジェクション行列(射影行列)
+		viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
+
+
+
 
 		//ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
