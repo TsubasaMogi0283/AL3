@@ -7,22 +7,21 @@
 //前方宣言で
 class Player;
 
-//GameSceneの前方宣言
-class GameScene;
+
 
 class Enemy {
 public:
 	~Enemy();
 
 	//Initialize(mode,position,velocity)
-	void Initialize(Model* model,uint32_t textureHandle,Vector3 position);
+	void Initialize(Model* model,const Vector3& position,const Vector3& velocity);
 
 	void Fire();
 
 	//弾リストを取得
-	//const std::list<EnemyBullet*>& GetBullets() const { 
-	//	return bullets_;
-	//}
+	const std::list<EnemyBullet*>& GetBullets() const { 
+		return bullets_;
+	}
 
 	const float_t GetRadius() { 
 		return radius_; 
@@ -31,21 +30,18 @@ public:
 	//衝突を検出したら呼び出されるコールバック関数
 	void OnCollision();
 
-	//更新
 	void Update();
 
 	//ビュープロジェクション
 	void Draw(const ViewProjection& viewProjection);
 
-
-	#pragma region アクセッサ
 	Vector3 GetEnemyPosition() { 
 		return enemyPosition_;
 	}
 	Vector3 GetEnemyVelocity() { 
 		return enemyVelocity_;
 	}
-	#pragma endregion
+
 
 	//敵キャラに自キャラのアドレスを渡す
 	//GameSceneからPlayerを借りる
@@ -53,13 +49,12 @@ public:
 		player_ = player;
 	}
 
-	//ゲームシーン追加
-	void SetGameScene(GameScene* gameScene) { 
-		gameScene_ = gameScene;
-	}
-
 	//ワールド座標を取得
 	Vector3 GetWorldPosition();
+
+
+
+
 
 	void ApproachInitialize();
 
@@ -79,10 +74,10 @@ private:
 
 	//速度
 	const float kEnemySpeed_ = -0.05f;
-	Vector3 enemyPosition_ = {0.0f, 3.0f, 100.0f};
+	Vector3 enemyPosition_ = {0.0f, 3.0f, 20.0f};
 	Vector3 enemyVelocity_ = {0.0f, 0.0f, kEnemySpeed_};
 	
-	float_t radius_=2.0f;
+	float_t radius_=1.0f;
 
 	
 	
@@ -98,25 +93,21 @@ private:
 
 
 	EnemyBullet* enemyBullets_ = nullptr;
-	//std::list<EnemyBullet*> bullets_;
+	std::list<EnemyBullet*> bullets_;
 
 	//発射タイマー
 	int32_t enemyBulletShotTime = 0;
 
-	//ライフ
-	bool isAlive_ = true;
 
 
 	//自キャラ
 	Player* player_ = nullptr;
 
 
-	//ゲームシーン
-	GameScene* gameScene_ = nullptr;
 
 public:
 	//静的メンバ変数
-	static const int kFireInterval = 120;
+	static const int kFireInterval = 60;
 
 
 
