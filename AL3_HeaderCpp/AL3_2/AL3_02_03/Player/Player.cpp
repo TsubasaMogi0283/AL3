@@ -18,7 +18,7 @@ Player::~Player() {
 
 
 
-void Player::Initialize(Model* model,uint32_t textureHandle ,Vector3 position) {
+void Player::Initialize(Model* model,uint32_t textureHandle,Vector3 position) {
 	
 	assert(model);
 
@@ -38,19 +38,19 @@ Vector3 Player::GetWorldPosition() {
 	Vector3 worldPos; 
 
 	//ワールド行列の「平行移動成分」を取得(ワールド座標)
-	worldPos.x = worldTransform_.translation_.x;
-	worldPos.y = worldTransform_.translation_.y;
-	worldPos.z = worldTransform_.translation_.z;
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
 
 	return worldPos;
 
 }
 
+//親となるワールドトランスフォームをセット
 void Player::SetParent(const WorldTransform* parent) { 
-	this->worldTransform_.parent_ = parent;
-
-
+	worldTransform_.parent_ = parent;
 }
+
 
 //旋回
 void Player::Rotate() {
@@ -75,20 +75,22 @@ void Player::Attack() {
 		count_ += 1;
 		//弾の速度
 		//z方向に+1.0ずつ進むよ
-		const float kBulletSpeed = 0.3f;
+		const float kBulletSpeed = 1.0f;
 		Vector3 velocity(0, 0, kBulletSpeed);
+		//Vector3 bulletPosition = GetWorldPosition();
 
 		//速度ベクトルを自機の向きに合わせて回転させる
 		velocity = TransformNormal(velocity,worldTransform_.matWorld_ );
 
+
 		//弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_,velocity);
+		newBullet->Initialize(model_, GetWorldPosition(), velocity);
 
 		//弾を登録する
 		//bullets_に要素を追加
 		bullets_.push_back(newBullet);
-	
+		
 	}
 }
 
@@ -123,9 +125,10 @@ void Player::UpDate() {
 	worldTransform_.TransferMatrix(); 
 
 	//キャラクターの移動の速さ
+	const float kCharacterSpeed = 0.05f;
 	
-
-	
+	//キャラクターも異動ベクトル
+	Vector3 move = {0.0f,0.0f,0.0f};
 	
 	
 	
@@ -134,20 +137,20 @@ void Player::UpDate() {
 	#pragma region キーボード入力による移動処理
 	//押した方向で移動
 	if (input_->PushKey(DIK_LEFT)) {
-		move_.x = -kCharacterSpeedPlayer_;
+		move.x -= kCharacterSpeed;
 	}
 	else if (input_->PushKey(DIK_RIGHT)) {
-		move_.x = kCharacterSpeedPlayer_;
+		move.x += kCharacterSpeed;
 	}
 	else if(input_->PushKey(DIK_DOWN)) {
-		move_.y = -kCharacterSpeedPlayer_;
+		move.y -= kCharacterSpeed;
 	}
 	else if (input_->PushKey(DIK_UP)) {
-		move_.y = kCharacterSpeedPlayer_;
+		move.y += kCharacterSpeed;
 	} 
 	else {
-		move_.x = 0.0f;
-		move_.y = 0.0f;
+		move.x = 0.0f;
+		move.y = 0.0f;
 	}
 	#pragma endregion
 	
@@ -166,7 +169,7 @@ void Player::UpDate() {
 	
 	//行列更新
 	//座標移動(ベクトルの加算)
-	worldTransform_.translation_= Add(worldTransform_.translation_, move_);
+	worldTransform_.translation_ = Add(worldTransform_.translation_ , move);
 	
 	
 
@@ -190,6 +193,8 @@ void Player::UpDate() {
 	}
 
 
+	
+
 	#pragma region デバッグテキスト
 
 	ImGui::Begin("Player");
@@ -199,7 +204,6 @@ void Player::UpDate() {
 	ImGui::SliderFloat3("PlayerSlide", &worldTransform_.translation_.x, -20.0f,30.0f);
 	ImGui::InputInt("count", &count_);
 
-	//ImGui::SliderFloat3()
 	ImGui::End();
 
 	#pragma endregion
@@ -220,3 +224,8 @@ void Player::Draw(ViewProjection viewProjection) {
 	
 
 }
+
+
+
+
+
