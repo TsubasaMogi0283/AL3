@@ -63,8 +63,6 @@ void GameScene::Initialize() {
 
 
 
-
-
 	//敵弾リストをゲームシーンへ
 	for (EnemyBullet* enemyBullet : enemyBullets_) {
 		enemyBullet->Initialize(enemyBodel_, enemy_->GetWorldPosition(), {0.0f, 0.0f, -1.0f});
@@ -249,9 +247,6 @@ void GameScene::UpdateEnemyPopCommands() {
 //登録用の関数
 void GameScene::AddEnemyBullet(EnemyBullet* enemyBullet) {
 	//リストに登録する
-	ImGui::Begin("s");
-	ImGui::End();
-
 	enemyBullets_.push_back(enemyBullet);
 	
 }
