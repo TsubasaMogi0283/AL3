@@ -4,6 +4,7 @@
 #include <ImGuiManager.h>
 #include <AxisIndicator.h>
 
+#include <fstream>
 
 GameScene::GameScene() {}
 
@@ -13,6 +14,11 @@ GameScene::~GameScene() {
 	delete playerModel_;
 	delete skydomeModel_;
 	delete railCamera_;
+
+	for (EnemyBullet* enemyBullet : enemyBullets_) {
+		delete enemyBullet;
+	}
+
 }
 
 void GameScene::Initialize() {
@@ -45,12 +51,34 @@ void GameScene::Initialize() {
 
 	//敵の速度
 	enemyModel_ = Model::Create();
+	enemyTexture_= TextureManager::Load("AL3_Resources/AL3_2/AL3_2_6/Enemy/Enemy.png");
 
 	//初期化
-	enemy_->Initialize(enemyModel_, enemyTexture_,{0.0f,0.0f,50.0f}, enemy_->GetEnemyVelocity());
-	
+	Vector3 enemyPosition = {0.0f, 0.0f, 100.0f};
+
+	//こっちは単体
+	enemy_->Initialize(enemyModel_,enemyTexture_,enemyPosition);
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
+
+
+
+
+
+	//敵弾リストをゲームシーンへ
+	for (EnemyBullet* enemyBullet : enemyBullets_) {
+		enemyBullet->Initialize(enemyBodel_, enemy_->GetWorldPosition(), {0.0f, 0.0f, -1.0f});
+		
+	}
+
+	////複数生成
+	for (Enemy* enemy : enemyes_) {
+		enemy->Initialize(enemyModel_,enemyTexture_,enemyPosition);
+		enemy->SetGameScene(this);
+	
+	}
+
+
 
 #pragma endregion
 
@@ -107,12 +135,10 @@ void GameScene::Initialize() {
 //敵発生用関数
 void GameScene::GenerateEnemy(Vector3 position) {
 	
-	this->enemyPosition_ = position;
 	//初期化
 	//enemy_->Initialize(enemyModel_, enemy_->GetEnemyPosition(),enemy_->GetEnemyVelocity());
-	enemy_->Initialize(enemyModel_,enemyTexture_,position);
+	enemy_->Initialize(enemyModel_, enemyTexture_, position);
 
-	
 
 	//敵を登録
 	enemyes_.push_back(enemy_);
@@ -128,14 +154,15 @@ void GameScene::GenerateEnemy(Vector3 position) {
 
 //敵発生データの読み込み
 void GameScene::LoadEnemyPopData() {
-	//ファイルを開く
+	////ファイルを開く
 	std::ifstream file;
+	
 	file.open("Resources/enemyPop.csv");
 	assert(file.is_open());
 
 	//ファイルの内容を文字列ストリームにコピー
 	enemyPopCommands_ << file.rdbuf();
-
+	
 	//ファイルを閉じる
 	file.close();
 }
@@ -222,6 +249,9 @@ void GameScene::UpdateEnemyPopCommands() {
 //登録用の関数
 void GameScene::AddEnemyBullet(EnemyBullet* enemyBullet) {
 	//リストに登録する
+	ImGui::Begin("s");
+	ImGui::End();
+
 	enemyBullets_.push_back(enemyBullet);
 	
 }
@@ -316,8 +346,7 @@ void GameScene::CheckAllCollision() {
 	#pragma endregion
 
 	
-	#pragma region 
-	//自弾と敵弾全ての当たり判定
+	#pragma region 自弾と敵弾全ての当たり判定
 	for (PlayerBullet* playerBullet : playerBullets) {
 		//自弾の座標
 		posD = playerBullet->GetWorldPosition();
@@ -353,7 +382,17 @@ void GameScene::Update() {
 	skydome_->Update();
 	railCamera_->Update();
 
+	for (EnemyBullet* enemyBullet : enemyBullets_) {
+		enemyBullet->Update();
+		AddEnemyBullet(enemyBullet_);
+	}
+
+	
+
+	UpdateEnemyPopCommands();
 	CheckAllCollision();
+
+
 
 	Matrix4x4 cameraMatrix = {};
 	cameraMatrix.m[0][0] = 1.0f;
@@ -378,13 +417,6 @@ void GameScene::Update() {
 
 
 
-	
-
-
-	
-	
-
-
 	#ifdef _DEBUG
 	if (input_->PushKey(DIK_C)) {
 		isDebugCameraActive_ = true;
@@ -393,7 +425,7 @@ void GameScene::Update() {
 
 	#endif
 
-	if (isDebugCameraActive_) {
+	if (isDebugCameraActive_==true &&input_->PushKey(DIK_C) ) {
 		//デバッグカメラの更新
 		debugCamera_->Update();
 		
@@ -409,10 +441,7 @@ void GameScene::Update() {
 		
 
 	} 
-	
 	else {
-
-		
 		//ビュー行列(逆行列)
 		viewProjection_.matView = railCamera_->GetViewProjection().matView;
 		//プロジェクション行列(射影行列)
@@ -441,6 +470,8 @@ void GameScene::Update() {
 	ImGui::Text("Key R To DebugRailCameraIsActive!!");
 
 	ImGui::InputFloat3("CameraTranslation", &viewProjection_.translation_.x);
+
+
 
 	ImGui::End();
 
@@ -477,6 +508,11 @@ void GameScene::Draw() {
 	player_->Draw(viewProjection_);
 	enemy_->Draw(viewProjection_);
 	skydome_->Draw(viewProjection_);
+
+	//弾の描画
+	for (EnemyBullet* enemyBullet : enemyBullets_) {
+		enemyBullet->Draw(viewProjection_);
+	}
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

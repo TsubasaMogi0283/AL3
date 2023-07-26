@@ -15,7 +15,7 @@ public:
 	~Enemy();
 
 	//Initialize(mode,position,velocity)
-	void Initialize(Model* model,const Vector3& position,const Vector3& velocity);
+	void Initialize(Model* model,uint32_t textureHandle, const Vector3& position);
 
 	void Fire();
 
@@ -96,6 +96,8 @@ private:
 
 
 	EnemyBullet* enemyBullets_ = nullptr;
+
+	//1
 	std::list<EnemyBullet*> bullets_;
 
 	//発射タイマー

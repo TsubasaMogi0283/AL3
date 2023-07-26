@@ -94,8 +94,15 @@ private: // メンバ変数
 #pragma endregion
 
 #pragma region 敵弾
+	EnemyBullet* enemyBullet_ = nullptr;
+
+	//引っ越し
 	std::list<EnemyBullet*> enemyBullets_;
 
+	//モデルのポインタ
+	Model* enemyBodel_ = nullptr;
+	//テクスチャハンドル
+	
 #pragma endregion
 
 #pragma region 敵のメンバ変数
@@ -113,7 +120,6 @@ private: // メンバ変数
 	//敵発生コマンド
 	std::stringstream enemyPopCommands_;
 
-	Vector3 enemyPosition_ = {0.0f,0.0f,50.0f};
 
 	//待機中フラグ
 	bool isWait_ ;

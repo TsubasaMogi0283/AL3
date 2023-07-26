@@ -23,7 +23,7 @@ void Enemy::ApproachInitialize() {
 	enemyBulletShotTime = kFireInterval;
 }
 
-void Enemy::Initialize(Model* model,uint32_t textureHandle, const Vector3& position,const Vector3& velocity) { 
+void Enemy::Initialize(Model* model,uint32_t textureHandle, const Vector3& position) { 
 	
 	//NULLチェック
 	assert(model);
@@ -38,7 +38,6 @@ void Enemy::Initialize(Model* model,uint32_t textureHandle, const Vector3& posit
 	//引数で受け取った初期座標をセット
 
 	worldTransform_.translation_ = position;
-	enemyVelocity_ = velocity;
 
 	//同時に生成
 	//Fire();
@@ -131,7 +130,7 @@ void Enemy::Fire() {
 
 	//弾を登録する
 	//bullets_に要素を追加
-	bullets_.push_back(newEnemyBullet);
+	//bullets_.push_back(newEnemyBullet);
 }
 
 
@@ -156,10 +155,18 @@ void Enemy::Update() {
 	
 	}
 
-	//弾の更新
-	for (EnemyBullet* bullet : bullets_) {
-		bullet->Update();
-	}
+	bullets_.remove_if([](EnemyBullet* bullet) {
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+	});
+
+	//弾の更新(引っ越し)
+	//for (EnemyBullet* bullet : bullets_) {
+	//	bullet->Update();
+	//}
 
 	//座標を移動させる(1フレーム分足す)
 	//ベクトルの足し算
@@ -187,12 +194,10 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
 
-	//弾の描画
-	for (EnemyBullet* bullet : bullets_) {
-		bullet->Draw(viewProjection);
-	}
+	//弾の描画(引っ越し)
+	//for (EnemyBullet* bullet : bullets_) {
+	//	bullet->Draw(viewProjection);
+	//}
 
 	
-
-	//ImGui::SliderF
 }

@@ -55,6 +55,11 @@ void EnemyBullet::Update() {
 
 	//ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix(); 
+
+	ImGui::Begin("EnemyBullet");
+	ImGui::InputFloat3("position", &worldTransform_.translation_.x);
+	ImGui::End();
+
 }
 
 void EnemyBullet::Draw(const ViewProjection& viewProjection) { 
