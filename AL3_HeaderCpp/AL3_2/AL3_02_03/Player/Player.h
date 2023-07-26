@@ -62,7 +62,7 @@ private:
 
 	int32_t count_ = 0;
 
-	Vector3 kCharacterSpeed_ = {0.0f,0.0f,0.05f};
+	Vector3 kCharacterSpeed_ = {0.0f,0.0f,0.0f};
 
 	// 弾
 	// メンバ「変数」なのでprivate

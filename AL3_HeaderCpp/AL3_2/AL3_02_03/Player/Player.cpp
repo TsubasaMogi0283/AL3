@@ -38,9 +38,9 @@ Vector3 Player::GetWorldPosition() {
 	Vector3 worldPos; 
 
 	//ワールド行列の「平行移動成分」を取得(ワールド座標)
-	worldPos.x = worldTransform_.translation_.x;
-	worldPos.y = worldTransform_.translation_.y;
-	worldPos.z = worldTransform_.translation_.z;
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
 
 	return worldPos;
 
@@ -82,9 +82,10 @@ void Player::Attack() {
 		//速度ベクトルを自機の向きに合わせて回転させる
 		velocity = TransformNormal(velocity,worldTransform_.matWorld_ );
 
+
 		//弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
+		newBullet->Initialize(model_, GetWorldPosition(), velocity);
 
 		//弾を登録する
 		//bullets_に要素を追加
@@ -127,7 +128,7 @@ void Player::UpDate() {
 	const float kCharacterSpeed = 0.05f;
 	
 	//キャラクターも異動ベクトル
-	Vector3 move = {kCharacterSpeed_};
+	Vector3 move = {0.0f,0.0f,0.0f};
 	
 	
 	
@@ -168,7 +169,7 @@ void Player::UpDate() {
 	
 	//行列更新
 	//座標移動(ベクトルの加算)
-	worldTransform_.translation_ = Add(GetWorldPosition(), move);
+	worldTransform_.translation_ = Add(worldTransform_.translation_ , move);
 	
 	
 
