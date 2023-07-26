@@ -9,8 +9,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
-#include <AL3_HeaderCpp/AL3_2/AL3_02_01/Player/Player.h>
-
+#include "AL3_HeaderCpp/AL3_3/AL3_03_01/Player/Player.h"
 
 /// <summary>
 /// ゲームシーン
