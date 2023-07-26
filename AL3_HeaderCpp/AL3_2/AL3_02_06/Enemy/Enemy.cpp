@@ -1,20 +1,15 @@
 ﻿#include <cassert>
-
-#include <imgui.h>
-
 #include <AL3_HeaderCpp/AL3_2/AL3_02_06/Enemy/Enemy.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
+#include <imgui.h>
 #include "AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h"
-
-#include <GameScene.h>
-
 
 Enemy::~Enemy() { 
 	//弾の解放処理
 	//複数出たのでfor文で解放しよう
-	//for (EnemyBullet* bullet : bullets_) {
-	//	delete bullet;
-	//}
+	for (EnemyBullet* bullet : bullets_) {
+		delete bullet;
+	}
 	delete enemyBullets_;
 	delete player_;
 	delete model_;
@@ -28,33 +23,31 @@ void Enemy::ApproachInitialize() {
 	enemyBulletShotTime = kFireInterval;
 }
 
-void Enemy::Initialize(Model* model,uint32_t textureHandle,Vector3 position) { 
+void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
 	
 	//NULLチェック
 	assert(model);
 
 	model_ = model;
+	//テクスチャ読み込み
+	textureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_6/Enemy/Enemy.png");
+
 	//ワールドトランスフォームの初期化
 	//中にあるよ
-	
-	
-	
-	worldTransform_.translation_ = position;
 	worldTransform_.Initialize();
+	//引数で受け取った初期座標をセット
 
-	this->textureHandle_ = textureHandle;
+	worldTransform_.translation_ = position;
+	enemyVelocity_ = velocity;
 
 	//同時に生成
 	//Fire();
 
-	this->isAlive_ = true;
-	
 	//同時生成は止める
 	//接近フェーズ初期化
 	ApproachInitialize();
 
 
-	
 }
 
 
@@ -87,7 +80,7 @@ void Enemy::ApproachUpdate() {
 	//移動(ベクトルの加算)
 	worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
 	//規定の位置に到達したら離脱
-	if (worldTransform_.translation_.z < player_->GetWorldPosition().z) {
+	if (worldTransform_.translation_.z < 0.0f) {
 		phase_ = Phase::Leave;
 	}
 	
@@ -109,14 +102,14 @@ void Enemy::Fire() {
 	const float kBulletSpeed = 1.0f;
 	//Vector3 velocity(0, 0, -kBulletSpeed);
 
+
 	//敵キャラのワールド座標を取得
 	Vector3 playerPosition = player_->GetWorldPosition();
 	Vector3 enemyPosition = GetWorldPosition();
 	//敵と自キャラの差分ベクトル
 	Vector3 diffenrence = Subtract(playerPosition,enemyPosition);
 	//正規化
-	Vector3 velocity = NormalizeVector3(diffenrence);	
-
+	Vector3 velocity = NormalizeVector3(diffenrence);
 	//速さに合わせる
 	Vector3 afterVelocity = {
 	    velocity.x, 
@@ -138,15 +131,13 @@ void Enemy::Fire() {
 
 	//弾を登録する
 	//bullets_に要素を追加
-	//bullets_.push_back(newEnemyBullet);
-	//↑中身同じだね
-	gameScene_->AddEnemyBullet(newEnemyBullet);
+	bullets_.push_back(newEnemyBullet);
 }
 
 
 //衝突を検出したら呼び出されるコールバック関数
-void Enemy::OnCollision() { 
-	this->isAlive_ = false;
+void Enemy::OnCollision() {
+
 }
 
 
@@ -166,15 +157,13 @@ void Enemy::Update() {
 	}
 
 	//弾の更新
-	//for (EnemyBullet* bullet : bullets_) {
-	//	bullet->Update();
-	//}
+	for (EnemyBullet* bullet : bullets_) {
+		bullet->Update();
+	}
 
 	//座標を移動させる(1フレーム分足す)
 	//ベクトルの足し算
 	worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
-
-
 	enemyVelocity_ = TransformNormal(enemyVelocity_,worldTransform_.matWorld_ );
 	
 	//ワールドトランスフォームの更新
@@ -195,18 +184,15 @@ void Enemy::Update() {
 
 void Enemy::Draw(const ViewProjection& viewProjection) { 
 	//自キャラと同じ処理なので出来れば継承を使うといいよ！
-	if (isAlive_ == true) {
-		//これが原因
-		model_->Draw(worldTransform_, viewProjection, textureHandle_);
+	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
+
+	//弾の描画
+	for (EnemyBullet* bullet : bullets_) {
+		bullet->Draw(viewProjection);
 	}
 
 	
 
-	//弾の描画
-	//for (EnemyBullet* bullet : bullets_) {
-	//	bullet->Draw(viewProjection);
-	//}
-
-	
+	//ImGui::SliderF
 }
