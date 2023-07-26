@@ -8,8 +8,6 @@
 GameScene::GameScene() {}
 
 GameScene::~GameScene() { 
-	delete playerModel_; 
-	delete player_;
 }
 
 void GameScene::Initialize() {
