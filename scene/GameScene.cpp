@@ -47,7 +47,7 @@ void GameScene::Initialize() {
 	enemyModel_ = Model::Create();
 
 	//初期化
-	enemy_->Initialize(enemyModel_, {0.0f,0.0f,50.0f}, enemy_->GetEnemyVelocity());
+	enemy_->Initialize(enemyModel_, enemyTexture_,{0.0f,0.0f,50.0f}, enemy_->GetEnemyVelocity());
 	
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);

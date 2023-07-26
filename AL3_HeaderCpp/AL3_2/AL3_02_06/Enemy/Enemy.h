@@ -7,6 +7,7 @@
 //前方宣言で
 class Player;
 
+class GameScene;
 
 
 class Enemy {
@@ -53,7 +54,9 @@ public:
 	Vector3 GetWorldPosition();
 
 
-
+	void SetGameScene(GameScene* gameScene) { 
+		gameScene_ = gameScene;
+	}
 
 
 	void ApproachInitialize();
@@ -103,7 +106,8 @@ private:
 	//自キャラ
 	Player* player_ = nullptr;
 
-
+	//ゲームシーン
+	GameScene* gameScene_ = nullptr;
 
 public:
 	//静的メンバ変数

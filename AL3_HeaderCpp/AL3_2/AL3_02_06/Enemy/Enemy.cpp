@@ -23,14 +23,14 @@ void Enemy::ApproachInitialize() {
 	enemyBulletShotTime = kFireInterval;
 }
 
-void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
+void Enemy::Initialize(Model* model,uint32_t textureHandle, const Vector3& position,const Vector3& velocity) { 
 	
 	//NULLチェック
 	assert(model);
 
 	model_ = model;
 	//テクスチャ読み込み
-	textureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_6/Enemy/Enemy.png");
+	textureHandle_ = textureHandle;
 
 	//ワールドトランスフォームの初期化
 	//中にあるよ

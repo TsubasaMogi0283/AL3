@@ -102,7 +102,7 @@ private: // メンバ変数
 
 	//敵キャラ
 
-	uint32_t enemyTexture_ = 0;
+	uint32_t enemyTexture_ =  TextureManager::Load("AL3_Resources/AL3_2/AL3_2_6/Enemy/Enemy.png");;
 
 	Model* enemyModel_ = nullptr;
 	Enemy* enemy_ = nullptr;
