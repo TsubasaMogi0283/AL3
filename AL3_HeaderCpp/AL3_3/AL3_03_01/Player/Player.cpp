@@ -4,7 +4,7 @@
 void Player::Initialize(Model* model, uint32_t textureHandle) { 
 	assert(model_);
 
-	model_ = model;
+	this->model_ = model;
 
 	textureHandle_ = textureHandle;
 
