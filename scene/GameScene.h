@@ -13,6 +13,7 @@
 
 
 #include <memory>
+#include <AL3_HeaderCpp/AL3_3/AL3_03_02/Skydome/Skydome.h>
 
 /// <summary>
 /// ゲームシーン
@@ -63,6 +64,7 @@ private: // メンバ変数
 	 
 
 
+	#pragma region プレイヤー
 	///テクスチャハンドル
 	uint32_t playerTextureHandle_ = 0;
 
@@ -74,7 +76,15 @@ private: // メンバ変数
 
 	//自キャラ
 	std::unique_ptr<Player> player_;
+	#pragma endregion
 
+	#pragma region 天球
+	///テクスチャハンドル
+	uint32_t skydomeTextureHandle_ = 0;
 
-
+	//3Dモデル
+	std::unique_ptr<Model> skydomeModel_;
+	
+	std::unique_ptr<Skydome> skydome_;
+	#pragma endregion
 };

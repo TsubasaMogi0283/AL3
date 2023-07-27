@@ -16,6 +16,10 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
+	#pragma region 自キャラの生成
+	//newの代わり
+	player_ = std::make_unique<Player>();
+
 	//テクスチャ読み込み
 	playerTextureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_02_01/Player/Player1.png");
 
@@ -23,17 +27,22 @@ void GameScene::Initialize() {
 	//CreateはnewとInitializeの呼び出しをまとめた関数
 	playerModel_.reset(Model::Create());
 
-	//ビュープロジェクション
-	viewProjection_.Initialize();
-
-	//自キャラの生成
-	//newの代わり
-	player_ = std::make_unique<Player>();
-	
 	//自キャラの初期化
 	player_->Initialize(playerModel_.get(), playerTextureHandle_);
 
+	#pragma endregion
 
+
+
+	#pragma region 天球の生成
+
+
+	#pragma endregion
+
+
+
+	//ビュープロジェクション
+	viewProjection_.Initialize();
 }
 
 void GameScene::Update() { 
