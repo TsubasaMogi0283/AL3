@@ -35,6 +35,18 @@ void GameScene::Initialize() {
 
 
 	#pragma region 天球の生成
+	skydome_ = std::make_unique<Skydome>();
+
+	//フォルダの名前を指定してね
+	//読み込むファイルと同じフォルダ名にしないと✕
+	playerModel_.reset(Model::CreateFromOBJ("CelestialSphere", true));
+
+	//テクスチャ読み込み
+	skydomeTextureHandle_ = TextureManager::Load("CelestialSphere/uvChecker.png");
+
+	//天球の初期化
+	skydome_->Initialize(skydomeModel_.get(), skydomeTextureHandle_);
+
 
 
 	#pragma endregion
