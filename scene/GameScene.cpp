@@ -21,16 +21,17 @@ void GameScene::Initialize() {
 
 	//3Dモデルの生成
 	//CreateはnewとInitializeの呼び出しをまとめた関数
-	playerModel_= Model::Create();
+	playerModel_.reset(Model::Create());
 
 	//ビュープロジェクション
 	viewProjection_.Initialize();
 
 	//自キャラの生成
-	player_ = new Player();
+	//newの代わり
+	player_ = std::make_unique<Player>();
 	
 	//自キャラの初期化
-	player_->Initialize(playerModel_,playerTextureHandle_);
+	player_->Initialize(playerModel_.get(), playerTextureHandle_);
 
 
 }

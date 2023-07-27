@@ -11,6 +11,9 @@
 
 #include "AL3_HeaderCpp/AL3_3/AL3_03_01/Player/Player.h"
 
+
+#include <memory>
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -51,11 +54,6 @@ private: // メンバ変数
 	/// ゲームシーン用
 	/// </summary>
 	
-	///テクスチャハンドル
-	uint32_t playerTextureHandle_ = 0;
-
-	//3Dモデル
-	Model* playerModel_=nullptr;
 	
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_;
@@ -63,7 +61,20 @@ private: // メンバ変数
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 	 
+
+
+	///テクスチャハンドル
+	uint32_t playerTextureHandle_ = 0;
+
+	//3Dモデル
+	std::unique_ptr<Model> playerModel_;
+	
 	//自キャラ
-	Player* player_ = nullptr;
+	//Player* player_ = nullptr;
+
+	//自キャラ
+	std::unique_ptr<Player> player_;
+
+
 
 };
