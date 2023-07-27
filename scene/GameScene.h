@@ -14,6 +14,8 @@
 
 #include <memory>
 #include <AL3_HeaderCpp/AL3_3/AL3_03_02/Skydome/Skydome.h>
+#include <DebugCamera.h>
+
 
 /// <summary>
 /// ゲームシーン
@@ -62,6 +64,14 @@ private: // メンバ変数
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 	 
+	#pragma region カメラのメンバ変数
+
+	//デバッグカメラの切り替え
+	bool isDebugCameraActive_ = false;
+
+	//デバッグカメラ
+	DebugCamera* debugCamera_ = nullptr;
+	#pragma endregion
 
 
 	#pragma region プレイヤー
