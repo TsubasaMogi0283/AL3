@@ -56,9 +56,10 @@ void GameScene::Initialize() {
 
 
 	#pragma endregion
-
-	//AxisIndicator::GetInstance()->SetVisible(true);
-	//AxisIndicator::GetInstance()->SetTargetViewProjection(&debugCamera_->GetViewProjection());
+	//デバッグカメラの設定
+	debugCamera_ = new DebugCamera(1280, 720);
+	AxisIndicator::GetInstance()->SetVisible(true);
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&debugCamera_->GetViewProjection());
 
 	
 }
@@ -66,42 +67,42 @@ void GameScene::Initialize() {
 void GameScene::Update() { 
 	player_->Update();
 
-	//#ifdef _DEBUG
-	//if (input_->TriggerKey(DIK_C)) {
-	//	isDebugCameraActive_ = true;
-	//}
-	//
-	//
-	//#endif
+	#ifdef _DEBUG
+	if (input_->TriggerKey(DIK_C)) {
+		isDebugCameraActive_ = true;
+	}
+	
+	
+	#endif
 
-	//if (isDebugCameraActive_) {
-	//	//デバッグカメラの更新
-	//	debugCamera_->Update();
-	//	
-	//	//ビュー行列(逆行列)
-	//	viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-	//	//プロジェクション行列(射影行列)
-	//	viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
-	//	
-	//	
-	//
-	//	//ビュープロジェクション行列の転送
-	//	viewProjection_.TransferMatrix();
-	//
-	//} else {
-	//	//ビュープロジェクション行列の更新と転送
-	//	viewProjection_.UpdateMatrix();
-	//}
+	if (isDebugCameraActive_) {
+		//デバッグカメラの更新
+		debugCamera_->Update();
+		
+		//ビュー行列(逆行列)
+		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+		//プロジェクション行列(射影行列)
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+		
+		
+	
+		//ビュープロジェクション行列の転送
+		viewProjection_.TransferMatrix();
+	
+	} else {
+		//ビュープロジェクション行列の更新と転送
+		viewProjection_.UpdateMatrix();
+	}
 
 
 	//忘れていたのでここに書いておく
 	//ImGuiはUpdateで！！！！！！！！
-	//ImGui::Begin("Camera");
-	//ImGui::Text("Key C To DeBugCameraIsActive!!");
-	//ImGui::InputFloat3("CameraTranslation", &viewProjection_.translation_.x);
-	//ImGui::SliderFloat3("CameraTranslationSlide", &viewProjection_.translation_.x, 1000.0f,1000.0f);
-	//
-	//ImGui::End();
+	ImGui::Begin("Camera");
+	ImGui::Text("Key C To DeBugCameraIsActive!!");
+	ImGui::InputFloat3("CameraTranslation", &viewProjection_.translation_.x);
+	ImGui::SliderFloat3("CameraTranslationSlide", &viewProjection_.translation_.x, 1000.0f,1000.0f);
+	
+	ImGui::End();
 
 }
 
