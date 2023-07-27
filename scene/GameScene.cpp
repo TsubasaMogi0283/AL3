@@ -67,6 +67,7 @@ void GameScene::Initialize() {
 void GameScene::Update() { 
 	player_->Update();
 
+	skydome_->Update();
 	#ifdef _DEBUG
 	if (input_->TriggerKey(DIK_C)) {
 		isDebugCameraActive_ = true;
@@ -135,7 +136,7 @@ void GameScene::Draw() {
 
 
 	player_->Draw(viewProjection_);
-
+	skydome_->Draw(viewProjection_);
 
 
 	// 3Dオブジェクト描画後処理
