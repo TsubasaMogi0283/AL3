@@ -76,7 +76,7 @@ void GameScene::Update() {
 	
 	#endif
 
-	if (isDebugCameraActive_) {
+	if (input_->TriggerKey(DIK_C) && isDebugCameraActive_==true) {
 		//デバッグカメラの更新
 		debugCamera_->Update();
 		
