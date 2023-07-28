@@ -83,6 +83,7 @@ void GameScene::Initialize() {
 	
 	//4.敵を生成
 	enemy_ = new Enemy();
+	enemyModel_= Model::Create();
 	enemy_->Initialize(enemyModel_,enemyTexture_,enemyPosition);
 	enemy_->SetPlayer(player_);
 	enemy_->SetGameScene(this);
