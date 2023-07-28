@@ -20,8 +20,12 @@ public:
 	void Fire();
 
 	//弾リストを取得
-	const std::list<EnemyBullet*>& GetBullets() const { 
-		return bullets_;
+	//const std::list<EnemyBullet*>& GetBullets() const { 
+	//	return bullets_;
+	//}
+
+	bool IsAlive() { 
+		return isAlive_;
 	}
 
 	const float_t GetRadius() { 
@@ -98,12 +102,12 @@ private:
 	EnemyBullet* enemyBullets_ = nullptr;
 
 	//1
-	std::list<EnemyBullet*> bullets_;
+	//std::list<EnemyBullet*> bullets_;
 
 	//発射タイマー
 	int32_t enemyBulletShotTime = 0;
 
-
+	bool isAlive_ = true;
 
 	//自キャラ
 	Player* player_ = nullptr;

@@ -7,9 +7,9 @@
 Enemy::~Enemy() { 
 	//弾の解放処理
 	//複数出たのでfor文で解放しよう
-	for (EnemyBullet* bullet : bullets_) {
-		delete bullet;
-	}
+	//for (EnemyBullet* bullet : bullets_) {
+	//	delete bullet;
+	//}
 	delete enemyBullets_;
 	delete player_;
 	delete model_;
@@ -46,7 +46,7 @@ void Enemy::Initialize(Model* model,uint32_t textureHandle, const Vector3& posit
 	//接近フェーズ初期化
 	ApproachInitialize();
 
-
+	isAlive_ = true;
 }
 
 
@@ -135,8 +135,8 @@ void Enemy::Fire() {
 
 
 //衝突を検出したら呼び出されるコールバック関数
-void Enemy::OnCollision() {
-
+void Enemy::OnCollision() { 
+	isAlive_ = false;
 }
 
 
@@ -155,13 +155,13 @@ void Enemy::Update() {
 	
 	}
 
-	bullets_.remove_if([](EnemyBullet* bullet) {
-		if (bullet->IsDead()) {
-			delete bullet;
-			return true;
-		}
-		return false;
-	});
+	//bullets_.remove_if([](EnemyBullet* bullet) {
+		//if (bullet->IsDead()) {
+	//		delete bullet;
+	//		return true;
+	//	}
+	//	return false;
+	//});
 
 	//弾の更新(引っ越し)
 	//for (EnemyBullet* bullet : bullets_) {
@@ -191,8 +191,12 @@ void Enemy::Update() {
 
 void Enemy::Draw(const ViewProjection& viewProjection) { 
 	//自キャラと同じ処理なので出来れば継承を使うといいよ！
-	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
+	if (isAlive_ == true) {
+		model_->Draw(worldTransform_, viewProjection, textureHandle_);
+
+	}
+	
 
 	//弾の描画(引っ越し)
 	//for (EnemyBullet* bullet : bullets_) {

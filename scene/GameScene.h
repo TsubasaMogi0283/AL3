@@ -97,6 +97,7 @@ private: // メンバ変数
 	EnemyBullet* enemyBullet_ = nullptr;
 
 	//引っ越し
+	//1.敵弾リストを敵からゲームシーンに引っ越す
 	std::list<EnemyBullet*> enemyBullets_;
 
 	//モデルのポインタ
