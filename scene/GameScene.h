@@ -101,7 +101,7 @@ private: // メンバ変数
 	std::list<EnemyBullet*> enemyBullets_;
 
 	//モデルのポインタ
-	Model* enemyBodel_ = nullptr;
+	Model* enemyBulletModel_ = nullptr;
 	//テクスチャハンドル
 	
 #pragma endregion
@@ -116,6 +116,7 @@ private: // メンバ変数
 	Enemy* enemy_ = nullptr;
 
 
+	//さっさと引っ越し！
 	std::list<Enemy*> enemyes_;
 
 	//敵発生コマンド

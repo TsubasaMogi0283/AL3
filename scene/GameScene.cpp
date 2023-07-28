@@ -15,6 +15,10 @@ GameScene::~GameScene() {
 	delete skydomeModel_;
 	delete railCamera_;
 
+	for (Enemy* enemy : enemyes_) {
+		delete enemy;
+	}
+
 
 	//3.敵弾の解放
 	for (EnemyBullet* enemyBullet : enemyBullets_) {
@@ -41,7 +45,10 @@ void GameScene::Initialize() {
 	//CreateはnewとInitializeの呼び出しをまとめた関数
 	playerModel_= Model::Create();
 
-	
+	//自キャラの初期化
+	Vector3 playerPosition = {0.0f, 0.0f, 10.0f};
+	player_->Initialize(playerModel_,playerTextureHandle_,playerPosition);
+
 
 #pragma endregion
 
@@ -49,7 +56,7 @@ void GameScene::Initialize() {
 #pragma region 敵の生成
 	
 	//生成
-	//enemy_ = new Enemy();
+	enemy_ = new Enemy();
 
 	//敵の速度
 	enemyModel_ = Model::Create();
@@ -60,30 +67,33 @@ void GameScene::Initialize() {
 	Vector3 enemyPosition = {0.0f, 0.0f, 100.0f};
 
 
-	//こっちは単体
+	////こっちは単体
 	//enemy_->Initialize(enemyModel_,enemyTexture_,enemyPosition);
 	////敵キャラに自キャラのアドレスを渡す
 	//enemy_->SetPlayer(player_);
 	//enemy_->SetGameScene(this);
 
 
+
 	//敵弾リストをゲームシーンへ
-	for (EnemyBullet* enemyBullet : enemyBullets_) {
-		enemyBullet->Initialize(enemyBodel_, enemy_->GetWorldPosition(), {0.0f, 0.0f, -1.0f});
-		
-	}
+	//for (EnemyBullet* enemyBullet : enemyBullets_) {
+	//	enemyBullet->Initialize(enemyBodel_, enemy_->GetWorldPosition(), {0.0f, 0.0f, -1.0f});
+	//}
 
-	////複数生成
-	for (Enemy* enemy : enemyes_) {
-		//4.敵を生成
-		enemy = new Enemy();
-		enemy->Initialize(enemyModel_,enemyTexture_,enemyPosition);
+	
+	//4.敵を生成
+	enemy_ = new Enemy();
+	enemy_->Initialize(enemyModel_,enemyTexture_,enemyPosition);
+	enemy_->SetPlayer(player_);
+	enemy_->SetGameScene(this);
 
-		enemy->SetGameScene(this);
+	enemyes_.push_back(enemy_);
+	
 
 
-		//LoadEnemyPopData();
-	}
+	enemyBullet_ = new EnemyBullet();
+	enemyBullet_->Initialize(enemyBulletModel_, enemy_->GetWorldPosition(), {0.0f, 0.0f, -0.8f});
+	enemyBullets_.push_back(enemyBullet_);
 
 
 
@@ -116,10 +126,7 @@ void GameScene::Initialize() {
 
 	player_->SetParent(&railCamera_->GetWorldTransform());
 
-	//自キャラの初期化
-	Vector3 playerPosition = {0.0f, 0.0f, 10.0f};
-	player_->Initialize(playerModel_,playerTextureHandle_,playerPosition);
-
+	
 #pragma endregion
 
 	//ビュープロジェクション
@@ -136,7 +143,6 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetVisible(true);
 	//軸方向表示が参照するビュープロジェクションを指定する
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
-	
 
 }
 
@@ -338,12 +344,7 @@ void GameScene::CheckAllCollision() {
 				
 			}
 		
-			ImGui::Begin("PlayerBulletCondition");
-			ImGui::InputFloat3("EnemyPositipn", &posC.x);
-			ImGui::InputFloat3("PlayerBulletPosition", &posD.x);
-			ImGui::InputFloat("distance", &distanceCD);
-
-			ImGui::End();
+			
 		
 		}
 	}
@@ -389,12 +390,16 @@ void GameScene::Update() {
 	skydome_->Update();
 	railCamera_->Update();
 
+	for (Enemy* enemy : enemyes_) {
+		enemy->Update();
+	}
+
 	//2.敵弾リスト更新
 	for (EnemyBullet* enemyBullet : enemyBullets_) {
 		enemyBullet->Update();
 		//Updateの中にFire関数入ってる
 		//5.発射した敵弾をリストに登録する
-		AddEnemyBullet(enemyBullet_);
+		AddEnemyBullet(enemyBullet);
 
 		//6.敵のデスフラグが立ったら解放し除外
 		//資料ではデスフラグと書いてあるが生存フラグにした。
@@ -469,9 +474,6 @@ void GameScene::Update() {
 		//プロジェクション行列(射影行列)
 		viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
 
-
-
-
 		//ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
 
@@ -535,6 +537,10 @@ void GameScene::Draw() {
 	//2.敵弾リスト描画
 	for (EnemyBullet* enemyBullet : enemyBullets_) {
 		enemyBullet->Draw(viewProjection_);
+	}
+
+	for (Enemy* enemy : enemyes_) {
+		enemy->Draw(viewProjection_);
 	}
 
 	// 3Dオブジェクト描画後処理

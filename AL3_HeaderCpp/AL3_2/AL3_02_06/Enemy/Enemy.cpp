@@ -3,6 +3,7 @@
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
 #include <imgui.h>
 #include "AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h"
+#include "GameScene.h"
 
 Enemy::~Enemy() { 
 	//弾の解放処理
@@ -124,9 +125,9 @@ void Enemy::Fire() {
 
 
 
-	//弾を生成し、初期化
-	EnemyBullet* newEnemyBullet = new EnemyBullet();
-	newEnemyBullet->Initialize(model_, worldTransform_.translation_,velocity);
+	////弾を生成し、初期化
+	//EnemyBullet* newEnemyBullet = new EnemyBullet();
+	//newEnemyBullet->Initialize(model_, worldTransform_.translation_,velocity);
 
 	//弾を登録する
 	//bullets_に要素を追加
@@ -141,7 +142,6 @@ void Enemy::OnCollision() {
 
 
 void Enemy::Update() { 
-
 	switch (phase_) { 
 		case Phase::Approach:
 	default:
