@@ -16,8 +16,6 @@ void RailCamera::Initialize(Vector3 worldPosition,Vector3 radian) {
 	worldTransform_.rotation_ = radian;
 
 
-	
-
 	viewProjection_.Initialize();
 	viewProjection_.farZ = 1200.0f;
 

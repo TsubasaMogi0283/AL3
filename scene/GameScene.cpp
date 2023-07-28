@@ -55,8 +55,10 @@ void GameScene::Initialize() {
 	enemyModel_ = Model::Create();
 	enemyTexture_= TextureManager::Load("AL3_Resources/AL3_2/AL3_2_6/Enemy/Enemy.png");
 
+
 	//初期化
 	Vector3 enemyPosition = {0.0f, 0.0f, 100.0f};
+
 
 	//こっちは単体
 	//enemy_->Initialize(enemyModel_,enemyTexture_,enemyPosition);
@@ -108,15 +110,16 @@ void GameScene::Initialize() {
 
 
 	//初期化
-
 	railCamera_ = new RailCamera();
 
 	railCamera_->Initialize(player_->GetWorldPosition(), {0.0f,0.0f,0.0f});
 
 	player_->SetParent(&railCamera_->GetWorldTransform());
+
 	//自キャラの初期化
 	Vector3 playerPosition = {0.0f, 0.0f, 10.0f};
 	player_->Initialize(playerModel_,playerTextureHandle_,playerPosition);
+
 #pragma endregion
 
 	//ビュープロジェクション
@@ -309,44 +312,43 @@ void GameScene::CheckAllCollision() {
 
 	#pragma region 自弾と全ての敵キャラの当たり判定
 
-	//敵キャラの位置
-	//for (Enemy* enemy:)
-
-
-	posC = enemy_->GetWorldPosition();
-
-	
-
-	//自キャラと敵弾全ての当たり判定
-	for (PlayerBullet* playerBullet : playerBullets) {
-		//自弾の座標
-		posD = playerBullet->GetWorldPosition();
-	
-
-	
-		//座標CとDの距離を求める
-		float distanceCD = Length(Subtract(posD,posC));
+	for (Enemy* enemy : enemyes_) {
 		
-		if (distanceCD < enemy_->GetRadius() + playerBullet->GetRadius()) {
-			//敵キャラの衝突時コールバックを呼び出す
-			enemy_->OnCollision();
+
+		//自キャラと敵弾全ての当たり判定
+		posC = enemy->GetWorldPosition();
+		for (PlayerBullet* playerBullet : playerBullets) {
+			//自弾の座標
+			posD = playerBullet->GetWorldPosition();
 			
-			//自弾の衝突時コールバックを呼び出す
-			playerBullet->OnCollision();
+
+			
+			//座標CとDの距離を求める
+			float distanceCD = Length(Subtract(posD,posC));
+			
+			if (distanceCD < enemy_->GetRadius() + playerBullet->GetRadius()) {
+				//敵キャラの衝突時コールバックを呼び出す
+				enemy_->OnCollision();
+				
+				//自弾の衝突時コールバックを呼び出す
+				playerBullet->OnCollision();
+			
+				
+				
+				
+			}
 		
-			
-			
-			
+			ImGui::Begin("PlayerBulletCondition");
+			ImGui::InputFloat3("EnemyPositipn", &posC.x);
+			ImGui::InputFloat3("PlayerBulletPosition", &posD.x);
+			ImGui::InputFloat("distance", &distanceCD);
+
+			ImGui::End();
+		
 		}
-	
-		ImGui::Begin("PlayerBulletCondition");
-		ImGui::InputFloat3("EnemyPositipn", &posC.x);
-		ImGui::InputFloat3("PlayerBulletPosition", &posD.x);
-		ImGui::InputFloat("distance", &distanceCD);
-
-		ImGui::End();
-	
 	}
+
+	
 
 	#pragma endregion
 
