@@ -32,7 +32,9 @@ void GameScene::Initialize() {
 	//3Dモデルの生成
 	//CreateはnewとInitializeの呼び出しをまとめた関数
 	playerModel_= Model::Create();
-
+	//自キャラの初期化
+	Vector3 playerPosition = {0.0f, 0.0f, 10.0f};
+	player_->Initialize(playerModel_,playerTextureHandle_,playerPosition);
 	
 
 #pragma endregion
@@ -81,9 +83,7 @@ void GameScene::Initialize() {
 	railCamera_->Initialize(player_->GetWorldPosition(), {0.0f,0.0f,0.0f});
 
 	player_->SetParent(&railCamera_->GetWorldTransform());
-	//自キャラの初期化
-	Vector3 playerPosition = {0.0f, 0.0f, 10.0f};
-	player_->Initialize(playerModel_,playerTextureHandle_,playerPosition);
+	
 #pragma endregion
 
 	//ビュープロジェクション
