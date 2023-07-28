@@ -60,7 +60,7 @@ void GameScene::Initialize() {
 	enemy_->Initialize(enemyModel_,enemyTexture_,enemyPosition);
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
-
+	enemy_->SetGameScene(this);
 
 
 	//敵弾リストをゲームシーンへ
