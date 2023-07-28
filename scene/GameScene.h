@@ -79,7 +79,9 @@ private: // メンバ変数
 	uint32_t playerTextureHandle_ = 0;
 
 	//3Dモデル
+	//Model* playerModel_ = nullptr;
 	std::unique_ptr<Model> playerModel_;
+
 	
 	//自キャラ
 	//Player* player_ = nullptr;

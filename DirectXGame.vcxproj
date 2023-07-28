@@ -108,6 +108,7 @@
   <ItemGroup>
     <ClCompile Include="2d\ImGuiManager.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_3\AL3_03_01\Player\Player.cpp" />
+    <ClCompile Include="AL3_HeaderCpp\AL3_3\AL3_03_02\Ground\Ground.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_3\AL3_03_02\MatrixCalculation\MatrixCalculation.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_3\AL3_03_02\Skydome\Skydome.cpp" />
     <ClCompile Include="base\DirectXCommon.cpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="3d\ViewProjection.h" />
     <ClInclude Include="3d\WorldTransform.h" />
     <ClInclude Include="AL3_HeaderCpp\AL3_3\AL3_03_01\Player\Player.h" />
+    <ClInclude Include="AL3_HeaderCpp\AL3_3\AL3_03_02\Ground\Ground.h" />
     <ClInclude Include="AL3_HeaderCpp\AL3_3\AL3_03_02\MatrixCalculation\MatrixCalculation.h" />
     <ClInclude Include="AL3_HeaderCpp\AL3_3\AL3_03_02\Skydome\Skydome.h" />
     <ClInclude Include="audio\Audio.h" />
