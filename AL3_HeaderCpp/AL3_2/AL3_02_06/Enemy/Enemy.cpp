@@ -168,6 +168,8 @@ void Enemy::Update() {
 	//	bullet->Update();
 	//}
 
+	//Fire();
+
 	//座標を移動させる(1フレーム分足す)
 	//ベクトルの足し算
 	worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);

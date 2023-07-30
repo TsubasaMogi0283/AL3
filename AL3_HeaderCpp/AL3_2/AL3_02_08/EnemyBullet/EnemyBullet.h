@@ -28,8 +28,6 @@ public:
 
 	void Update();
 
-
-
 	//ビュープロジェクション
 	void Draw(const ViewProjection& viewProjection);
 
@@ -50,7 +48,7 @@ private:
 	const float_t radius_=0.5f;
 
 	//寿命
-	static const int32_t kLifeTime = 60 * 7;
+	static const int32_t kLifeTime = 60 * 5;
 	//デスタイマー
 	int32_t deathTimer_ = kLifeTime;
 	//デスフラグ

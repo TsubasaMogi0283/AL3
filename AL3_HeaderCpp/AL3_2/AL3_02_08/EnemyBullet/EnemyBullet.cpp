@@ -27,9 +27,9 @@ Vector3 EnemyBullet::GetWorldPosition() {
 	Vector3 worldPos; 
 
 	//ワールド行列の「平行移動成分」を取得(ワールド座標)
-	worldPos.x = worldTransform_.translation_.x;
-	worldPos.y = worldTransform_.translation_.y;
-	worldPos.z = worldTransform_.translation_.z;
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
 
 	return worldPos;
 }
@@ -58,6 +58,7 @@ void EnemyBullet::Update() {
 
 	ImGui::Begin("EnemyBullet");
 	ImGui::InputFloat3("position", &worldTransform_.translation_.x);
+	ImGui::InputInt("Timer", &deathTimer_);
 	ImGui::End();
 
 }

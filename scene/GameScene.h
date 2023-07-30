@@ -103,14 +103,16 @@ private: // メンバ変数
 	//モデルのポインタ
 	Model* enemyBulletModel_ = nullptr;
 	//テクスチャハンドル
-	
+	uint32_t enemyBulletTexture_ = 0;
+
+
 #pragma endregion
 
 #pragma region 敵のメンバ変数
 
 	//敵キャラ
 
-	uint32_t enemyTexture_ =  TextureManager::Load("AL3_Resources/AL3_2/AL3_2_6/Enemy/Enemy.png");;
+	uint32_t enemyTexture_ =  0;
 
 	Model* enemyModel_ = nullptr;
 	Enemy* enemy_ = nullptr;

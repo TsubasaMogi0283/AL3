@@ -92,9 +92,9 @@ void GameScene::Initialize() {
 	
 
 
-	enemyBullet_ = new EnemyBullet();
-	enemyBullet_->Initialize(enemyBulletModel_, enemy_->GetWorldPosition(), {0.0f, 0.0f, -0.8f});
-	enemyBullets_.push_back(enemyBullet_);
+	//enemyBullet_ = new EnemyBullet();
+	//enemyBullet_->Initialize(enemyModel_, enemy_->GetWorldPosition(), {0.0f, 0.0f, -0.8f});
+	//enemyBullets_.push_back(enemyBullet_);
 
 
 
@@ -387,33 +387,46 @@ void GameScene::CheckAllCollision() {
 
 void GameScene::Update() {
 	player_->UpDate();
-	//enemy_->Update();
+	enemy_->Update();
 	skydome_->Update();
 	railCamera_->Update();
 
-	for (Enemy* enemy : enemyes_) {
-		enemy->Update();
-	}
 
-	//2.敵弾リスト更新
+	//弾を生成し、初期化
+	EnemyBullet* newEnemyBullet = new EnemyBullet();
+
+	Vector3 enemyBulletVelocity = {0.0f, 0.0f, -1.0f};
+	newEnemyBullet->Initialize(enemyModel_, enemy_->GetWorldPosition(), enemyBulletVelocity);
+
+	//弾を登録する
+	//bullets_に要素を追加
+	//enemyBullets_.push_back(newEnemyBullet);
+	AddEnemyBullet(newEnemyBullet);
 	for (EnemyBullet* enemyBullet : enemyBullets_) {
 		enemyBullet->Update();
-		//Updateの中にFire関数入ってる
-		//5.発射した敵弾をリストに登録する
-		AddEnemyBullet(enemyBullet);
-
-		//6.敵のデスフラグが立ったら解放し除外
-		//資料ではデスフラグと書いてあるが生存フラグにした。
-		enemyes_.remove_if([](Enemy* enemy) {
-			if (enemy->IsAlive()) {
-				delete enemy;
-				return true;
-			}
-			return false;
-		});
-
-
 	}
+
+	
+
+	
+
+
+
+	//6.敵のデスフラグが立ったら解放し除外
+	//資料ではデスフラグと書いてあるが生存フラグにした。
+	enemyBullets_.remove_if([](EnemyBullet* newEnemyBullets) {
+		if (newEnemyBullets->IsDead()) {
+			delete newEnemyBullets;
+			return true;
+		}
+		return false;
+	});
+
+
+
+
+	////2.敵弾リスト更新
+	
 
 	
 
@@ -531,18 +544,16 @@ void GameScene::Draw() {
 	/// </summary>
 
 	player_->Draw(viewProjection_);
-	//enemy_->Draw(viewProjection_);
+	enemy_->Draw(viewProjection_);
 	skydome_->Draw(viewProjection_);
 
 	
+
 	//2.敵弾リスト描画
 	for (EnemyBullet* enemyBullet : enemyBullets_) {
 		enemyBullet->Draw(viewProjection_);
 	}
-
-	for (Enemy* enemy : enemyes_) {
-		enemy->Draw(viewProjection_);
-	}
+	
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
