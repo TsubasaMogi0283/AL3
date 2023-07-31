@@ -7,6 +7,9 @@
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/PlayerBullet/PlayerBullet.h>
 
+
+class GameScene;
+
 class Player {
 public:
 	// デストラクタ
@@ -17,6 +20,10 @@ public:
 
 	// ワールド座標を取得
 	Vector3 GetWorldPosition();
+
+	void SetGameScene(GameScene* gameScene) { 
+		gameScene_ = gameScene;
+	}
 
 
 	// 回転
@@ -84,6 +91,10 @@ private:
 	// とりあえず弾を沢山出したい時に使うのがおすすめらしい。ただどの順番で消えるか分からない
 	// 複数形だからsつけるの忘れないでね
 	std::list<PlayerBullet*> bullets_;
+	
+	GameScene* gameScene_ = nullptr;
+
+
 };
 
 

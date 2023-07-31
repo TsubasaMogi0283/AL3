@@ -55,6 +55,9 @@ public: // メンバ関数
 	/// 敵弾を追加
 	void AddEnemyBullet(EnemyBullet* enemyBullet);
 
+	//自弾も追加しておく
+	void AddPlayerBullet(PlayerBullet* playerBullet);
+
 	//敵発生データの読み込み
 	void LoadEnemyPopData();
 
@@ -92,6 +95,22 @@ private: // メンバ変数
 	//自キャラ
 	Player* player_ = nullptr;
 #pragma endregion
+
+#pragma region 自弾
+	PlayerBullet* playerBullet_ = nullptr;
+
+	//引っ越し
+	//1.敵弾リストを敵からゲームシーンに引っ越す
+	std::list<PlayerBullet*> playerBullets_;
+
+	//モデルのポインタ
+	Model* playerBulletModel_ = nullptr;
+	//テクスチャハンドル
+	uint32_t playerBulletTexture_ = 0;
+
+
+#pragma endregion
+
 
 #pragma region 敵弾
 	EnemyBullet* enemyBullet_ = nullptr;

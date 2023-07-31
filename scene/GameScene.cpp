@@ -25,6 +25,10 @@ GameScene::~GameScene() {
 		delete enemyBullet;
 	}
 
+	for (PlayerBullet* playerBullet : playerBullets_) {
+		delete playerBullet;
+	}
+
 }
 
 void GameScene::Initialize() {
@@ -49,6 +53,7 @@ void GameScene::Initialize() {
 	Vector3 playerPosition = {0.0f, 0.0f, 10.0f};
 	player_->Initialize(playerModel_,playerTextureHandle_,playerPosition);
 
+	player_->SetGameScene(this);
 
 #pragma endregion
 
@@ -82,7 +87,7 @@ void GameScene::Initialize() {
 
 	
 	//4.敵を生成
-	enemy_ = new Enemy();
+	//enemy_ = new Enemy();
 	enemyModel_= Model::Create();
 	enemy_->Initialize(enemyModel_,enemyTexture_,enemyPosition);
 	enemy_->SetPlayer(player_);
@@ -90,8 +95,6 @@ void GameScene::Initialize() {
 
 	enemyes_.push_back(enemy_);
 	
-
-
 #pragma endregion
 
 #pragma region 天球の生成
@@ -104,7 +107,7 @@ void GameScene::Initialize() {
 	skydomeModel_ = Model::CreateFromOBJ("CelestialSphere", true);
 
 	//テクスチャ読み込み
-	//skydomeTextureHandle_ = TextureManager::Load("CelestialSphere/uvChecker.png");
+	skydomeTextureHandle_ = TextureManager::Load("CelestialSphere/uvChecker.png");
 
 	//天球の初期化
 	skydome_->Initialize(skydomeModel_,skydomeTextureHandle_);
@@ -261,6 +264,9 @@ void GameScene::AddEnemyBullet(EnemyBullet* enemyBullet) {
 	enemyBullets_.push_back(enemyBullet);
 	
 }
+void GameScene::AddPlayerBullet(PlayerBullet* playerBullet) {
+	playerBullets_.push_back(playerBullet);
+}
 
 
 void GameScene::CheckAllCollision() { 
@@ -270,7 +276,7 @@ void GameScene::CheckAllCollision() {
 	Vector3 posC;
 	Vector3 posD;
 	//自弾リストの取得
-	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
+	//const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
 	//敵弾リストの取得
 	//const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
 
@@ -322,7 +328,7 @@ void GameScene::CheckAllCollision() {
 		//ここで止まるのは何故？
 		//PlayerBulletが原因
 
-		for (PlayerBullet* playerBullet : playerBullets) {
+		for (PlayerBullet* playerBullet : playerBullets_) {
 			//自弾の座標
 			posD = playerBullet->GetWorldPosition();
 			
@@ -354,7 +360,7 @@ void GameScene::CheckAllCollision() {
 
 	
 	#pragma region 自弾と敵弾全ての当たり判定
-	for (PlayerBullet* playerBullet : playerBullets) {
+	for (PlayerBullet* playerBullet : playerBullets_) {
 		//自弾の座標
 		posD = playerBullet->GetWorldPosition();
 	
@@ -368,7 +374,7 @@ void GameScene::CheckAllCollision() {
 			
 			if (distanceDB < player_->GetRadius() + enemyBullet->GetRadius()) {
 				//自キャラの衝突時コールバックを呼び出す
-				player_->OnCollision();
+				playerBullet->OnCollision();
 				//敵弾の衝突時コールバックを呼び出す
 				enemyBullet->OnCollision();
 
@@ -400,6 +406,10 @@ void GameScene::Update() {
 	}
 	
 
+	for (PlayerBullet* playerBullet : playerBullets_) {
+		playerBullet->Update();
+	}
+
 
 
 	//6.敵のデスフラグが立ったら解放し除外
@@ -411,15 +421,21 @@ void GameScene::Update() {
 		}
 		return false;
 	});
-	//enemyes_.remove_if([](Enemy* enemyes) {
-	//	if (enemyes->IsAlive()) {
-	//		delete enemyes;
-	//		return false;
-	//	}
-	//	return true;
-	//});
+	enemyes_.remove_if([](Enemy* enemy) {
+		if (enemy->IsAlive()) {
+			delete enemy;
+			return false;
+		}
+		return true;
+	});
 
-
+	playerBullets_.remove_if([](PlayerBullet* playerBullets) {
+		if (playerBullets->IsDead()) {
+			delete playerBullets;
+			return true;
+		}
+		return false;
+	});
 	
 
 	//UpdateEnemyPopCommands();
@@ -529,7 +545,9 @@ void GameScene::Draw() {
 		enemy->Draw(viewProjection_);
 	}
 
-
+	for (PlayerBullet* playerBullet : playerBullets_) {
+		playerBullet->Draw(viewProjection_);
+	}
 
 
 	// 3Dオブジェクト描画後処理

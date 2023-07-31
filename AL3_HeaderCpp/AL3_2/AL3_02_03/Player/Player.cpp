@@ -8,12 +8,14 @@
 #include <ImGuiManager.h>
 #include <cassert>
 
+#include "GameScene.h"
+
 Player::~Player() { 
 	//弾の解放処理
 	//複数出たのでfor文で解放しよう
-	for (PlayerBullet* bullet : bullets_) {
-		delete bullet;
-	}
+	//for (PlayerBullet* bullet : bullets_) {
+	//	delete bullet;
+	//}
 }
 
 
@@ -23,12 +25,13 @@ void Player::Initialize(Model* model,uint32_t textureHandle,Vector3 position) {
 	assert(model);
 
 	//引数として受け取ったデータをメンバ変数に記録する
-	this->model_ = model;
-	this->textureHandle_ = textureHandle;
+	model_ = model;
+	textureHandle_ = textureHandle;
 
 	//ワールド変数の初期化
-	worldTransform_.translation_ = position;
 	worldTransform_.Initialize();
+	worldTransform_.translation_ = position;
+	
 
 	input_ = Input::GetInstance();
 }
@@ -75,7 +78,7 @@ void Player::Attack() {
 		count_ += 1;
 		//弾の速度
 		//z方向に+1.0ずつ進むよ
-		const float kBulletSpeed = 1.0f;
+   		const float kBulletSpeed = 1.0f;
 		Vector3 velocity(0, 0, kBulletSpeed);
 		//Vector3 bulletPosition = GetWorldPosition();
 
@@ -89,7 +92,8 @@ void Player::Attack() {
 
 		//弾を登録する
 		//bullets_に要素を追加
-		bullets_.push_back(newBullet);
+		gameScene_->AddPlayerBullet(newBullet);
+		//bullets_.push_back(newBullet);
 		
 	}
 }
@@ -111,13 +115,21 @@ void Player::UpDate() {
 	//デスフラグの経った弾を削除
 	//remove ifは条件に当てはまる要素をリストから排除する関数
 	//trueを返すとlistから取り除かれる
-	bullets_.remove_if([](PlayerBullet* bullet) {
-		if (bullet->IsDead()) {
-			delete bullet;
-			return true;
-		}
-		return false;
-	});
+	//bullets_.remove_if([](PlayerBullet* bullet) {
+	//	if (bullet->IsDead()) {
+	//		delete bullet;
+	//		return true;
+	//	}
+	//	return false;
+	//});
+
+
+
+
+
+
+
+
 
 	#pragma region 移動処理
 
@@ -188,9 +200,9 @@ void Player::UpDate() {
 	Attack();
 
 	//弾の更新
-	for (PlayerBullet* bullet : bullets_) {
-		bullet->Update();
-	}
+	//for (PlayerBullet* bullet : bullets_) {
+	//	bullet->Update();
+	//}
 
 
 	
@@ -213,14 +225,14 @@ void Player::UpDate() {
 //描画
 void Player::Draw(ViewProjection viewProjection) { 
 	model_->Draw(
-		this->worldTransform_, 
+		worldTransform_, 
 		viewProjection, 
-		this->textureHandle_);
+		textureHandle_);
 
 	//弾の描画
-	for (PlayerBullet* bullet : bullets_) {
-		bullet->Draw(viewProjection);
-	}
+	//for (PlayerBullet* bullet : bullets_) {
+	//	bullet->Draw(viewProjection);
+	//}
 	
 
 }
