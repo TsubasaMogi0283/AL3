@@ -55,9 +55,9 @@ Vector3 Enemy::GetWorldPosition() {
 	//ワールド座標を取得
 	Vector3 worldPos; 
 	//ワールド行列の平行移動成分を取得(ワールド座標)
-	worldPos.x = worldTransform_.translation_.x;
-	worldPos.y = worldTransform_.translation_.y;
-	worldPos.z = worldTransform_.translation_.z;
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
 
 	return worldPos;
 }
@@ -73,8 +73,11 @@ void Enemy::ApproachUpdate() {
 		//弾を発射
 		Fire();
 
+		
+
 		//発射タイマーを初期化
 		enemyBulletShotTime = kFireInterval;
+	
 	}
 
 	//移動(ベクトルの加算)
@@ -99,7 +102,7 @@ void Enemy::Fire() {
 
 	//弾の速度
 	//z方向に1.0ずつ進むよ
-	const float kBulletSpeed = 1.0f;
+	const float kBulletSpeed = 0.03f;
 	//Vector3 velocity(0, 0, -kBulletSpeed);
 
 
@@ -126,12 +129,15 @@ void Enemy::Fire() {
 
 
 	////弾を生成し、初期化
-	//EnemyBullet* newEnemyBullet = new EnemyBullet();
-	//newEnemyBullet->Initialize(model_, worldTransform_.translation_,velocity);
+	EnemyBullet* newEnemyBullet = new EnemyBullet();
+	newEnemyBullet->Initialize(model_, worldTransform_.translation_,velocity);
 
+	gameScene_->AddEnemyBullet(newEnemyBullet);
 	//弾を登録する
 	//bullets_に要素を追加
 	//bullets_.push_back(newEnemyBullet);
+	
+	
 }
 
 
@@ -155,8 +161,11 @@ void Enemy::Update() {
 	
 	}
 
+
+
+
 	//bullets_.remove_if([](EnemyBullet* bullet) {
-		//if (bullet->IsDead()) {
+	//if (bullet->IsDead()) {
 	//		delete bullet;
 	//		return true;
 	//	}
@@ -166,7 +175,10 @@ void Enemy::Update() {
 	//弾の更新(引っ越し)
 	//for (EnemyBullet* bullet : bullets_) {
 	//	bullet->Update();
+	//	
+	//
 	//}
+	
 
 	//Fire();
 

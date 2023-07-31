@@ -92,12 +92,6 @@ void GameScene::Initialize() {
 	
 
 
-	//enemyBullet_ = new EnemyBullet();
-	//enemyBullet_->Initialize(enemyModel_, enemy_->GetWorldPosition(), {0.0f, 0.0f, -0.8f});
-	//enemyBullets_.push_back(enemyBullet_);
-
-
-
 #pragma endregion
 
 #pragma region 天球の生成
@@ -324,6 +318,10 @@ void GameScene::CheckAllCollision() {
 
 		//自キャラと敵弾全ての当たり判定
 		posC = enemy->GetWorldPosition();
+
+		//ここで止まるのは何故？
+		//PlayerBulletが原因
+
 		for (PlayerBullet* playerBullet : playerBullets) {
 			//自弾の座標
 			posD = playerBullet->GetWorldPosition();
@@ -387,27 +385,19 @@ void GameScene::CheckAllCollision() {
 
 void GameScene::Update() {
 	player_->UpDate();
-	enemy_->Update();
+	//enemy_->Update();
 	skydome_->Update();
 	railCamera_->Update();
 
 
-	//弾を生成し、初期化
-	EnemyBullet* newEnemyBullet = new EnemyBullet();
-
-	Vector3 enemyBulletVelocity = {0.0f, 0.0f, -1.0f};
-	newEnemyBullet->Initialize(enemyModel_, enemy_->GetWorldPosition(), enemyBulletVelocity);
-
-	//弾を登録する
-	//bullets_に要素を追加
-	//enemyBullets_.push_back(newEnemyBullet);
-	AddEnemyBullet(newEnemyBullet);
-	for (EnemyBullet* enemyBullet : enemyBullets_) {
-		enemyBullet->Update();
+	for (Enemy* enemy : enemyes_) {
+		enemy->Update();
 	}
 
 	
-
+	for (EnemyBullet* enemyBullet : enemyBullets_) {
+		enemyBullet->Update();
+	}
 	
 
 
@@ -421,12 +411,14 @@ void GameScene::Update() {
 		}
 		return false;
 	});
+	//enemyes_.remove_if([](Enemy* enemyes) {
+	//	if (enemyes->IsAlive()) {
+	//		delete enemyes;
+	//		return false;
+	//	}
+	//	return true;
+	//});
 
-
-
-
-	////2.敵弾リスト更新
-	
 
 	
 
@@ -434,27 +426,6 @@ void GameScene::Update() {
 	CheckAllCollision();
 
 
-
-	Matrix4x4 cameraMatrix = {};
-	cameraMatrix.m[0][0] = 1.0f;
-	cameraMatrix.m[0][1] = 0.0f;
-	cameraMatrix.m[0][2] = 0.0f;
-	cameraMatrix.m[0][3] = 0.0f;
-
-	cameraMatrix.m[1][0] = 0.0f;
-	cameraMatrix.m[1][1] = 1.0f;
-	cameraMatrix.m[1][2] = 0.0f;
-	cameraMatrix.m[1][3] = 0.0f;
-
-	cameraMatrix.m[2][0] = 0.0f;
-	cameraMatrix.m[2][1] = 0.0f;
-	cameraMatrix.m[2][2] = 1.0f;
-	cameraMatrix.m[2][3] = 0.0f;
-
-	cameraMatrix.m[2][0] = 1280.0f;
-	cameraMatrix.m[2][1] = 720.0f;
-	cameraMatrix.m[2][2] = 1.0f;
-	cameraMatrix.m[2][3] = 1.0f;
 
 
 
@@ -544,7 +515,7 @@ void GameScene::Draw() {
 	/// </summary>
 
 	player_->Draw(viewProjection_);
-	enemy_->Draw(viewProjection_);
+	//enemy_->Draw(viewProjection_);
 	skydome_->Draw(viewProjection_);
 
 	
@@ -554,6 +525,12 @@ void GameScene::Draw() {
 		enemyBullet->Draw(viewProjection_);
 	}
 	
+	for (Enemy* enemy : enemyes_) {
+		enemy->Draw(viewProjection_);
+	}
+
+
+
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

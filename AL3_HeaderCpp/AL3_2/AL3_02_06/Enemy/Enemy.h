@@ -102,7 +102,7 @@ private:
 	EnemyBullet* enemyBullets_ = nullptr;
 
 	//1
-	//std::list<EnemyBullet*> bullets_;
+	std::list<EnemyBullet*> bullets_;
 
 	//発射タイマー
 	int32_t enemyBulletShotTime = 0;
