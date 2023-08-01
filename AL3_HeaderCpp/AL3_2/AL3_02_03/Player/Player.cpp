@@ -235,6 +235,8 @@ void Player::Draw(ViewProjection viewProjection) {
 		viewProjection, 
 		textureHandle_);
 
+
+
 	//弾の描画
 	for (PlayerBullet* bullet : bullets_) {
 		bullet->Draw(viewProjection);
