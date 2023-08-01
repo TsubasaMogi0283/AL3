@@ -13,9 +13,9 @@
 Player::~Player() { 
 	//弾の解放処理
 	//複数出たのでfor文で解放しよう
-	//for (PlayerBullet* bullet : bullets_) {
-	//	delete bullet;
-	//}
+	for (PlayerBullet* bullet : bullets_) {
+		delete bullet;
+	}
 }
 
 
@@ -92,8 +92,8 @@ void Player::Attack() {
 
 		//弾を登録する
 		//bullets_に要素を追加
-		gameScene_->AddPlayerBullet(newBullet);
-		//bullets_.push_back(newBullet);
+		//gameScene_->AddPlayerBullet(newBullet);
+		bullets_.push_back(newBullet);
 		
 	}
 }
@@ -115,13 +115,13 @@ void Player::UpDate() {
 	//デスフラグの経った弾を削除
 	//remove ifは条件に当てはまる要素をリストから排除する関数
 	//trueを返すとlistから取り除かれる
-	//bullets_.remove_if([](PlayerBullet* bullet) {
-	//	if (bullet->IsDead()) {
-	//		delete bullet;
-	//		return true;
-	//	}
-	//	return false;
-	//});
+	bullets_.remove_if([](PlayerBullet* bullet) {
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+	});
 
 
 
@@ -179,6 +179,7 @@ void Player::UpDate() {
 	#pragma endregion
 
 	
+
 	//行列更新
 	//座標移動(ベクトルの加算)
 	worldTransform_.translation_ = Add(worldTransform_.translation_ , move);
@@ -187,7 +188,6 @@ void Player::UpDate() {
 
 
 	////平行移動行列
-	
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 
@@ -196,13 +196,14 @@ void Player::UpDate() {
 
 	#pragma endregion
 
+
 	//攻撃処理
 	Attack();
 
 	//弾の更新
-	//for (PlayerBullet* bullet : bullets_) {
-	//	bullet->Update();
-	//}
+	for (PlayerBullet* bullet : bullets_) {
+		bullet->Update();
+	}
 
 
 	
@@ -220,19 +221,24 @@ void Player::UpDate() {
 
 	#pragma endregion
 
+
+
+
+
+
 }
 
 //描画
 void Player::Draw(ViewProjection viewProjection) { 
 	model_->Draw(
-		worldTransform_, 
+		worldTransform_,
 		viewProjection, 
 		textureHandle_);
 
 	//弾の描画
-	//for (PlayerBullet* bullet : bullets_) {
-	//	bullet->Draw(viewProjection);
-	//}
+	for (PlayerBullet* bullet : bullets_) {
+		bullet->Draw(viewProjection);
+	}
 	
 
 }

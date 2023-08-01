@@ -25,9 +25,6 @@ GameScene::~GameScene() {
 		delete enemyBullet;
 	}
 
-	for (PlayerBullet* playerBullet : playerBullets_) {
-		delete playerBullet;
-	}
 
 }
 
@@ -285,6 +282,9 @@ void GameScene::CheckAllCollision() {
 	#pragma region 自キャラと敵弾の当たり判定
 
 	//自キャラの座標
+
+
+
 	posA = player_->GetWorldPosition();
 
 	
@@ -406,10 +406,6 @@ void GameScene::Update() {
 	}
 	
 
-	for (PlayerBullet* playerBullet : playerBullets_) {
-		playerBullet->Update();
-	}
-
 
 
 	//6.敵のデスフラグが立ったら解放し除外
@@ -421,6 +417,7 @@ void GameScene::Update() {
 		}
 		return false;
 	});
+
 	enemyes_.remove_if([](Enemy* enemy) {
 		if (enemy->IsAlive()) {
 			delete enemy;
@@ -429,14 +426,6 @@ void GameScene::Update() {
 		return true;
 	});
 
-	playerBullets_.remove_if([](PlayerBullet* playerBullets) {
-		if (playerBullets->IsDead()) {
-			delete playerBullets;
-			return true;
-		}
-		return false;
-	});
-	
 
 	//UpdateEnemyPopCommands();
 	CheckAllCollision();
@@ -530,10 +519,10 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	player_->Draw(viewProjection_);
+	
 	//enemy_->Draw(viewProjection_);
 	skydome_->Draw(viewProjection_);
-
+	player_->Draw(viewProjection_);
 	
 
 	//2.敵弾リスト描画
@@ -544,11 +533,6 @@ void GameScene::Draw() {
 	for (Enemy* enemy : enemyes_) {
 		enemy->Draw(viewProjection_);
 	}
-
-	for (PlayerBullet* playerBullet : playerBullets_) {
-		playerBullet->Draw(viewProjection_);
-	}
-
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
