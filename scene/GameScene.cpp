@@ -13,6 +13,18 @@ GameScene::~GameScene() {
 	delete playerModel_;
 	delete skydomeModel_;
 	delete railCamera_;
+
+
+	for (Enemy* enemy : enemyes_) {
+		delete enemy;
+	}
+
+
+	//3.敵弾の解放
+	for (EnemyBullet* enemyBullet : enemyBullets_) {
+		delete enemyBullet;
+	}
+
 }
 
 void GameScene::Initialize() {
@@ -53,6 +65,8 @@ void GameScene::Initialize() {
 	
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
+
+
 
 #pragma endregion
 
