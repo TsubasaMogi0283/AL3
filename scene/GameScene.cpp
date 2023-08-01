@@ -222,6 +222,8 @@ void GameScene::CheckAllCollision() {
 	}
 	#pragma endregion
 
+
+
 }
 
 
