@@ -126,7 +126,7 @@ void GameScene::CheckAllCollision() {
 	
 
 	//自キャラと敵弾全ての当たり判定
-	for (EnemyBullet* bullet : enemyBullets) {
+	for (EnemyBullet* bullet : enemyBullets_) {
 		//敵弾の座標
 		posB = bullet->GetWorldPosition();
 
@@ -200,7 +200,7 @@ void GameScene::CheckAllCollision() {
 		//自弾の座標
 		posD = playerBullet->GetWorldPosition();
 	
-		for (EnemyBullet* enemyBullet : enemyBullets) {
+		for (EnemyBullet* enemyBullet : enemyBullets_) {
 			//敵弾の座標
 			posB = enemyBullet->GetWorldPosition();
 

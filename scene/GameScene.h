@@ -78,13 +78,58 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 #pragma endregion
 
+#pragma region 自弾
+	PlayerBullet* playerBullet_ = nullptr;
 
+	//引っ越し
+	//1.敵弾リストを敵からゲームシーンに引っ越す
+	std::list<PlayerBullet*> playerBullets_;
+
+	//モデルのポインタ
+	Model* playerBulletModel_ = nullptr;
+	//テクスチャハンドル
+	uint32_t playerBulletTexture_ = 0;
+
+
+#pragma endregion
+
+
+#pragma region 敵弾
+	EnemyBullet* enemyBullet_ = nullptr;
+
+	//引っ越し
+	//1.敵弾リストを敵からゲームシーンに引っ越す
+	std::list<EnemyBullet*> enemyBullets_;
+
+	//モデルのポインタ
+	Model* enemyBulletModel_ = nullptr;
+	//テクスチャハンドル
+	uint32_t enemyBulletTexture_ = 0;
+
+
+#pragma endregion
 
 #pragma region 敵のメンバ変数
 
 	//敵キャラ
+
+	uint32_t enemyTexture_ =  0;
+
 	Model* enemyModel_ = nullptr;
 	Enemy* enemy_ = nullptr;
+
+
+	//さっさと引っ越し！
+	std::list<Enemy*> enemyes_;
+
+	//敵発生コマンド
+	std::stringstream enemyPopCommands_;
+
+
+	//待機中フラグ
+	bool isWait_ ;
+	//待機タイマー
+	int32_t waitingTimer_ = 0;
 
 #pragma endregion
 
@@ -100,11 +145,7 @@ private: // メンバ変数
 
 #pragma endregion
 
-#pragma region
-
 	RailCamera* railCamera_ = nullptr;
-
-#pragma endregion
 
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_;
@@ -123,6 +164,5 @@ private: // メンバ変数
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
 	#pragma endregion
-
 
 };
