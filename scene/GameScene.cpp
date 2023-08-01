@@ -49,7 +49,7 @@ void GameScene::Initialize() {
 	enemyModel_ = Model::Create();
 
 	//初期化
-	enemy_->Initialize(enemyModel_, {0.0f,0.0f,50.0f}, enemy_->GetEnemyVelocity());
+	enemy_->Initialize(enemyModel_, {0.0f,0.0f,100.0f}, enemy_->GetEnemyVelocity());
 	
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
@@ -209,8 +209,8 @@ void GameScene::CheckAllCollision() {
 			float distanceDB = Length(Subtract(posD, posB));
 			
 			if (distanceDB < player_->GetRadius() + enemyBullet->GetRadius()) {
-				//自キャラの衝突時コールバックを呼び出す
-				player_->OnCollision();
+				//自弾の衝突時コールバックを呼び出す
+				playerBullet->OnCollision();
 				//敵弾の衝突時コールバックを呼び出す
 				enemyBullet->OnCollision();
 
