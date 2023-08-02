@@ -30,6 +30,8 @@ void Player::Initialize(Model* model,uint32_t textureHandle,Vector3 position) {
 
 	//ワールド変数の初期化
 	worldTransform_.Initialize();
+	//3Dレティクル
+	worldTransform3DReticle_.Initialize();
 	worldTransform_.translation_ = position;
 	
 
@@ -48,6 +50,18 @@ Vector3 Player::GetWorldPosition() {
 	return worldPos;
 
 }
+
+Vector3 Player::Get3DReticleWorldPosition() {
+	Vector3 worldPos; 
+
+	//ワールド行列の「平行移動成分」を取得(ワールド座標)
+	worldPos.x = worldTransform3DReticle_.matWorld_.m[3][0];
+	worldPos.y = worldTransform3DReticle_.matWorld_.m[3][1];
+	worldPos.z = worldTransform3DReticle_.matWorld_.m[3][2];
+
+	return worldPos;
+}
+
 
 //親となるワールドトランスフォームをセット
 void Player::SetParent(const WorldTransform* parent) { 
@@ -82,8 +96,20 @@ void Player::Attack() {
 		Vector3 velocity(0, 0, kBulletSpeed);
 		//Vector3 bulletPosition = GetWorldPosition();
 
+		
+
+
+		//自機から照準オブジェクトへのベクトル
+		velocity = Subtract(Get3DReticleWorldPosition(), GetWorldPosition());
+
+		velocity.x = NormalizeVector3(velocity).x * kBulletSpeed;
+		velocity.y = NormalizeVector3(velocity).y * kBulletSpeed;
+		velocity.z = NormalizeVector3(velocity).z * kBulletSpeed;
+
 		//速度ベクトルを自機の向きに合わせて回転させる
 		velocity = TransformNormal(velocity,worldTransform_.matWorld_ );
+
+
 
 
 		//弾を生成し、初期化
@@ -106,7 +132,7 @@ void Player::OnCollision() {
 
 
 
-void Player::UpDate() {
+void Player::Update() {
 
 	//旋回処理
 	Rotate();
@@ -124,12 +150,28 @@ void Player::UpDate() {
 	});
 
 
+	#pragma region 3Dレティクル
+	//自機のワールド座標から3Dレティクルのワールド座標を計算
 
+	//自機から3Dレティクルへの距離
+	const float DISTANCE_PLAYER_TO_3D_RETICLE = 50.0f;
 
+	//自機から3Dレティクルへのオフセット(Z向き)
+	Vector3 offset = {0.0f, 0.0f, 1.0f};
 
+	//自機のワールド行列の回復を反映
+	offset = TransformNormal(offset, worldTransform_.matWorld_);
 
+	//ベクトルの長さを整える
+	offset.x = NormalizeVector3(offset).x * DISTANCE_PLAYER_TO_3D_RETICLE;
+	offset.y = NormalizeVector3(offset).y * DISTANCE_PLAYER_TO_3D_RETICLE;
+	offset.z = NormalizeVector3(offset).z * DISTANCE_PLAYER_TO_3D_RETICLE;
 
+	//3Dレティクルの座標を設定
+	worldTransform3DReticle_.translation_ = Add(GetWorldPosition(),offset);
+	worldTransform3DReticle_.UpdateMatrix();
 
+	#pragma endregion
 
 	#pragma region 移動処理
 
@@ -235,7 +277,8 @@ void Player::Draw(ViewProjection viewProjection) {
 		viewProjection, 
 		textureHandle_);
 
-
+	//3Dレティクル描画
+	model_->Draw(worldTransform3DReticle_, viewProjection);
 
 	//弾の描画
 	for (PlayerBullet* bullet : bullets_) {

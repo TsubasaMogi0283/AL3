@@ -21,6 +21,9 @@ public:
 	// ワールド座標を取得
 	Vector3 GetWorldPosition();
 
+	Vector3 Get3DReticleWorldPosition();
+
+
 	void SetGameScene(GameScene* gameScene) { 
 		gameScene_ = gameScene;
 	}
@@ -55,7 +58,7 @@ public:
 	void OnCollision();
 
 	// 更新
-	void UpDate();
+	void Update();
 
 	// 描画
 	void Draw(ViewProjection viewProjection);

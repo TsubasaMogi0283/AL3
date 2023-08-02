@@ -381,7 +381,7 @@ void GameScene::CheckAllCollision() {
 
 
 void GameScene::Update() {
-	player_->UpDate();
+	player_->Update();
 	//enemy_->Update();
 	skydome_->Update();
 	railCamera_->Update();

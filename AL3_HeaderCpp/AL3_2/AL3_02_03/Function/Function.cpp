@@ -517,6 +517,7 @@ Vector3 TransformNormal(const Vector3& v, const Matrix4x4& m) {
 	return result;
 }
 
+
 float Length(const Vector3 v) {
 	float result;
 	result = sqrtf(v.x*v.x+ v.y* v.y + v.z * v.z);
