@@ -110,11 +110,11 @@ private:
 	Player* player_ = nullptr;
 
 	GameScene* gameScene_ = nullptr;
-	bool isDead_ = true;
+	bool isDead_ = false;
 
 public:
 	//静的メンバ変数
-	static const int kFireInterval = 60;
+	static const int kFireInterval = 60*2;
 
 
 

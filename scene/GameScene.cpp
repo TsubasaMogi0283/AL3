@@ -14,7 +14,8 @@ GameScene::~GameScene() {
 	delete playerModel_;
 	delete skydomeModel_;
 	delete railCamera_;
-
+	delete player_;
+	delete enemyBulletModel_;
 
 	for (Enemy* enemy : enemyes_) {
 		delete enemy;
@@ -64,14 +65,14 @@ void GameScene::Initialize() {
 
 
 	//生成
-	enemy_ = new Enemy();
-	Vector3 enemyPosition = {0.0f, 0.0f, 100.0f};
-
-	enemy_->Initialize(enemyModel_,enemyTextureHandle_,enemyPosition);
-	enemy_->SetPlayer(player_);
-	enemy_->SetGameScene(this);
-
-	enemyes_.push_back(enemy_);
+	//enemy_ = new Enemy();
+	//Vector3 enemyPosition = {0.0f, 0.0f, 100.0f};
+	//
+	//enemy_->Initialize(enemyModel_,enemyTextureHandle_,enemyPosition);
+	//enemy_->SetPlayer(player_);
+	//enemy_->SetGameScene(this);
+	//
+	//enemyes_.push_back(enemy_);
 
 	LoadEnemyPopData();
 
@@ -321,8 +322,10 @@ void GameScene::CheckAllCollision() {
 				//敵キャラの衝突時コールバックを呼び出す
 				enemy->OnCollision();
 				
+		
+
 				//自弾の衝突時コールバックを呼び出す
-				playerBullet->OnCollision();
+ 				playerBullet->OnCollision();
 			
 				
 				
@@ -402,13 +405,15 @@ void GameScene::Update() {
 		return false;
 	});
 
-	//enemyes_.remove_if([](Enemy* enemy) {
-	//	if (enemy->IsDead()) {
-	//		delete enemy;
-	//		return true;
-	//	}
-	//	return false;
-	//});
+	enemyes_.remove_if([](Enemy* enemy) {
+		if (enemy->IsDead()) {
+			delete enemy;
+			return true;
+		}
+		return false;
+	});
+
+
 
 	CheckAllCollision();
 
@@ -450,7 +455,7 @@ void GameScene::Update() {
 
 	#endif
 
-	if (isDebugCameraActive_) {
+	if (input_->PushKey(DIK_C)==0&&isDebugCameraActive_) {
 		//デバッグカメラの更新
 		debugCamera_->Update();
 		
@@ -541,10 +546,8 @@ void GameScene::Draw() {
 	}
 	
 	for (Enemy* enemy : enemyes_) {
-
-		if (enemy->IsDead() == false) {
-			enemy->Draw(viewProjection_);
-		}
+		enemy->Draw(viewProjection_);
+		
 		
 	}
 

@@ -8,12 +8,10 @@
 Enemy::~Enemy() { 
 	//弾の解放処理
 	//複数出たのでfor文で解放しよう
-	for (EnemyBullet* bullet : bullets_) {
-		delete bullet;
-	}
-	delete enemyBullets_;
-	delete player_;
-	delete model_;
+	
+	//delete enemyBullets_;
+
+	//delete model_;
 }
 
 
@@ -123,16 +121,18 @@ void Enemy::Fire() {
 
 
 
+	if (isDead_ == false) {
+		//弾を生成し、初期化
+		EnemyBullet* newEnemyBullet = new EnemyBullet();
+		newEnemyBullet->Initialize(model_, worldTransform_.translation_,velocity);
 
+		//弾を登録する
+		//bullets_に要素を追加
+		gameScene_->AddEnemyBullet(newEnemyBullet);
+		//bullets_.push_back(newEnemyBullet);
+	}
 
-	//弾を生成し、初期化
-	EnemyBullet* newEnemyBullet = new EnemyBullet();
-	newEnemyBullet->Initialize(model_, worldTransform_.translation_,velocity);
-
-	//弾を登録する
-	//bullets_に要素を追加
-	gameScene_->AddEnemyBullet(newEnemyBullet);
-	//bullets_.push_back(newEnemyBullet);
+	
 }
 
 
