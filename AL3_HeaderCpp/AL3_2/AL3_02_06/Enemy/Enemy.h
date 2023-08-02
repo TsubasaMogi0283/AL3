@@ -45,8 +45,8 @@ public:
 		gameScene_ = gameScene;
 	}
 
-	bool IsAlive() { 
-		return isAlive_;
+	bool IsDead() { 
+		return isDead_;
 	}
 
 	//敵キャラに自キャラのアドレスを渡す
@@ -110,7 +110,7 @@ private:
 	Player* player_ = nullptr;
 
 	GameScene* gameScene_ = nullptr;
-	bool isAlive_ = true;
+	bool isDead_ = true;
 
 public:
 	//静的メンバ変数

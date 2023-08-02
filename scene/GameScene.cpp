@@ -55,8 +55,7 @@ void GameScene::Initialize() {
 
 #pragma region 敵の生成
 	
-	//生成
-	enemy_ = new Enemy();
+	
 
 	//敵の速度
 	enemyModel_ = Model::Create();
@@ -64,7 +63,8 @@ void GameScene::Initialize() {
 	enemyTextureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_6/Enemy/Enemy.png");
 
 
-	
+	//生成
+	enemy_ = new Enemy();
 	Vector3 enemyPosition = {0.0f, 0.0f, 100.0f};
 
 	enemy_->Initialize(enemyModel_,enemyTextureHandle_,enemyPosition);
@@ -73,6 +73,7 @@ void GameScene::Initialize() {
 
 	enemyes_.push_back(enemy_);
 
+	LoadEnemyPopData();
 
 	//初期化
 	//enemy_->Initialize(enemyModel_, {0.0f,0.0f,100.0f}, enemy_->GetEnemyVelocity());
@@ -96,7 +97,7 @@ void GameScene::Initialize() {
 	skydomeModel_ = Model::CreateFromOBJ("CelestialSphere", true);
 
 	//テクスチャ読み込み
-	//skydomeTextureHandle_ = TextureManager::Load("CelestialSphere/uvChecker.png");
+	skydomeTextureHandle_ = TextureManager::Load("CelestialSphere/uvChecker.png");
 
 	//天球の初期化
 	skydome_->Initialize(skydomeModel_,skydomeTextureHandle_);
@@ -136,7 +137,14 @@ void GameScene::Initialize() {
 
 
 void GameScene::GenerateEnemy(Vector3 position) {
+	//生成
+	enemy_ = new Enemy();
+	
+	enemy_->Initialize(enemyModel_,enemyTextureHandle_,position);
+	enemy_->SetPlayer(player_);
+	enemy_->SetGameScene(this);
 
+	enemyes_.push_back(enemy_);
 }
 
 
@@ -374,6 +382,8 @@ void GameScene::Update() {
 	skydome_->Update();
 	railCamera_->Update();
 
+	UpdateEnemyPopCommands();
+
 	for (Enemy* enemy : enemyes_) {
 		 enemy->Update();
 	}
@@ -393,11 +403,11 @@ void GameScene::Update() {
 	});
 
 	//enemyes_.remove_if([](Enemy* enemy) {
-	//	if (enemy->IsAlive()) {
+	//	if (enemy->IsDead()) {
 	//		delete enemy;
-	//		return false;
+	//		return true;
 	//	}
-	//	return true;
+	//	return false;
 	//});
 
 	CheckAllCollision();
@@ -531,7 +541,11 @@ void GameScene::Draw() {
 	}
 	
 	for (Enemy* enemy : enemyes_) {
-		enemy->Draw(viewProjection_);
+
+		if (enemy->IsDead() == false) {
+			enemy->Draw(viewProjection_);
+		}
+		
 	}
 
 	// 3Dオブジェクト描画後処理
