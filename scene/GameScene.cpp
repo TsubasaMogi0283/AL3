@@ -188,41 +188,45 @@ void GameScene::CheckAllCollision() {
 
 	#pragma region 自弾と敵キャラの当たり判定
 
-	//敵キャラの位置
-	posC = enemy_->GetWorldPosition();
 
-	
+	for (Enemy* enemy : enemyes_) {
+		//敵キャラの位置
+		posC = enemy->GetWorldPosition();
 
-	//自キャラと敵弾全ての当たり判定
-	for (PlayerBullet* playerBullet : playerBullets) {
-		//自弾の座標
-		posD = playerBullet->GetWorldPosition();
-	
-
-	
-		//座標CとDの距離を求める
-		float distanceCD = Length(Subtract(posD,posC));
 		
-		if (distanceCD < enemy_->GetRadius() + playerBullet->GetRadius()) {
-			//敵キャラの衝突時コールバックを呼び出す
-			enemy_->OnCollision();
-			
-			//自弾の衝突時コールバックを呼び出す
-			playerBullet->OnCollision();
+
+		//自キャラと敵弾全ての当たり判定
+		for (PlayerBullet* playerBullet : playerBullets) {
+			//自弾の座標
+			posD = playerBullet->GetWorldPosition();
 		
+
+		
+			//座標CとDの距離を求める
+			float distanceCD = Length(Subtract(posD,posC));
 			
+			if (distanceCD < enemy->GetRadius() + playerBullet->GetRadius()) {
+				//敵キャラの衝突時コールバックを呼び出す
+				enemy->OnCollision();
+				
+				//自弾の衝突時コールバックを呼び出す
+				playerBullet->OnCollision();
 			
-			
+				
+				
+				
+			}
+		
+			ImGui::Begin("PlayerBulletCondition");
+			ImGui::InputFloat3("EnemyPositipn", &posC.x);
+			ImGui::InputFloat3("PlayerBulletPosition", &posD.x);
+			ImGui::InputFloat("distance", &distanceCD);
+
+			ImGui::End();
+		
 		}
-	
-		ImGui::Begin("PlayerBulletCondition");
-		ImGui::InputFloat3("EnemyPositipn", &posC.x);
-		ImGui::InputFloat3("PlayerBulletPosition", &posD.x);
-		ImGui::InputFloat("distance", &distanceCD);
-
-		ImGui::End();
-	
 	}
+	
 
 	#pragma endregion
 
@@ -284,13 +288,13 @@ void GameScene::Update() {
 		return false;
 	});
 
-	enemyes_.remove_if([](Enemy* enemy) {
-		if (enemy->IsAlive()) {
-			delete enemy;
-			return false;
-		}
-		return true;
-	});
+	//enemyes_.remove_if([](Enemy* enemy) {
+	//	if (enemy->IsAlive()) {
+	//		delete enemy;
+	//		return false;
+	//	}
+	//	return true;
+	//});
 
 	CheckAllCollision();
 
