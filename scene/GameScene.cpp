@@ -4,6 +4,7 @@
 #include <ImGuiManager.h>
 #include <AxisIndicator.h>
 
+#include <fstream>
 
 GameScene::GameScene() {}
 
@@ -63,13 +64,7 @@ void GameScene::Initialize() {
 	enemyTextureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_6/Enemy/Enemy.png");
 
 
-	//初期化
-	//enemy_->Initialize(enemyModel_, {0.0f,0.0f,100.0f}, enemy_->GetEnemyVelocity());
 	
-	//敵キャラに自キャラのアドレスを渡す
-	//enemy_->SetPlayer(player_);
-
-	//enemyModel_= Model::Create();
 	Vector3 enemyPosition = {0.0f, 0.0f, 100.0f};
 
 	enemy_->Initialize(enemyModel_,enemyTextureHandle_,enemyPosition);
@@ -77,6 +72,15 @@ void GameScene::Initialize() {
 	enemy_->SetGameScene(this);
 
 	enemyes_.push_back(enemy_);
+
+
+	//初期化
+	//enemy_->Initialize(enemyModel_, {0.0f,0.0f,100.0f}, enemy_->GetEnemyVelocity());
+	
+	//敵キャラに自キャラのアドレスを渡す
+	//enemy_->SetPlayer(player_);
+
+	//enemyModel_= Model::Create();
 
 	isWait_ = false;
 
@@ -129,6 +133,106 @@ void GameScene::Initialize() {
 	
 
 }
+
+
+void GameScene::GenerateEnemy(Vector3 position) {
+
+}
+
+
+//敵発生データの読み込み
+void GameScene::LoadEnemyPopData() {
+	////ファイルを開く
+	std::ifstream file;
+	
+	file.open("Resources/enemyPop.csv");
+	assert(file.is_open());
+
+	//ファイルの内容を文字列ストリームにコピー
+	enemyPopCommands_ << file.rdbuf();
+	
+	//ファイルを閉じる
+	file.close();
+}
+
+//敵発生コマンドの更新
+void GameScene::UpdateEnemyPopCommands() {
+	
+	
+	//待機処理
+	if (isWait_ == true) {
+		waitingTimer_--;
+		if (waitingTimer_ <= 0) {
+			//待機完了
+			isWait_ = false;
+		}
+	}
+	
+	
+	
+	//1行分の文字列を入れる変数
+	std::string line;
+
+	//コマンド実行ループ
+	while (getline(enemyPopCommands_, line)) {
+		//1行分の文字列をストリームに変呼応して解析しやすくする
+		std::istringstream line_stream(line);
+
+		std::string word;
+		//「,」区切りの先頭文字列を取得
+		getline(line_stream, word, ',');
+
+
+		//"//"から始まる行はコメント
+		if (word.find("//") == 0) {
+			//コメント行を飛ばす
+			continue;
+		}
+
+		//POPコマンド
+		if (word.find("POP") == 0) {
+			//x座標
+			getline(line_stream, word, ',');
+			float x = (float)std::atof(word.c_str());
+
+			//y座標
+			getline(line_stream, word, ',');
+			float y = (float)std::atof(word.c_str());
+
+			//z座標
+			getline(line_stream, word, ',');
+			float z = (float)std::atof(word.c_str());
+
+			//敵を発生させる
+			GenerateEnemy({x,y,z});
+
+		} 
+		else if (word.find("WAIT") == 0) {
+			getline(line_stream, word, ',');
+
+			//待ち時間
+			int32_t waitTime = atoi(word.c_str());
+
+			//待機開始
+			isWait_ =true;
+			//待機タイマー
+			waitingTimer_ = waitTime;
+
+
+
+			//コマンドループを抜ける
+			break;
+
+
+		}
+
+
+	}
+
+
+
+}
+
 
 //登録用の関数
 void GameScene::AddEnemyBullet(EnemyBullet* enemyBullet) {

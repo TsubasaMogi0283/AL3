@@ -21,6 +21,8 @@
 #include <AL3_HeaderCpp/AL3_2/AL3_02_11/Skydome/Skydome.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_12/RailCamera/RailCamera.h>
 
+#include "sstream"
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -36,6 +38,13 @@ public: // メンバ関数
 	/// デストラクタ
 	/// </summary>
 	~GameScene();
+
+	void LoadEnemyPopData();
+	void UpdateEnemyPopCommands();
+
+	//敵発生用関数
+	void GenerateEnemy(Vector3 position);
+
 
 	//登録用の関数
 	void AddEnemyBullet(EnemyBullet* enemyBullet);
