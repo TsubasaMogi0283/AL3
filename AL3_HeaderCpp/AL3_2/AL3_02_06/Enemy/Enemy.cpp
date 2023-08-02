@@ -3,6 +3,7 @@
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
 #include <imgui.h>
 #include "AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h"
+#include "GameScene.h"
 
 Enemy::~Enemy() { 
 	//弾の解放処理
@@ -23,14 +24,14 @@ void Enemy::ApproachInitialize() {
 	enemyBulletShotTime = kFireInterval;
 }
 
-void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
+void Enemy::Initialize(Model* model,uint32_t textureHandle ,const Vector3& position) { 
 	
 	//NULLチェック
 	assert(model);
 
 	model_ = model;
 	//テクスチャ読み込み
-	textureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_6/Enemy/Enemy.png");
+	textureHandle_ = textureHandle;
 
 	//ワールドトランスフォームの初期化
 	//中にあるよ
@@ -38,7 +39,6 @@ void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velo
 	//引数で受け取った初期座標をセット
 
 	worldTransform_.translation_ = position;
-	enemyVelocity_ = velocity;
 
 	//同時に生成
 	//Fire();
@@ -131,13 +131,14 @@ void Enemy::Fire() {
 
 	//弾を登録する
 	//bullets_に要素を追加
-	bullets_.push_back(newEnemyBullet);
+	gameScene_->AddEnemyBullet(newEnemyBullet);
+	//bullets_.push_back(newEnemyBullet);
 }
 
 
 //衝突を検出したら呼び出されるコールバック関数
-void Enemy::OnCollision() {
-
+void Enemy::OnCollision() { 
+	isAlive_ = false;
 }
 
 
@@ -157,9 +158,9 @@ void Enemy::Update() {
 	}
 
 	//弾の更新
-	for (EnemyBullet* bullet : bullets_) {
-		bullet->Update();
-	}
+	//for (EnemyBullet* bullet : bullets_) {
+	//	bullet->Update();
+	//}
 
 	//座標を移動させる(1フレーム分足す)
 	//ベクトルの足し算
@@ -188,9 +189,9 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 
 
 	//弾の描画
-	for (EnemyBullet* bullet : bullets_) {
-		bullet->Draw(viewProjection);
-	}
+	//for (EnemyBullet* bullet : bullets_) {
+	//	bullet->Draw(viewProjection);
+	//}
 
 	
 

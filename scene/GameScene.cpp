@@ -9,7 +9,7 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	delete debugCamera_;
-	delete enemy_;
+	//delete enemy_;
 	delete playerModel_;
 	delete skydomeModel_;
 	delete railCamera_;
@@ -60,13 +60,25 @@ void GameScene::Initialize() {
 	//敵の速度
 	enemyModel_ = Model::Create();
 
+	enemyTextureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_6/Enemy/Enemy.png");
+
+
 	//初期化
-	enemy_->Initialize(enemyModel_, {0.0f,0.0f,100.0f}, enemy_->GetEnemyVelocity());
+	//enemy_->Initialize(enemyModel_, {0.0f,0.0f,100.0f}, enemy_->GetEnemyVelocity());
 	
 	//敵キャラに自キャラのアドレスを渡す
+	//enemy_->SetPlayer(player_);
+
+	//enemyModel_= Model::Create();
+	Vector3 enemyPosition = {0.0f, 0.0f, 100.0f};
+
+	enemy_->Initialize(enemyModel_,enemyTextureHandle_,enemyPosition);
 	enemy_->SetPlayer(player_);
+	enemy_->SetGameScene(this);
 
+	enemyes_.push_back(enemy_);
 
+	isWait_ = false;
 
 #pragma endregion
 
@@ -118,6 +130,13 @@ void GameScene::Initialize() {
 
 }
 
+//登録用の関数
+void GameScene::AddEnemyBullet(EnemyBullet* enemyBullet) {
+	//リストに登録する
+	enemyBullets_.push_back(enemyBullet);
+	
+}
+
 
 void GameScene::CheckAllCollision() { 
 	//判定対象AとBの座標
@@ -128,7 +147,7 @@ void GameScene::CheckAllCollision() {
 	//自弾リストの取得
 	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
 	//敵弾リストの取得
-	//const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
+	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
 
 
 	
@@ -243,9 +262,35 @@ void GameScene::CheckAllCollision() {
 
 void GameScene::Update() {
 	player_->UpDate();
-	enemy_->Update();
+	//enemy_->Update();
 	skydome_->Update();
 	railCamera_->Update();
+
+	for (Enemy* enemy : enemyes_) {
+		 enemy->Update();
+	}
+
+	for (EnemyBullet* enemyBullet : enemyBullets_) {
+		enemyBullet->Update();
+	}
+
+	//6.敵のデスフラグが立ったら解放し除外
+	//資料ではデスフラグと書いてあるが生存フラグにした。
+	enemyBullets_.remove_if([](EnemyBullet* newEnemyBullets) {
+		if (newEnemyBullets->IsDead()) {
+			delete newEnemyBullets;
+			return true;
+		}
+		return false;
+	});
+
+	enemyes_.remove_if([](Enemy* enemy) {
+		if (enemy->IsAlive()) {
+			delete enemy;
+			return false;
+		}
+		return true;
+	});
 
 	CheckAllCollision();
 
@@ -369,8 +414,17 @@ void GameScene::Draw() {
 	/// </summary>
 
 	player_->Draw(viewProjection_);
-	enemy_->Draw(viewProjection_);
+	//enemy_->Draw(viewProjection_);
 	skydome_->Draw(viewProjection_);
+
+	//2.敵弾リスト描画
+	for (EnemyBullet* enemyBullet : enemyBullets_) {
+		enemyBullet->Draw(viewProjection_);
+	}
+	
+	for (Enemy* enemy : enemyes_) {
+		enemy->Draw(viewProjection_);
+	}
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

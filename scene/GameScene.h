@@ -37,6 +37,9 @@ public: // メンバ関数
 	/// </summary>
 	~GameScene();
 
+	//登録用の関数
+	void AddEnemyBullet(EnemyBullet* enemyBullet);
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -96,6 +99,9 @@ private: // メンバ変数
 
 #pragma region 敵弾
 	EnemyBullet* enemyBullet_ = nullptr;
+
+	///テクスチャハンドル
+	uint32_t enemyTextureHandle_ = 0;
 
 	//引っ越し
 	//1.敵弾リストを敵からゲームシーンに引っ越す

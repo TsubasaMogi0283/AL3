@@ -7,14 +7,14 @@
 //前方宣言で
 class Player;
 
-
+class GameScene;
 
 class Enemy {
 public:
 	~Enemy();
 
 	//Initialize(mode,position,velocity)
-	void Initialize(Model* model,const Vector3& position,const Vector3& velocity);
+	void Initialize(Model* model,uint32_t textureHandle ,const Vector3& position);
 
 	void Fire();
 
@@ -41,7 +41,13 @@ public:
 	Vector3 GetEnemyVelocity() { 
 		return enemyVelocity_;
 	}
+	void SetGameScene(GameScene* gameScene) { 
+		gameScene_ = gameScene;
+	}
 
+	bool IsAlive() { 
+		return isAlive_;
+	}
 
 	//敵キャラに自キャラのアドレスを渡す
 	//GameSceneからPlayerを借りる
@@ -103,7 +109,8 @@ private:
 	//自キャラ
 	Player* player_ = nullptr;
 
-
+	GameScene* gameScene_ = nullptr;
+	bool isAlive_ = true;
 
 public:
 	//静的メンバ変数
