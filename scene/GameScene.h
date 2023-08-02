@@ -131,7 +131,6 @@ private: // メンバ変数
 	//敵発生コマンド
 	std::stringstream enemyPopCommands_;
 
-
 	//待機中フラグ
 	bool isWait_ ;
 	//待機タイマー
