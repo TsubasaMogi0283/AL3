@@ -147,7 +147,7 @@ void GameScene::CheckAllCollision() {
 	//自弾リストの取得
 	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
 	//敵弾リストの取得
-	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
+	//const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
 
 
 	
