@@ -369,6 +369,7 @@ void GameScene::CheckAllCollision() {
 			}
 			
 
+
 		}
 	
 	}
