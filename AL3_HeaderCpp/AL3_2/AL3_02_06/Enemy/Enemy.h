@@ -24,8 +24,8 @@ public:
 	//	return bullets_;
 	//}
 
-	bool IsAlive() { 
-		return isAlive_;
+	bool IsDead() { 
+		return isDead_;
 	}
 
 	const float_t GetRadius() { 
@@ -107,7 +107,7 @@ private:
 	//発射タイマー
 	int32_t enemyBulletShotTime = 0;
 
-	bool isAlive_ = true;
+	bool isDead_ = false;
 
 	//自キャラ
 	Player* player_ = nullptr;

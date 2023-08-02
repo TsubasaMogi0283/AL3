@@ -8,12 +8,10 @@
 Enemy::~Enemy() { 
 	//弾の解放処理
 	//複数出たのでfor文で解放しよう
-	//for (EnemyBullet* bullet : bullets_) {
-	//	delete bullet;
-	//}
-	delete enemyBullets_;
-	delete player_;
-	delete model_;
+	
+	//delete enemyBullets_;
+
+	//delete model_;
 }
 
 
@@ -24,7 +22,7 @@ void Enemy::ApproachInitialize() {
 	enemyBulletShotTime = kFireInterval;
 }
 
-void Enemy::Initialize(Model* model,uint32_t textureHandle, const Vector3& position) { 
+void Enemy::Initialize(Model* model,uint32_t textureHandle ,const Vector3& position) { 
 	
 	//NULLチェック
 	assert(model);
@@ -47,7 +45,7 @@ void Enemy::Initialize(Model* model,uint32_t textureHandle, const Vector3& posit
 	//接近フェーズ初期化
 	ApproachInitialize();
 
-	isAlive_ = true;
+
 }
 
 
@@ -73,11 +71,8 @@ void Enemy::ApproachUpdate() {
 		//弾を発射
 		Fire();
 
-		
-
 		//発射タイマーを初期化
 		enemyBulletShotTime = kFireInterval;
-	
 	}
 
 	//移動(ベクトルの加算)
@@ -102,7 +97,7 @@ void Enemy::Fire() {
 
 	//弾の速度
 	//z方向に1.0ずつ進むよ
-	const float kBulletSpeed = 0.03f;
+	const float kBulletSpeed = 1.0f;
 	//Vector3 velocity(0, 0, -kBulletSpeed);
 
 
@@ -126,28 +121,29 @@ void Enemy::Fire() {
 
 
 
+	if (isDead_ == false) {
+		//弾を生成し、初期化
+		EnemyBullet* newEnemyBullet = new EnemyBullet();
+		newEnemyBullet->Initialize(model_, worldTransform_.translation_,velocity);
 
+		//弾を登録する
+		//bullets_に要素を追加
+		gameScene_->AddEnemyBullet(newEnemyBullet);
+		//bullets_.push_back(newEnemyBullet);
+	}
 
-	////弾を生成し、初期化
-	EnemyBullet* newEnemyBullet = new EnemyBullet();
-	newEnemyBullet->Initialize(model_, worldTransform_.translation_,velocity);
-
-	gameScene_->AddEnemyBullet(newEnemyBullet);
-	//弾を登録する
-	//bullets_に要素を追加
-	//bullets_.push_back(newEnemyBullet);
-	
 	
 }
 
 
 //衝突を検出したら呼び出されるコールバック関数
 void Enemy::OnCollision() { 
-	isAlive_ = false;
+	isDead_ = true;
 }
 
 
 void Enemy::Update() { 
+
 	switch (phase_) { 
 		case Phase::Approach:
 	default:
@@ -161,26 +157,10 @@ void Enemy::Update() {
 	
 	}
 
-
-
-
-	//bullets_.remove_if([](EnemyBullet* bullet) {
-	//if (bullet->IsDead()) {
-	//		delete bullet;
-	//		return true;
-	//	}
-	//	return false;
-	//});
-
-	//弾の更新(引っ越し)
+	//弾の更新
 	//for (EnemyBullet* bullet : bullets_) {
 	//	bullet->Update();
-	//	
-	//
 	//}
-	
-
-	//Fire();
 
 	//座標を移動させる(1フレーム分足す)
 	//ベクトルの足し算
@@ -205,17 +185,14 @@ void Enemy::Update() {
 
 void Enemy::Draw(const ViewProjection& viewProjection) { 
 	//自キャラと同じ処理なので出来れば継承を使うといいよ！
+	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
-	if (isAlive_ == true) {
-		model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
-	}
-	
-
-	//弾の描画(引っ越し)
+	//弾の描画
 	//for (EnemyBullet* bullet : bullets_) {
 	//	bullet->Draw(viewProjection);
 	//}
 
 	
+
 }

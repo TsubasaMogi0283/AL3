@@ -8,7 +8,6 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
-#include "sstream"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -21,6 +20,8 @@
 #include <imgui.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_11/Skydome/Skydome.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_12/RailCamera/RailCamera.h>
+
+#include "sstream"
 
 /// <summary>
 /// ゲームシーン
@@ -38,32 +39,25 @@ public: // メンバ関数
 	/// </summary>
 	~GameScene();
 
+	void LoadEnemyPopData();
+	void UpdateEnemyPopCommands();
+
+	//敵発生用関数
+	void GenerateEnemy(Vector3 position);
+
+
+	//登録用の関数
+	void AddEnemyBullet(EnemyBullet* enemyBullet);
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
 	void Initialize();
 
-
-	//敵発生用関数
-	void GenerateEnemy(Vector3 position);
-
 	/// <summary>
 	/// 衝突判定と応答
 	/// </summary>
 	void CheckAllCollision();
-
-	/// 敵弾を追加
-	void AddEnemyBullet(EnemyBullet* enemyBullet);
-
-	//自弾も追加しておく
-	void AddPlayerBullet(PlayerBullet* playerBullet);
-
-	//敵発生データの読み込み
-	void LoadEnemyPopData();
-
-	//敵発生コマンドの更新
-	void UpdateEnemyPopCommands();
-
 
 	/// <summary>
 	/// 毎フレーム処理
@@ -83,7 +77,7 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
-	
+	/// 
 	
 #pragma region プレイヤーのメンバ変数
 	 ///テクスチャハンドル
@@ -115,6 +109,9 @@ private: // メンバ変数
 #pragma region 敵弾
 	EnemyBullet* enemyBullet_ = nullptr;
 
+	///テクスチャハンドル
+	uint32_t enemyTextureHandle_ = 0;
+
 	//引っ越し
 	//1.敵弾リストを敵からゲームシーンに引っ越す
 	std::list<EnemyBullet*> enemyBullets_;
@@ -142,7 +139,6 @@ private: // メンバ変数
 
 	//敵発生コマンド
 	std::stringstream enemyPopCommands_;
-
 
 	//待機中フラグ
 	bool isWait_ ;
@@ -182,6 +178,5 @@ private: // メンバ変数
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
 	#pragma endregion
-
 
 };
