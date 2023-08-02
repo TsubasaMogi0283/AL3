@@ -6,7 +6,7 @@
 #include <WorldTransform.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/PlayerBullet/PlayerBullet.h>
-
+#include "Sprite.h"
 
 class GameScene;
 
@@ -63,6 +63,12 @@ public:
 	// 描画
 	void Draw(ViewProjection viewProjection);
 
+	/// <summary>
+	/// UI描画
+	/// </summary>
+	void DrawUI();
+
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -100,6 +106,9 @@ private:
 	
 	GameScene* gameScene_ = nullptr;
 
+	//2Dレティクル用スプライト
+	Sprite* sprite2DReticle_ = nullptr;
+	Vector2 reticlePosition_ = {0.0f, 0.0f};
 
 };
 

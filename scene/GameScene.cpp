@@ -42,7 +42,8 @@ void GameScene::Initialize() {
 
 	//テクスチャ読み込み
 	playerTextureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_3/Player1.png");
-
+	
+	reticleHandle_=TextureManager::Load("AL3_Resources/AL3_2/AL3_2_3/Player1.png");
 	//3Dモデルの生成
 	//CreateはnewとInitializeの呼び出しをまとめた関数
 	playerModel_= Model::Create();
@@ -563,6 +564,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+
+	player_->DrawUI();
+
 
 	// スプライト描画後処理
 	Sprite::PostDraw();

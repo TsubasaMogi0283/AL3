@@ -16,28 +16,9 @@ Player::~Player() {
 	for (PlayerBullet* bullet : bullets_) {
 		delete bullet;
 	}
+
+	delete sprite2DReticle_;
 }
-
-
-
-void Player::Initialize(Model* model,uint32_t textureHandle,Vector3 position) {
-	
-	assert(model);
-
-	//引数として受け取ったデータをメンバ変数に記録する
-	model_ = model;
-	textureHandle_ = textureHandle;
-
-	//ワールド変数の初期化
-	worldTransform_.Initialize();
-	//3Dレティクル
-	worldTransform3DReticle_.Initialize();
-	worldTransform_.translation_ = position;
-	
-
-	input_ = Input::GetInstance();
-}
-
 
 Vector3 Player::GetWorldPosition() { 
 	Vector3 worldPos; 
@@ -61,6 +42,34 @@ Vector3 Player::Get3DReticleWorldPosition() {
 
 	return worldPos;
 }
+
+
+void Player::Initialize(Model* model,uint32_t textureHandle,Vector3 position) {
+	
+	assert(model);
+
+	//引数として受け取ったデータをメンバ変数に記録する
+	model_ = model;
+	textureHandle_ = textureHandle;
+
+	//ワールド変数の初期化
+	worldTransform_.Initialize();
+	//3Dレティクル
+	worldTransform3DReticle_.Initialize();
+	worldTransform_.translation_ = position;
+
+	//レティクル用
+	uint32_t textureReticle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_14/3DReticle/Sign.png");
+	sprite2DReticle_ = Sprite::Create(
+	    textureReticle_,
+	    {
+	        GetWorldPosition().x, GetWorldPosition().y},
+	    {1.0f, 1.0f, 1.0f, 1.0f}, {0.5f, 0.5f});
+
+	input_ = Input::GetInstance();
+}
+
+
 
 
 //親となるワールドトランスフォームをセット
@@ -136,6 +145,8 @@ void Player::Update() {
 
 	//旋回処理
 	Rotate();
+	reticlePosition_.x = Get3DReticleWorldPosition().x;
+	reticlePosition_.y = Get3DReticleWorldPosition().y;
 
 
 	//デスフラグの経った弾を削除
@@ -270,6 +281,12 @@ void Player::Update() {
 
 }
 
+void Player::DrawUI() {
+	//3Dレティクル描画
+	sprite2DReticle_->Draw();
+
+}
+
 //描画
 void Player::Draw(ViewProjection viewProjection) { 
 	model_->Draw(
@@ -277,9 +294,7 @@ void Player::Draw(ViewProjection viewProjection) {
 		viewProjection, 
 		textureHandle_);
 
-	//3Dレティクル描画
-	model_->Draw(worldTransform3DReticle_, viewProjection);
-
+	
 	//弾の描画
 	for (PlayerBullet* bullet : bullets_) {
 		bullet->Draw(viewProjection);

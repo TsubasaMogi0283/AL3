@@ -88,6 +88,9 @@ private: // メンバ変数
 	
 	//自キャラ
 	Player* player_ = nullptr;
+
+	uint32_t reticleHandle_ = 0;
+
 #pragma endregion
 
 #pragma region 自弾
