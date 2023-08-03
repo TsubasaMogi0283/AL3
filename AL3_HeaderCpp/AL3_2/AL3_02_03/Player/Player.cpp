@@ -56,15 +56,13 @@ void Player::Initialize(Model* model,uint32_t textureHandle,Vector3 position) {
 	worldTransform_.Initialize();
 	//3Dレティクル
 	worldTransform3DReticle_.Initialize();
+	worldTransform3DReticle_.translation_ = position;
 	worldTransform_.translation_ = position;
 
 	//レティクル用
 	uint32_t textureReticle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_14/3DReticle/Sign.png");
 	sprite2DReticle_ = Sprite::Create(
-	    textureReticle_,
-	    {
-	        GetWorldPosition().x, GetWorldPosition().y},
-	    {1.0f, 1.0f, 1.0f, 1.0f}, {0.5f, 0.5f});
+	    textureReticle_, {1.0f, 100.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.5f,0.5f});
 
 	input_ = Input::GetInstance();
 }
@@ -141,13 +139,15 @@ void Player::OnCollision() {
 
 
 
-void Player::Update() {
+void Player::Update(ViewProjection viewProjection) {
 
 	//旋回処理
 	Rotate();
-	reticlePosition_.x = Get3DReticleWorldPosition().x;
-	reticlePosition_.y = Get3DReticleWorldPosition().y;
+	reticlePosition_ = Get3DReticleWorldPosition();
 
+	ImGui::Begin("3D");
+	ImGui::InputFloat3("3dPosition", &reticlePosition_.x);
+	ImGui::End();
 
 	//デスフラグの経った弾を削除
 	//remove ifは条件に当てはまる要素をリストから排除する関数
@@ -181,6 +181,41 @@ void Player::Update() {
 	//3Dレティクルの座標を設定
 	worldTransform3DReticle_.translation_ = Add(GetWorldPosition(),offset);
 	worldTransform3DReticle_.UpdateMatrix();
+
+
+
+
+	//35ページ
+	Vector3 positionReticle = Get3DReticleWorldPosition();
+
+
+	Matrix4x4 worldPositionMatrix =
+	    MakeAffineMatrix({0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, positionReticle);
+
+	//3Dレティクルのw－ルド座標から2Dレティクルのスクリーン座標を計算
+	//ビューポート
+	Matrix4x4 matViewport =
+	    MakeViewportMatrix(0, 0, WinApp::kWindowWidth, WinApp::kWindowHeight, 0, 1);
+
+	
+	//ビュー行列
+	Matrix4x4 matViewProjectionViewport =
+	    Multiply(viewProjection.matView, Multiply(viewProjection.matProjection,matViewport));
+
+	//ワールド→スクリーン座標変換(3Dから2Dへ)
+	positionReticle = Transform(positionReticle, matViewProjectionViewport);
+
+	//スプライトのレティクルに座標設定
+	sprite2DReticle_->SetPosition(Vector2(positionReticle.x, positionReticle.y));
+
+
+
+
+
+
+
+
+
 
 	#pragma endregion
 

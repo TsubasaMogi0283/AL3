@@ -58,7 +58,7 @@ public:
 	void OnCollision();
 
 	// 更新
-	void Update();
+	void Update(ViewProjection viewProjection);
 
 	// 描画
 	void Draw(ViewProjection viewProjection);
@@ -74,6 +74,7 @@ private:
 	WorldTransform worldTransform_;
 	//3Dレティクル用ワールドトランスフォーム
 	WorldTransform worldTransform3DReticle_;
+
 
 	// モデル
 	Model* model_ = nullptr;
@@ -108,7 +109,7 @@ private:
 
 	//2Dレティクル用スプライト
 	Sprite* sprite2DReticle_ = nullptr;
-	Vector2 reticlePosition_ = {0.0f, 0.0f};
+	Vector3 reticlePosition_ = {0.0f, 0.0f};
 
 };
 

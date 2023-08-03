@@ -46,6 +46,9 @@ public: // メンバ関数
 	void GenerateEnemy(Vector3 position);
 
 
+
+
+
 	//登録用の関数
 	void AddEnemyBullet(EnemyBullet* enemyBullet);
 
