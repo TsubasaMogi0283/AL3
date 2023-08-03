@@ -161,7 +161,7 @@ void Player::Update(ViewProjection viewProjection) {
 	});
 
 
-	#pragma region 3Dレティクル
+	#pragma region レティクル
 	//自機のワールド座標から3Dレティクルのワールド座標を計算
 
 	//自機から3Dレティクルへの距離
@@ -189,9 +189,6 @@ void Player::Update(ViewProjection viewProjection) {
 	Vector3 positionReticle = Get3DReticleWorldPosition();
 
 
-	Matrix4x4 worldPositionMatrix =
-	    MakeAffineMatrix({0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, positionReticle);
-
 	//3Dレティクルのw－ルド座標から2Dレティクルのスクリーン座標を計算
 	//ビューポート
 	Matrix4x4 matViewport =
@@ -218,6 +215,25 @@ void Player::Update(ViewProjection viewProjection) {
 
 
 	#pragma endregion
+
+	#pragma region 2D照準
+
+	//マウスカーソルのスクリーン座標からワールド座標を取得して3Dレティクルを配置
+
+	POINT mousePosition;
+	//マウス座標(スクリーン座標)を取得
+	GetCursorPos(&mousePosition);
+
+	//クライアントエリア座標に変換する
+	HWND hwnd = WinApp::GetInstance()->GetHwnd();
+	ScreenToClient(hwnd, &mousePosition);
+
+	//マウス座標を2Dレティクルのスプライトに入れる
+	sprite2DReticle_->SetPosition(Vector2(mousePosition.x, mousePosition.y));
+
+
+	#pragma endregion
+
 
 	#pragma region 移動処理
 
