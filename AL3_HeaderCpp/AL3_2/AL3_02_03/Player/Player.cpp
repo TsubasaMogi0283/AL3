@@ -238,6 +238,14 @@ void Player::Update(ViewProjection viewProjection) {
 	//合成行列の逆行列を計算する
 	Matrix4x4 matInverseVPV = Inverse(matVPV);
 
+	//2点のワールド行列
+	//スクリーン座標
+	Vector3 posNear = Vector3(mousePosition.x, mousePosition.y, 0);
+	Vector3 posFar = Vector3(mousePosition.x, mousePosition.y, 1);
+
+	//スクリーン座標系からワールド座標系へ
+	posNear = Transform(posNear, matInverseVPV);
+	posFar = Transform(posFar, matInverseVPV);
 
 
 	#pragma endregion
