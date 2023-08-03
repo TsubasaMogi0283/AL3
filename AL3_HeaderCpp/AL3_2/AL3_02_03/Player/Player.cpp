@@ -206,15 +206,14 @@ void Player::Update(ViewProjection viewProjection) {
 	sprite2DReticle_->SetPosition(Vector2(positionReticle.x, positionReticle.y));
 
 
-
-
-
-
-
-
-
-
 	#pragma endregion
+
+
+
+
+
+
+
 
 	#pragma region 2D照準
 
@@ -230,6 +229,15 @@ void Player::Update(ViewProjection viewProjection) {
 
 	//マウス座標を2Dレティクルのスプライトに入れる
 	sprite2DReticle_->SetPosition(Vector2(mousePosition.x, mousePosition.y));
+
+
+	//合成行列の逆行列
+	//ビュープロジェクションビューポート合成行列
+	Matrix4x4 matVPV =
+	    Multiply(viewProjection.matView, Multiply(viewProjection.matProjection, matViewport));
+	//合成行列の逆行列を計算する
+	Matrix4x4 matInverseVPV = Inverse(matVPV);
+
 
 
 	#pragma endregion
