@@ -43,9 +43,9 @@ public:
 		return radius_;
 	};
 
-	Vector3 GetVelocity() { 
-		return move_;
-	}
+	//Vector3 GetVelocity() { 
+	//	return move_;
+	//}
 
 	//親となるワールドトランスフォームをセット
 	void SetParent(const WorldTransform* parent);
@@ -86,9 +86,9 @@ private:
 	Input* input_ = nullptr;
 
 	//キャラクターも異動ベクトル
-	const float kCharacterSpeed_ = 0.03f;
+	const float kCharacterSpeed_ = 0.3f;
 	const float kCharacterSpeedPlayer_ = 0.05f;
-	Vector3 move_ = {0.0f, 0.0f, kCharacterSpeed_};
+
 	const float_t radius_ = 2.0f;
 
 	int32_t count_ = 0;
@@ -111,6 +111,9 @@ private:
 	Sprite* sprite2DReticle_ = nullptr;
 	Vector3 reticlePosition_ = {0.0f, 0.0f};
 
+
+	Vector3 positionReticle = Get3DReticleWorldPosition();
+	Vector2 spritePosition = {640,320};
 };
 
 
