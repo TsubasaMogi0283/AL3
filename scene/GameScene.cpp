@@ -419,28 +419,6 @@ void GameScene::Update() {
 
 	CheckAllCollision();
 
-	Matrix4x4 cameraMatrix = {};
-	cameraMatrix.m[0][0] = 1.0f;
-	cameraMatrix.m[0][1] = 0.0f;
-	cameraMatrix.m[0][2] = 0.0f;
-	cameraMatrix.m[0][3] = 0.0f;
-
-	cameraMatrix.m[1][0] = 0.0f;
-	cameraMatrix.m[1][1] = 1.0f;
-	cameraMatrix.m[1][2] = 0.0f;
-	cameraMatrix.m[1][3] = 0.0f;
-
-	cameraMatrix.m[2][0] = 0.0f;
-	cameraMatrix.m[2][1] = 0.0f;
-	cameraMatrix.m[2][2] = 1.0f;
-	cameraMatrix.m[2][3] = 0.0f;
-
-	cameraMatrix.m[2][0] = 1280.0f;
-	cameraMatrix.m[2][1] = 720.0f;
-	cameraMatrix.m[2][2] = 1.0f;
-	cameraMatrix.m[2][3] = 1.0f;
-
-
 
 	
 
@@ -457,7 +435,7 @@ void GameScene::Update() {
 
 	#endif
 
-	if (input_->PushKey(DIK_C)==0&&isDebugCameraActive_) {
+	if (input_->PushKey(DIK_C)!=0&&isDebugCameraActive_==true) {
 		//デバッグカメラの更新
 		debugCamera_->Update();
 		
