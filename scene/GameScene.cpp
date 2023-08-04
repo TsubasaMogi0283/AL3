@@ -19,6 +19,7 @@ void GameScene::Initialize() {
 	//テクスチャ読み込み
 	playerTextureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_02_01/Player/Player1.png");
 
+
 	//3Dモデルの生成
 	//CreateはnewとInitializeの呼び出しをまとめた関数
 	playerModel_.reset(Model::Create());
