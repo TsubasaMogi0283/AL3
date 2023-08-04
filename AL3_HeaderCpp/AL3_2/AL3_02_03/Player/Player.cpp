@@ -94,16 +94,22 @@ void Player::Rotate() {
 
 //攻撃
 void Player::Attack() { 
+	
+	XINPUT_STATE joyState;
+	
+	if (!Input::GetInstance()->GetJoystickState(0, joyState)) {
+		return;
+	}
+
+
 	//SPACEキーで発射
-	if (input_->TriggerKey(DIK_SPACE)) {
+	if ((input_->TriggerKey(DIK_SPACE))|| (joyState.Gamepad.wButtons&XINPUT_GAMEPAD_RIGHT_SHOULDER)) {
 		count_ += 1;
 		//弾の速度
 		//z方向に+1.0ずつ進むよ
    		const float kBulletSpeed = 1.0f;
 		Vector3 velocity(0, 0, kBulletSpeed);
 		//Vector3 bulletPosition = GetWorldPosition();
-
-		
 
 
 		//自機から照準オブジェクトへのベクトル
@@ -129,6 +135,10 @@ void Player::Attack() {
 		bullets_.push_back(newBullet);
 		
 	}
+
+
+
+
 }
 
 
@@ -280,24 +290,29 @@ void Player::Update(ViewProjection viewProjection) {
 
 	#pragma region ゲームパッドの状態を得る変数(XINPUT)
 
-
-	
-	//スプライトの現在座標を取得
-	Vector2 spritePosition = sprite2DReticle_->GetPosition();
-
 	XINPUT_STATE joyState;
 
 	//ゲームパッド状態取得
+	//左スティック
 	if (Input::GetInstance()->GetJoystickState(0, joyState)) {
 		move_.x += (float)joyState.Gamepad.sThumbLX / SHRT_MAX * kCharacterSpeed_;
 		move_.y += (float)joyState.Gamepad.sThumbLY / SHRT_MAX * kCharacterSpeed_;
 
+	}
+
+	//スプライトの現在座標を取得
+	Vector2 spritePosition = sprite2DReticle_->GetPosition();
+
+	//右スティック
+	if (Input::GetInstance()->GetJoystickState(0, joyState)) {
+		spritePosition.x += (float)joyState.Gamepad.sThumbRX / SHRT_MAX * 5.0f;
+		spritePosition.y += (float)joyState.Gamepad.sThumbRY / SHRT_MAX * 5.0f;
+		
 		//スプライトの座標変更を反映
 		sprite2DReticle_->SetPosition(spritePosition);
 
 	}
-
-
+	
 
 
 
