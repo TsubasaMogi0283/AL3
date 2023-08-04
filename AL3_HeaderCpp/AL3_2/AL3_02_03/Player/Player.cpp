@@ -637,8 +637,6 @@ void Player::DrawUI() {
 //描画
 void Player::Draw(ViewProjection viewProjection) { 
 
-	model_->Draw(worldTransform3DReticle_, viewProjection);
-
 	model_->Draw(
 		worldTransform_,
 		viewProjection, 
