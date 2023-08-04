@@ -480,7 +480,6 @@ void GameScene::Update() {
 	//ImGuiはUpdateで！！！！！！！！
 	ImGui::Begin("Camera");
 	ImGui::Text("Key C To DebugCameraIsActive!!");
-	ImGui::Text("Key R To DebugRailCameraIsActive!!");
 
 	ImGui::InputFloat3("CameraTranslation", &viewProjection_.translation_.x);
 

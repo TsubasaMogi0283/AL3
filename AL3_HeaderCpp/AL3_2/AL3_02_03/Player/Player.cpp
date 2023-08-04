@@ -278,6 +278,31 @@ void Player::Update(ViewProjection viewProjection) {
 	#pragma endregion
 
 
+	#pragma region ゲームパッドの状態を得る変数(XINPUT)
+
+
+	
+	//スプライトの現在座標を取得
+	Vector2 spritePosition = sprite2DReticle_->GetPosition();
+
+	XINPUT_STATE joyState;
+
+	//ゲームパッド状態取得
+	if (Input::GetInstance()->GetJoystickState(0, joyState)) {
+		move_.x += (float)joyState.Gamepad.sThumbLX / SHRT_MAX * kCharacterSpeed_;
+		move_.y += (float)joyState.Gamepad.sThumbLY / SHRT_MAX * kCharacterSpeed_;
+
+		//スプライトの座標変更を反映
+		sprite2DReticle_->SetPosition(spritePosition);
+
+	}
+
+
+
+
+
+
+
 	#pragma region 移動処理
 
 	//行列を定数バッファに転送
