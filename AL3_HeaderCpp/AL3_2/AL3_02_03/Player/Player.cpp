@@ -244,6 +244,7 @@ void Player::Update(ViewProjection viewProjection) {
 
 
 
+
 	//35ページ
 	//Vector3 positionReticle = Get3DReticleWorldPosition();
 
@@ -280,6 +281,10 @@ void Player::Update(ViewProjection viewProjection) {
 
 
 
+
+
+
+
 	//マウスカーソルのスクリーン座標からワールド座標を取得して3Dレティクルを配置
 
 	POINT mousePosition;
@@ -292,7 +297,7 @@ void Player::Update(ViewProjection viewProjection) {
 
 
 	//マウス座標を2Dレティクルのスプライトに入れる
-	sprite2DReticle_->SetPosition(Vector2(float(mousePosition.x), float(mousePosition.y)));
+	sprite2DReticle_->SetPosition(Vector2(float(spritePosition.x), float(spritePosition.y)));
 
 
 	//合成行列の逆行列
@@ -304,8 +309,8 @@ void Player::Update(ViewProjection viewProjection) {
 
 	//2点のワールド行列
 	//スクリーン座標
-	Vector3 posNear = Vector3(float(mousePosition.x), float(mousePosition.y), 0);
-	Vector3 posFar = Vector3(float(mousePosition.x), float(mousePosition.y), 1);
+	Vector3 posNear = Vector3(float(spritePosition.x), float(spritePosition.y), 0);
+	Vector3 posFar = Vector3(float(spritePosition.x), float(spritePosition.y), 1);
 
 	//スクリーン座標系からワールド座標系へ
 	posNear = Transform(posNear, matInverseVPV);
@@ -364,7 +369,7 @@ void Player::Update(ViewProjection viewProjection) {
 
 	//旋回処理
 	Rotate();
-	reticlePosition_ = Get3DReticleWorldPosition();
+	//reticlePosition_ = Get3DReticleWorldPosition();
 
 	
 
