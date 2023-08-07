@@ -594,7 +594,12 @@ Vector3 Slerp(const Vector3& v1, const Vector3& v2, float t) {
 	//Ps(t)=sin(θ(1-t))
 	//		sin(θ)
 
+	Vector3 result = {};
 
+	float tP = 1 - t;
+	float tE = t;
+
+	float pS = sinf(tP)
 
 
 
@@ -614,25 +619,25 @@ Vector3 Slerp(const Vector3& v1, const Vector3& v2, float t) {
 	//線形補間の位置Iは
 	//I=Ps(t)*S+Pe(t)*E
 
-	Vector3 result = {};
-
-	Vector3 NormalizeLengthV1 = NormalizeVector3(v1);
-	Vector3 NormalizeLengthV2 = NormalizeVector3(v2);
-
-	//角度を求めたい
-	float angle=std::acos(Dot(NormalizeLengthV1,NormalizeLengthV2));
 	
-	float sinThetaT = std::sinf(angle);
-
-	float ps = std::sinf(angle*(1-t));
-	float pe = std::sinf(angle*t);
-
-	result = {
-		(ps * NormalizeLengthV1.x + pe * NormalizeLengthV2.x) / sinThetaT,
-		(ps * NormalizeLengthV1.x + pe * NormalizeLengthV2.x) / sinThetaT,
-		(ps * NormalizeLengthV1.x + pe * NormalizeLengthV2.x) / sinThetaT	
-	};
-
+	//
+	//Vector3 NormalizeLengthV1 = NormalizeVector3(v1);
+	//Vector3 NormalizeLengthV2 = NormalizeVector3(v2);
+	//
+	////角度を求めたい
+	//float angle=std::acos(Dot(NormalizeLengthV1,NormalizeLengthV2));
+	//
+	//float sinThetaT = std::sinf(angle);
+	//
+	//float ps = std::sinf(angle*(1-t));
+	//float pe = std::sinf(angle*t);
+	//
+	//result = {
+	//	(ps * NormalizeLengthV1.x + pe * NormalizeLengthV2.x) / sinThetaT,
+	//	(ps * NormalizeLengthV1.x + pe * NormalizeLengthV2.x) / sinThetaT,
+	//	(ps * NormalizeLengthV1.x + pe * NormalizeLengthV2.x) / sinThetaT	
+	//};
+	//
 	return result;
 
 }
