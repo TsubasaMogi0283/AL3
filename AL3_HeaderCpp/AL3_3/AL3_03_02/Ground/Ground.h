@@ -1,9 +1,9 @@
-#pragma once
+ï»¿#pragma once
 #include <Model.h>
 
 
 /// <summary>
-/// ’n–Ê
+/// åœ°é¢
 /// </summary>
 class Ground {
 public:
@@ -14,12 +14,12 @@ public:
 	void Draw(ViewProjection& viewProjection);
 
 private:
-	//ƒ[ƒ‹ƒh•ÏŠ·ƒf[ƒ^
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›ãƒ‡ãƒ¼ã‚¿
 	WorldTransform worldTransform_;
-	//ƒ‚ƒfƒ‹
+	//ãƒ¢ãƒ‡ãƒ«
 	Model* model_ = nullptr;
 
-	//ƒeƒNƒXƒ`ƒƒƒnƒ“ƒhƒ‹
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒ³ãƒ‰ãƒ«
 	uint32_t textureHandle_ = 0u;
 
 
