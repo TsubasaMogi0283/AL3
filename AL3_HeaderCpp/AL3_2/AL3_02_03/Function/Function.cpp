@@ -594,12 +594,17 @@ Vector3 Slerp(const Vector3& v1, const Vector3& v2, float t) {
 	//Ps(t)=sin(θ(1-t))
 	//		sin(θ)
 
+	//v1をスタートにする
+
 	Vector3 result = {};
 
 	float tP = 1 - t;
 	float tE = t;
 
-	float pS = sinf(tP)
+
+	float theta = std::acos(1);
+
+	float pS = sinf(tP);
 
 
 

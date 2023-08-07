@@ -49,13 +49,14 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3
 	#pragma endregion
 
 
-	#pragma region 解法2
-	//Y軸周り角度(θy)
-	//worldTransform_.rotation_.y = std::atan2();
 
 
 
-	#pragma endregion
+
+
+
+
+
 
 }
 
