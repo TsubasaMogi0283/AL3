@@ -1,4 +1,4 @@
-#include "Ground.h"
+ï»¿#include "Ground.h"
 #include <AL3_HeaderCpp/AL3_3/AL3_03_02/MatrixCalculation/MatrixCalculation.h>
 
 
@@ -7,18 +7,20 @@ void Ground::Initialize(Model* model,uint32_t textureHandle) {
 	this->textureHandle_ = textureHandle;
 	worldTransform_.translation_ = {0.0f, 0.0f, 0.0f};
 	worldTransform_.scale_ = {1.0f, 1.0f, 1.0f};
-	//ƒ[ƒ‹ƒh•Ï”‚Ì‰Šú‰»
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ•°ã®åˆæœŸåŒ–
 	worldTransform_.Initialize();
 }
 
 void Ground::Update() {
-	//s—ñ‚ğ’è”ƒoƒbƒtƒ@‚É“]‘—
+	//è¡Œåˆ—ã‚’å®šæ•°ãƒãƒƒãƒ•ã‚¡ã«è»¢é€
 	worldTransform_.TransferMatrix(); 
 
 	
 
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+
+	worldTransform_.UpdateMatrix();
 }
 
 void Ground::Draw(ViewProjection& viewProjection) { 

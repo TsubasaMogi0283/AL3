@@ -111,6 +111,7 @@
     <ClCompile Include="AL3_HeaderCpp\AL3_3\AL3_03_02\Ground\Ground.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_3\AL3_03_02\MatrixCalculation\MatrixCalculation.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_3\AL3_03_02\Skydome\Skydome.cpp" />
+    <ClCompile Include="AL3_HeaderCpp\AL3_3\AL3_03_02\WorldTransform\WorldTransformEx.cpp" />
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="main.cpp" />

@@ -56,6 +56,26 @@ void GameScene::Initialize() {
 
 
 	#pragma endregion
+
+
+	#pragma region 地面の生成
+	ground_ = std::make_unique<Ground>();
+
+	//フォルダの名前を指定してね
+	//読み込むファイルと同じフォルダ名にしないと✕
+	gorundModel_.reset(Model::CreateFromOBJ("Ground", true));
+
+	//テクスチャ読み込み
+	groundTextureHandle_ = TextureManager::Load("Ground/Ground.png");
+
+	//天球の初期化
+	ground_->Initialize(gorundModel_.get(), groundTextureHandle_);
+
+	#pragma endregion
+
+
+
+
 	//デバッグカメラの設定
 	debugCamera_ = new DebugCamera(1280, 720);
 	AxisIndicator::GetInstance()->SetVisible(true);
@@ -68,7 +88,9 @@ void GameScene::Update() {
 	player_->Update();
 
 	skydome_->Update();
-	#ifdef _DEBUG
+	ground_->Update();	
+
+#ifdef _DEBUG
 	if (input_->TriggerKey(DIK_C)) {
 		isDebugCameraActive_ = true;
 	}
@@ -76,7 +98,7 @@ void GameScene::Update() {
 	
 	#endif
 
-	if (input_->TriggerKey(DIK_C) && isDebugCameraActive_==true) {
+	if (input_->PushKey(DIK_C) && isDebugCameraActive_==true) {
 		//デバッグカメラの更新
 		debugCamera_->Update();
 		
@@ -137,7 +159,7 @@ void GameScene::Draw() {
 
 	player_->Draw(viewProjection_);
 	skydome_->Draw(viewProjection_);
-
+	ground_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
