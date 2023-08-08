@@ -27,11 +27,11 @@ void GameScene::Initialize() {
 	player_ = std::make_unique<Player>();
 
 	//テクスチャ読み込み
-	playerTextureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_02_01/Player/Player1.png");
+	playerTextureHandle_ = TextureManager::Load("Player/tex.png");
 
 	//3Dモデルの生成
 	//CreateはnewとInitializeの呼び出しをまとめた関数
-	playerModel_.reset(Model::Create());
+	playerModel_.reset(Model::CreateFromOBJ("Player", true));
 
 	//自キャラの初期化
 	player_->Initialize(playerModel_.get(), playerTextureHandle_);
