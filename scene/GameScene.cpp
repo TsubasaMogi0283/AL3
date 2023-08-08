@@ -177,6 +177,19 @@ void GameScene::CheckAllCollision() {
 #pragma endregion
 
 
+#pragma region 自弾と敵弾の当たり判定
+
+	for (PlayerBullet* playerBullet : playerBullets) {
+		for (EnemyBullet* enemyBullet : enemyBullets) {
+			//ペアの衝突判定
+			CheckCollisionPair(playerBullet,enemyBullet);
+		}
+
+	}
+
+
+#pragma endregion
+
 }
 
 
