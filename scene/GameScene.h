@@ -15,6 +15,7 @@
 #include <memory>
 #include <AL3_HeaderCpp/AL3_3/AL3_03_02/Skydome/Skydome.h>
 #include <DebugCamera.h>
+#include <AL3_HeaderCpp/AL3_3/AL3_03_02/Ground/Ground.h>
 
 
 /// <summary>
@@ -99,4 +100,22 @@ private: // メンバ変数
 	
 	std::unique_ptr<Skydome> skydome_;
 	#pragma endregion
+
+
+	#pragma region 地面
+
+	//テクスチャハンドル
+	uint32_t groundTextureHandle_ = 0;
+
+	//3Dモデル
+	std::unique_ptr<Model> gorundModel_;
+
+	std::unique_ptr<Ground> ground_;
+
+
+
+	#pragma endregion
+
+
+
 };
