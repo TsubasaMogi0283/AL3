@@ -13,40 +13,6 @@ class EnemyStateLeave;
 
 
 
-
-
-
-//class BaseEnemyState {
-//public:
-//	BaseEnemyState();
-//
-//	virtual void Update(Enemy* enemy)=0;
-//
-//
-//protected:
-//
-//
-//
-//};
-//
-//class EnemyStateApproach :public BaseEnemyState{
-//public:
-//	void Update(Enemy* enemy) override;
-//
-//private:
-//	Vector3 enemyVelocity = {0.0f, 0.0f, -0.2f};
-//
-//};
-//
-//class EnemyStateLeave :public BaseEnemyState{
-//public:
-//	void Update(Enemy* enemy) override;
-//};
-
-
-
-
-
 class Enemy {
 public:
 	Enemy();
@@ -74,9 +40,6 @@ public:
 	void SetVelocity(Vector3 enemyVelocity);
 
 
-
-
-
 	//StatePattern
 	void ChangeState(IEnemyState* newState);
 
@@ -95,20 +58,6 @@ private:
 	const float kEnemySpeed_ = -0.2f;
 	
 	
-	//enum宣言
-	enum class Phase {
-		Approach,	//接近
-		Leave,		//離脱
-	};
-
-	Phase phase_ = Phase();
-
-	
-
-	//メンバ関数ポインタのテーブル
-	static void (Enemy::*spFuncTable[])();
-
-
 	//StatePattern
 	IEnemyState* state_=nullptr;
 

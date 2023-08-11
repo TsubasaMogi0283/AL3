@@ -1,10 +1,11 @@
 #include <cassert>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_06/Enemy/Enemy.h>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
+#include "Enemy.h"
 
 #include "Enemy/EnemyStateInterface/EnemyStateInterface.h"
 #include "Enemy/EnemyStateInterface/EnemyApproach/EnemyApproach.h"
 #include "Enemy/EnemyStateInterface/EnemyLeave/EnemyLeave.h"
+
+#include <MatrixCalculation/MatrixCalculation.h>
 
 
 

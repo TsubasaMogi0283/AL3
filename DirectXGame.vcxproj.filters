@@ -69,9 +69,6 @@
     <ClCompile Include="2d\ImGuiManager.cpp">
       <Filter>ソース ファイル\2d</Filter>
     </ClCompile>
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Function\Function.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\PlayerBullet\PlayerBullet.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -81,12 +78,6 @@
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\WorldTransform\WorldTransformEx.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_07a\MemberFunction\MemberFunction.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy\EnemyStateInterface\EnemyStateInterface.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -94,6 +85,12 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Enemy\EnemyStateInterface\EnemyLeave\EnemyLeave.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="math\MatrixCalculation\MatrixCalculation.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy\Enemy.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -182,19 +179,10 @@
     <ClInclude Include="2d\ImGuiManager.h">
       <Filter>ヘッダー ファイル\2d</Filter>
     </ClInclude>
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Function\Function.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\PlayerBullet\PlayerBullet.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Player\Player.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_07a\MemberFunction\MemberFunction.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Enemy\EnemyStateInterface\EnemyStateInterface.h">
@@ -204,6 +192,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Enemy\EnemyStateInterface\EnemyLeave\EnemyLeave.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="math\MatrixCalculation\MatrixCalculation.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy\Enemy.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

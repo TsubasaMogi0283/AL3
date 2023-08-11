@@ -107,18 +107,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="2d\ImGuiManager.cpp" />
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Function\Function.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\PlayerBullet\PlayerBullet.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Player\Player.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\WorldTransform\WorldTransformEx.cpp" />
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.cpp" />
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_07a\MemberFunction\MemberFunction.cpp" />
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
+    <ClCompile Include="Enemy\Enemy.cpp" />
     <ClCompile Include="Enemy\EnemyStateInterface\EnemyApproach\EnemyApproach.cpp" />
     <ClCompile Include="Enemy\EnemyStateInterface\EnemyLeave\EnemyLeave.cpp" />
     <ClCompile Include="Enemy\EnemyStateInterface\EnemyStateInterface.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="math\MatrixCalculation\MatrixCalculation.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -139,21 +138,20 @@
     <ClInclude Include="3d\TerrainCommon.h" />
     <ClInclude Include="3d\ViewProjection.h" />
     <ClInclude Include="3d\WorldTransform.h" />
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Function\Function.h" />
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\PlayerBullet\PlayerBullet.h" />
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Player\Player.h" />
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.h" />
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_07a\MemberFunction\MemberFunction.h" />
     <ClInclude Include="audio\Audio.h" />
     <ClInclude Include="base\DirectXCommon.h" />
     <ClInclude Include="base\SafeDelete.h" />
     <ClInclude Include="base\TextureManager.h" />
     <ClInclude Include="base\WinApp.h" />
+    <ClInclude Include="Enemy\Enemy.h" />
     <ClInclude Include="Enemy\EnemyStateInterface\EnemyApproach\EnemyApproach.h" />
     <ClInclude Include="Enemy\EnemyStateInterface\EnemyLeave\EnemyLeave.h" />
     <ClInclude Include="Enemy\EnemyStateInterface\EnemyStateInterface.h" />
     <ClInclude Include="input\Input.h" />
     <ClInclude Include="math\Matrix4x4.h" />
+    <ClInclude Include="math\MatrixCalculation\MatrixCalculation.h" />
     <ClInclude Include="math\Vector2.h" />
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
