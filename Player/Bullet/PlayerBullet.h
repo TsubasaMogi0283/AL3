@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <ViewProjection.h>
 #include <WorldTransform.h>
 #include <Model.h>
@@ -14,6 +14,7 @@ public:
 	bool IsDead() const { 
 		return isDead_;
 	}
+
 
 	void Update();
 
@@ -32,7 +33,7 @@ private:
 	uint32_t textureHandle_ = 0u;
 
 	//速度
-	Vector3 velocity_;
+	Vector3 velocity_ ;
 
 	//寿命
 	static const int32_t kLifeTime = 60 * 5;
