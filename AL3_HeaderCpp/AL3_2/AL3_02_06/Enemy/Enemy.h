@@ -6,7 +6,7 @@
 
 
 class Enemy;
-class BaseEnemyState;
+class IEnemyState;
 class EnemyStateApproach;
 class EnemyStateLeave;
 
@@ -16,32 +16,32 @@ class EnemyStateLeave;
 
 
 
-class BaseEnemyState {
-public:
-	BaseEnemyState();
-
-	virtual void Update(Enemy* enemy)=0;
-
-
-protected:
-
-
-
-};
-
-class EnemyStateApproach :public BaseEnemyState{
-public:
-	void Update(Enemy* enemy) override;
-
-private:
-	Vector3 enemyVelocity = {0.0f, 0.0f, -0.2f};
-
-};
-
-class EnemyStateLeave :public BaseEnemyState{
-public:
-	void Update(Enemy* enemy) override;
-};
+//class BaseEnemyState {
+//public:
+//	BaseEnemyState();
+//
+//	virtual void Update(Enemy* enemy)=0;
+//
+//
+//protected:
+//
+//
+//
+//};
+//
+//class EnemyStateApproach :public BaseEnemyState{
+//public:
+//	void Update(Enemy* enemy) override;
+//
+//private:
+//	Vector3 enemyVelocity = {0.0f, 0.0f, -0.2f};
+//
+//};
+//
+//class EnemyStateLeave :public BaseEnemyState{
+//public:
+//	void Update(Enemy* enemy) override;
+//};
 
 
 
@@ -78,7 +78,7 @@ public:
 
 
 	//StatePattern
-	void ChangeState(BaseEnemyState* newState);
+	void ChangeState(IEnemyState* newState);
 
 private:
 
@@ -110,6 +110,6 @@ private:
 
 
 	//StatePattern
-	BaseEnemyState* state_=nullptr;
+	IEnemyState* state_=nullptr;
 
 };

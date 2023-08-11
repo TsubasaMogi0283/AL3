@@ -2,17 +2,17 @@
 #include <AL3_HeaderCpp/AL3_2/AL3_02_06/Enemy/Enemy.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
 
+#include "Enemy/EnemyStateInterface/EnemyStateInterface.h"
+#include "Enemy/EnemyStateInterface/EnemyApproach/EnemyApproach.h"
+#include "Enemy/EnemyStateInterface/EnemyLeave/EnemyLeave.h"
 
-#pragma comment(lib, "dxguid.lib")
+
+
 
 Enemy::Enemy() {
-	//Enemy enemy;
-	state_ = new EnemyStateApproach();
+	state_ = new EnemyApproach();
 }
 
-BaseEnemyState::BaseEnemyState() {
-
-}
 
 
 void Enemy::Initialize(Model* model,uint32_t textureHandle) { 
@@ -46,68 +46,14 @@ void Enemy::SetVelocity(Vector3 enemyVelocity) {
 #pragma endregion
 
 
-
-
-
-
-
-//接近
-void EnemyStateApproach::Update(Enemy* enemy) {
-	//速度
-	//enemy_->SetVelocity(enemyVelocity);
-	
-	enemy->SetVelocity({0.0f, 0.0f, -0.2f});
-
-	enemy->SetTranslation(Add(enemy->GetTranslation(), enemy->GetVelocity()));
-
-	//ここが原因
-	//enemy_->SetTranslation();
-	//worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocity_);
-	
-
-	//enemy_->worldTransform_.translation_ = Add(enemy_->worldTransform_.translation_, enemy_->enemyVelocity_);
-	//enemy_->enemyVelocity_ = TransformNormal(enemy_->enemyVelocity_,enemy_->worldTransform_.matWorld_ );
-
-
-	//規定の位置に到達したら離脱
-	if (enemy->GetTranslation().z < 0.0f) {
-		enemy->ChangeState(new EnemyStateLeave());
-	}
-	
+void Enemy::ChangeState(IEnemyState* newState) { 
+	//一度deleteして新しい状態に変化
+	delete state_; 
+	this->state_ = newState;
 }
-
-void EnemyStateLeave::Update(Enemy* enemy) {
-	//移動(ベクトルを加算)
-	//enemy_->SetWorldTranslate(
-	//    {enemy_->GetEnemyTranslate().x + 0.2f, 
-	//	enemy_->GetEnemyTranslate().y + 0.02f,
-	//     enemy_->GetEnemyTranslate().z});
-
-	//worldTransform_.translation_.x += 0.2f,
-	//worldTransform_.translation_.y += 0.02f)
-	
-	enemy->SetVelocity({0.3f, 0.3f, -0.2f});
-
-}
-
-void BaseEnemyState::Update(Enemy* enemy) {
-	//enemy_->ChangeState(new EnemyStateApproach);
-}
-
 
 void Enemy::Update() { 
 	
-
-	//メンバ関数ポインタに入っている関数を呼び出す
-	//ここではAppriachUpdate
-	//(this->*spFuncTable[static_cast<size_t>(phase_)])();
-	
-
-
-	//state_->Update();
-	//メンバ関数ポインタに入っている関数を呼び出す
-	//ここではAppriachUpdate
-	//(this->*spFuncTable[static_cast<size_t>(phase_)])();
 
 	
 	state_->Update(this);
@@ -137,10 +83,7 @@ Enemy::~Enemy() {
 	delete state_;
 }
 
-void Enemy::ChangeState(BaseEnemyState* newState) { 
-	delete state_; 
-	this->state_ = newState;
-}
+
 
 
 
