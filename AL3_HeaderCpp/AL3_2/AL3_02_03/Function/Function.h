@@ -28,6 +28,8 @@ float Cot(float theta);
 
 float Dot(Vector3 V1, Vector3 V2);
 
+float DotVector3(Vector3 V1, Vector3 V2);
+
 //Projection
 Matrix4x4 MakeOrthographicMatrix(float left, float top, float right, float bottom, float neaClip, float farClip);
 

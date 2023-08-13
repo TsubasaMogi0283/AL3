@@ -44,6 +44,8 @@ void GameScene::Initialize() {
 	enemyModel_ = Model::Create();
 	enemy_ = new Enemy();
 
+
+
 	enemy_->Initialize(enemyModel_, enemy_->GetEnemyPosition(),enemy_->GetEnemyVelocity());
 	
 

@@ -126,6 +126,7 @@ void Enemy::Fire() {
 
 	//弾を生成し、初期化
 	EnemyBullet* newEnemyBullet = new EnemyBullet();
+	newEnemyBullet->SetPlayer(player_);
 	newEnemyBullet->Initialize(model_, worldTransform_.translation_,velocity);
 
 	//弾を登録する

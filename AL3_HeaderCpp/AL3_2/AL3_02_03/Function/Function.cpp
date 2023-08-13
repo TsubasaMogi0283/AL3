@@ -459,6 +459,10 @@ float Dot(Vector3 V1, Vector3 V2) {
 	return V1.x * V2.x + V1.y * V2.y;
 }
 
+float DotVector3(Vector3 V1, Vector3 V2) {
+	return V1.x * V2.x*  + V1.y * V2.y+ V1.z * V2.z;
+}
+
 Matrix4x4 MakePerspectiveFovMatrix(float fovY, float aspectRatio, float nearClip, float farClip) {
 	Matrix4x4 result = {};
 	float theta = fovY / 2.0f;
@@ -578,71 +582,34 @@ Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t) {
 }
 
 //球面線形補間
-Vector3 Slerp(const Vector3& v1, const Vector3& v2, float t) {
+Vector3 Slerp(const Vector3& p0, const Vector3& p1, float t) {
 	
-          
-	//            |
-	//     sin(θ)|----Start
-	//            |
-	//sin(θ(1-t))|- - - - - -t
-	//            |
-	//            |
-	//            |-----------End---
 
-	//Start側
-	//sinθ:sin(θ(1-t))=1:Ps(t)
-	//Ps(t)=sin(θ(1-t))
-	//		sin(θ)
 
-	//v1をスタートにする
+
+	//内積
+	float dot = DotVector3(p0, p1);
+	
+	float theta = std::acosf(dot)*t;
+
+	Vector3 slerpVector = {};
+	slerpVector.x = p1.x - p0.x * dot;
+	slerpVector.y = p1.y - p0.y * dot;
+	slerpVector.z = p1.z - p0.z * dot;
+
+	Vector3 normalizeSlerpVector3 = NormalizeVector3(slerpVector);
 
 	Vector3 result = {};
-
-	float tP = 1 - t;
-	float tE = t;
-
-
-	float theta = std::acos(1);
-
-	float pS = sinf(tP);
+	result.x = p0.x * std::cosf(theta)+slerpVector.x*std::sinf(theta);
+	result.y = p0.y * std::cosf(theta)+slerpVector.y*std::sinf(theta);
+	result.z = p0.z * std::cosf(theta)+slerpVector.z*std::sinf(theta);
 
 
 
-	//        |
-	// sin(θ)|----End
-	//        |
-	//sin(θt)|- - - - - -t
-	//        |
-	//        |
-	//        |-----------Start---
 
-	//End側
-	//sinθ:sin(θt)=1:Pe(t)
-	//Pe(t)=sin(θt)
-	//	    sin(θ)
+    return result;
 
-	//線形補間の位置Iは
-	//I=Ps(t)*S+Pe(t)*E
 
 	
-	//
-	//Vector3 NormalizeLengthV1 = NormalizeVector3(v1);
-	//Vector3 NormalizeLengthV2 = NormalizeVector3(v2);
-	//
-	////角度を求めたい
-	//float angle=std::acos(Dot(NormalizeLengthV1,NormalizeLengthV2));
-	//
-	//float sinThetaT = std::sinf(angle);
-	//
-	//float ps = std::sinf(angle*(1-t));
-	//float pe = std::sinf(angle*t);
-	//
-	//result = {
-	//	(ps * NormalizeLengthV1.x + pe * NormalizeLengthV2.x) / sinThetaT,
-	//	(ps * NormalizeLengthV1.x + pe * NormalizeLengthV2.x) / sinThetaT,
-	//	(ps * NormalizeLengthV1.x + pe * NormalizeLengthV2.x) / sinThetaT	
-	//};
-	//
-	return result;
 
 }

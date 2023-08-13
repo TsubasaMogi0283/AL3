@@ -1,6 +1,7 @@
 ﻿#include <cassert>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_08/EnemyBullet/EnemyBullet.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
+#include "AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h"
 
 void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
 	
@@ -63,6 +64,28 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3
 
 
 void EnemyBullet::Update() { 
+
+	//Playerまでの距離を求める
+	Vector3 toPlayer = Subtract(player_->GetWorldPosition(), worldTransform_.translation_);
+
+	//正規化
+	Vector3 normalizeToPlayer = NormalizeVector3(toPlayer);
+	Vector3 normalizeVelocity = NormalizeVector3(velocity_);
+
+	
+	velocity_.x = Slerp(normalizeVelocity, normalizeToPlayer, 0.1f).x * 0.1f;
+	velocity_.y = Slerp(normalizeVelocity, normalizeToPlayer, 0.1f).y * 0.1f;
+	velocity_.z = Slerp(normalizeVelocity, normalizeToPlayer, 0.1f).z * 0.1f;
+
+	worldTransform_.rotation_.y = std::atan2(velocity_.x,velocity_.z);
+	//Y軸周りに-θy回す回転行列を計算
+	Matrix4x4 rotateYMatrix = MakeRotateYMatrix(-worldTransform_.rotation_.y);
+	//velocity_に回転行列を掛け算してvelocityZを求める
+	Vector3 velocityZ = TransformNormal(velocity_, rotateYMatrix);
+	
+	//X軸周り角度
+	worldTransform_.rotation_.x = std::atan2(velocity_.y, velocity_.z);
+	
 
 	//座標を移動させる(1フレーム分足す)
 	//ベクトルの足し算
