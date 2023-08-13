@@ -112,7 +112,6 @@
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Player\Player.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_03\WorldTransform\WorldTransformEx.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.cpp" />
-    <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_08ex\TimedCall.cpp" />
     <ClCompile Include="AL3_HeaderCpp\AL3_2\AL3_02_08\EnemyBullet\EnemyBullet.cpp" />
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
@@ -141,7 +140,6 @@
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\PlayerBullet\PlayerBullet.h" />
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_03\Player\Player.h" />
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_06\Enemy\Enemy.h" />
-    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_08ex\TimedCall.h" />
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_08\EnemyBullet\EnemyBullet.h" />
     <ClInclude Include="audio\Audio.h" />
     <ClInclude Include="base\DirectXCommon.h" />
