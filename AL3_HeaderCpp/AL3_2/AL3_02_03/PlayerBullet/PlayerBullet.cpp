@@ -1,6 +1,6 @@
 ﻿#include <cassert>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/PlayerBullet/PlayerBullet.h>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
+#include "math/Calculation/Calculation.h"
 
 void PlayerBullet::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
 	
@@ -17,6 +17,7 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position,const Vector
 	//引数で受け取った初期座標をセット
 	worldTransform_.translation_ = position;
 	velocity_ = velocity;
+
 
 }
 

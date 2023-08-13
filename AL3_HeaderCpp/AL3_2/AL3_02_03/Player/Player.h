@@ -4,7 +4,7 @@
 #include <input/Input.h>
 #include <Model.h>
 #include <WorldTransform.h>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
+#include "math/Calculation/Calculation.h"
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/PlayerBullet/PlayerBullet.h>
 
 class Player {
