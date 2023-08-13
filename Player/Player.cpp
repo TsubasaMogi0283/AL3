@@ -1,9 +1,8 @@
-﻿#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h>
+﻿#include "Player.h"
 
 #include <ImGuiManager.h>
 #include <cassert>
 
-#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h>
 
 #include <ImGuiManager.h>
 #include <cassert>

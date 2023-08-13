@@ -9,8 +9,8 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
-#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_06/Enemy/Enemy.h>
+#include "Player/Player.h"
+#include "Enemy/Enemy.h"
 #include <DebugCamera.h>
 
 /// <summary>

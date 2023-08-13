@@ -1,8 +1,8 @@
 ﻿#include <cassert>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_06/Enemy/Enemy.h>
+#include "Enemy.h"
 #include "math/Calculation/Calculation.h"
 #include <imgui.h>
-#include "AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h"
+#include "Player/Player.h"
 
 Enemy::~Enemy() { 
 	//弾の解放処理

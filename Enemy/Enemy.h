@@ -2,7 +2,7 @@
 #include <ViewProjection.h>
 #include <WorldTransform.h>
 #include <Model.h>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_08/EnemyBullet/EnemyBullet.h>
+#include"Enemy/Bullet/EnemyBullet.h"
 
 //前方宣言で
 class Player;

@@ -1,7 +1,7 @@
 ﻿#include <cassert>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_08/EnemyBullet/EnemyBullet.h>
+#include "EnemyBullet.h"
 #include "math/Calculation/Calculation.h"
-#include "AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h"
+#include "Player/Player.h"
 
 void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
 	
