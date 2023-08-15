@@ -47,7 +47,7 @@ void EnemyBullet::Update() {
 	Vector3 normalizeVelocity = NormalizeVector3(newVelocity_);
 
 	
-	newVelocity_ = Slerp(normalizeVelocity, normalizeToPlayer, 0.05f);
+	newVelocity_ = Slerp(normalizeVelocity, normalizeToPlayer, 0.1f);
 
 	Vector3 velocity = newVelocity_;
 
