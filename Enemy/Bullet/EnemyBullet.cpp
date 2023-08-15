@@ -77,15 +77,21 @@ void EnemyBullet::Update() {
 	velocity_.y = Slerp(normalizeVelocity, normalizeToPlayer, 0.1f).y * 0.1f;
 	velocity_.z = Slerp(normalizeVelocity, normalizeToPlayer, 0.1f).z * 0.1f;
 
+
+	float velocityXZ = sqrt(velocity_.x * velocity_.x + velocity_.z * velocity_.z);
+
+
+
 	worldTransform_.rotation_.y = std::atan2(velocity_.x,velocity_.z);
-	//Y軸周りに-θy回す回転行列を計算
-	Matrix4x4 rotateYMatrix = MakeRotateYMatrix(-worldTransform_.rotation_.y);
-	//velocity_に回転行列を掛け算してvelocityZを求める
-	Vector3 velocityZ = TransformNormal(velocity_, rotateYMatrix);
 	
+	float height = -velocity_.y;
+
 	//X軸周り角度
-	worldTransform_.rotation_.x = std::atan2(velocity_.y, velocity_.z);
+	worldTransform_.rotation_.x = std::atan2(height, velocityXZ);
 	
+	
+	
+
 
 	//座標を移動させる(1フレーム分足す)
 	//ベクトルの足し算
