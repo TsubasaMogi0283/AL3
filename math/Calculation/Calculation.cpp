@@ -600,9 +600,9 @@ Vector3 Slerp(const Vector3& p0, const Vector3& p1, float t) {
 	Vector3 normalizeSlerpVector3 = NormalizeVector3(slerpVector);
 
 	Vector3 result = {};
-	result.x = p0.x * std::cosf(theta)+slerpVector.x*std::sinf(theta);
-	result.y = p0.y * std::cosf(theta)+slerpVector.y*std::sinf(theta);
-	result.z = p0.z * std::cosf(theta)+slerpVector.z*std::sinf(theta);
+	result.x = p0.x * std::cosf(theta)+normalizeSlerpVector3.x*std::sinf(theta);
+	result.y = p0.y * std::cosf(theta)+normalizeSlerpVector3.y*std::sinf(theta);
+	result.z = p0.z * std::cosf(theta)+normalizeSlerpVector3.z*std::sinf(theta);
 
 
 

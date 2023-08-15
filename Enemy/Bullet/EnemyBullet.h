@@ -55,7 +55,7 @@ private:
 
 	Player* player_ = nullptr;
 
-
+	Vector3 newVelocity_ = {};
 
 
 };
