@@ -3,6 +3,7 @@
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
 #include <imgui.h>
 #include "AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h"
+#include <AL3_HeaderCpp/AL3_2/AL3_02_10_ex1/Collider/ColliderConfig.h>
 
 Enemy::~Enemy() { 
 	//弾の解放処理
@@ -38,6 +39,9 @@ void Enemy::Initialize(Model* model, const Vector3& position,const Vector3& velo
 	//引数で受け取った初期座標をセット
 	worldTransform_.translation_ = position;
 	enemyVelocity_ = velocity;
+
+	SetCollosionAttribute(COLLISION_ATTRIBUTE_PLAYER);
+	SetCollisionMask(COLLISION_ATTRIBUTE_ENEMY);
 
 	//同時に生成
 	//Fire();

@@ -7,6 +7,7 @@
 
 #include <ImGuiManager.h>
 #include <cassert>
+#include <AL3_HeaderCpp/AL3_2/AL3_02_10_ex1/Collider/ColliderConfig.h>
 
 Player::~Player() { 
 	//弾の解放処理
@@ -28,6 +29,9 @@ void Player::Initialize(Model* model,uint32_t textureHandle) {
 
 	//ワールド変数の初期化
 	worldTransform_.Initialize();
+
+	SetCollosionAttribute(COLLISION_ATTRIBUTE_PLAYER);
+	SetCollisionMask(COLLISION_ATTRIBUTE_ENEMY);
 
 	input_ = Input::GetInstance();
 }

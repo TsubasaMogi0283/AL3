@@ -74,122 +74,39 @@ void GameScene::CheckAllCollision() {
 	//敵弾リストの取得
 	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
 
-
-
-	
-	//#pragma region 自キャラと敵弾の当たり判定
-	//
-	////自キャラの座標
-	//posA = player_->GetWorldPosition();
-	//
-	//
-	//
-	////自キャラと敵弾全ての当たり判定
-	//for (EnemyBullet* bullet : enemyBullets) {
-	//	//敵弾の座標
-	//	posB = bullet->GetWorldPosition();
-	//
-	//
-	//	//座標AとBの距離を求める
-	//	float distanceAB = Length(Subtract(posA, posB));
-	//	
-	//	if (distanceAB < player_->GetRadius() + bullet->GetRadius()) {
-	//		//自キャラの衝突時コールバックを呼び出す
-	//		player_->OnCollision();
-	//		//敵弾の衝突時コールバックを呼び出す
-	//		bullet->OnCollision();
-	//
-	//	}
-	//	ImGui::Begin("EnemyBulletCondition");
-	//	ImGui::InputFloat3("PlayerPosition", &posA.x);
-	//	ImGui::InputFloat3("EnemyBulletPosition", &posB.x);
-	//	ImGui::InputFloat("distance", &distanceAB);
-	//
-	//	ImGui::End();
-	//
-	//
-	//}
-	//
-	//#pragma endregion
-	//
-	////ここが原因。自機の弾がすぐ消えてしまう
-	//#pragma region 自弾と敵キャラの当たり判定
-	//
-	////敵キャラの位置
-	//posC = enemy_->GetWorldPosition();
-	//
-	//
-	//
-	////自キャラと敵弾全ての当たり判定
-	//for (PlayerBullet* playerBullet : playerBullets) {
-	//	//自弾の座標
-	//	posD = playerBullet->GetWorldPosition();
-	//
-	//
-	//
-	//	//座標CとDの距離を求める
-	//	float distanceCD = Length(Subtract(posD,posC));
-	//	
-	//	if (distanceCD < enemy_->GetRadius() + playerBullet->GetRadius()) {
-	//		//敵キャラの衝突時コールバックを呼び出す
-	//		enemy_->OnCollision();
-	//		
-	//		//自弾の衝突時コールバックを呼び出す
-	//		playerBullet->OnCollision();
-	//	
-	//		
-	//		
-	//		
-	//	}
-	//
-	//	ImGui::Begin("PlayerBulletCondition");
-	//	ImGui::InputFloat3("PlayerPosition", &posC.x);
-	//	ImGui::InputFloat3("PlayerBulletPosition", &posD.x);
-	//	ImGui::InputFloat("distance", &distanceCD);
-	//
-	//	ImGui::End();
-	//
-	//}
-	//
-	//#pragma endregion
-
-
-
-	//全部こっちに引っ越し
-#pragma region 自キャラと敵弾の当たり判定
+	//コライダー
+	std::list<Collider*> colliders_;
+	//コライダーをリストに登録
+	colliders_.push_back(player_);
+	colliders_.push_back(enemy_);
+	for (PlayerBullet* playerBullet : playerBullets) {
+		colliders_.push_back(playerBullet);
+	}
 	for (EnemyBullet* enemyBullet : enemyBullets) {
-		//ペアの衝突判定
-		CheckCollisionPair(player_,enemyBullet);
+		colliders_.push_back(enemyBullet);
 	}
 
 
+	//リスト内のペアを総当たり
+	std::list<Collider*>::iterator itrA = colliders_.begin();
+	for (; itrA != colliders_.end(); ++itrA) {
+		Collider* colliderA = *itrA;
 
-#pragma endregion
+		//イテレータBはイテレータAの次の要素から回す(重複判定を回避)
+		std::list<Collider*>::iterator itrB = itrA;
+		itrB++;
 
+		for (; itrB != colliders_.end(); ++itrB) {
+			Collider* colliderB = *itrB;
 
-#pragma region 敵キャラと自弾の当たり判定
-	for (PlayerBullet* playerBullet : playerBullets) {
-		//ペアの衝突判定
-		CheckCollisionPair(enemy_,playerBullet);
-	}
+			//ペアの当たり判定
+			CheckCollisionPair(colliderA, colliderB);
 
-
-
-#pragma endregion
-
-
-#pragma region 自弾と敵弾の当たり判定
-
-	for (PlayerBullet* playerBullet : playerBullets) {
-		for (EnemyBullet* enemyBullet : enemyBullets) {
-			//ペアの衝突判定
-			CheckCollisionPair(playerBullet,enemyBullet);
 		}
 
 	}
 
 
-#pragma endregion
 
 }
 
@@ -197,6 +114,15 @@ void GameScene::CheckAllCollision() {
 //コライダー２つの衝突判定と応答
 void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
 	
+
+	//衝突フィルタリング
+	if ((colliderA->GetCollosionAttribute()&colliderB->GetCollisionMask())==0||
+	    (colliderB->GetCollosionAttribute() & colliderA->GetCollisionMask()) == 0)
+	{
+		return;
+	}
+
+
 	//それぞれの座標を取得
 	Vector3 worldPositionA = colliderA->GetWorldPosition();
 	Vector3 worldPositionB = colliderB->GetWorldPosition();
@@ -226,27 +152,6 @@ void GameScene::Update() {
 	enemy_->Update();
 
 	CheckAllCollision();
-
-	Matrix4x4 cameraMatrix = {};
-	cameraMatrix.m[0][0] = 1.0f;
-	cameraMatrix.m[0][1] = 0.0f;
-	cameraMatrix.m[0][2] = 0.0f;
-	cameraMatrix.m[0][3] = 0.0f;
-
-	cameraMatrix.m[1][0] = 0.0f;
-	cameraMatrix.m[1][1] = 1.0f;
-	cameraMatrix.m[1][2] = 0.0f;
-	cameraMatrix.m[1][3] = 0.0f;
-
-	cameraMatrix.m[2][0] = 0.0f;
-	cameraMatrix.m[2][1] = 0.0f;
-	cameraMatrix.m[2][2] = 1.0f;
-	cameraMatrix.m[2][3] = 0.0f;
-
-	cameraMatrix.m[2][0] = 1280.0f;
-	cameraMatrix.m[2][1] = 720.0f;
-	cameraMatrix.m[2][2] = 1.0f;
-	cameraMatrix.m[2][3] = 1.0f;
 
 
 

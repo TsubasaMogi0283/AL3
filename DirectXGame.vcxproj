@@ -145,6 +145,7 @@
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_08ex\TimedCall.h" />
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_08\EnemyBullet\EnemyBullet.h" />
     <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_10_ex1\Collider\Collider.h" />
+    <ClInclude Include="AL3_HeaderCpp\AL3_2\AL3_02_10_ex1\Collider\ColliderConfig.h" />
     <ClInclude Include="audio\Audio.h" />
     <ClInclude Include="base\DirectXCommon.h" />
     <ClInclude Include="base\SafeDelete.h" />

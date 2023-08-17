@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <Vector3.h>
+#include  <cstdint>
 
 //衝突判定オブジェクト
 class Collider {
@@ -26,6 +27,15 @@ public:
 		radius_ = radius;
 	}
 
+	
+	uint32_t GetCollosionAttribute()  { return collisionAttribute_; }
+
+	void SetCollosionAttribute(uint32_t collisionAttribute);
+
+	uint32_t GetCollisionMask()  { return collisionMask_; }
+
+	void SetCollisionMask(uint32_t collisionMask);
+
 
 
 
@@ -33,8 +43,9 @@ private:
 	//当たり判定で使う半径
 	float radius_ = 1.0f;
 
-
-
-
+	//衝突属性(自分)
+	uint32_t collisionAttribute_ = 0xffffffff;
+	//衝突マスク(相手)
+	uint32_t collisionMask_ = 0xffffffff;
 
 };

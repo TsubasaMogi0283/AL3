@@ -2,6 +2,7 @@
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/PlayerBullet/PlayerBullet.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
 #include <imgui.h>
+#include <AL3_HeaderCpp/AL3_2/AL3_02_10_ex1/Collider/ColliderConfig.h>
 
 void PlayerBullet::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
 	
@@ -19,6 +20,8 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position,const Vector
 	worldTransform_.translation_ = position;
 	velocity_ = velocity;
 
+	SetCollosionAttribute(COLLISION_ATTRIBUTE_PLAYER);
+	SetCollisionMask(COLLISION_ATTRIBUTE_ENEMY);
 }
 
 // ワールド座標を取得
