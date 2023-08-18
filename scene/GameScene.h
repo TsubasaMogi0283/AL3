@@ -12,6 +12,7 @@
 #include "Enemy/Enemy.h"
 #include "Player/Player.h"
 #include "Collider/Collider.h"
+#include "Collider/CollisionManager/CollisionManager.h"
 
 #include<cmath>
 /// <summary>
@@ -51,10 +52,9 @@ public: // メンバ関数
 
 private: // メンバ変数
 
-    void CheckCollisionPair(Collider* cA, Collider* cB);
+    void CheckCollisionPair(Collider* colliderA, Collider* colliderB);
 	
-	bool CheckBallCollosion(Vector3 v1, float v1Radious, Vector3 v2, float v2Radious);
-	void CheckAllCollision();
+	void CheckAllCollisions();
 
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -73,6 +73,7 @@ private: // メンバ変数
 	 Player* player_ = new Player();
 	 Enemy* enemy_ = nullptr;
 
+	 CollisionManager* collisionManager_ = nullptr;
 
 	 bool isDebugCameraActive_ = false;
 	/// <summary>

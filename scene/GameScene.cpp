@@ -14,6 +14,7 @@ GameScene::~GameScene()
 { 
     player_->~Player();
 	enemy_->~Enemy();
+	delete collisionManager_;
 }
 
 //GameScene::~GameScene() {
@@ -39,7 +40,7 @@ void GameScene::Initialize()
 	enemy_->Initialize();
 
 	enemy_->SetPlayer(player_);
-
+	collisionManager_ = new CollisionManager;
 
 	// ビュープロジェクション
 	viewProjection_.Initialize();
@@ -62,7 +63,7 @@ void GameScene::Update()
 	enemy_->Update();
 
 
-	CheckAllCollision();
+	CheckAllCollisions();
 
 	#ifdef _DEBUG
 	if (input_->TriggerKey(DIK_C)) {
@@ -163,93 +164,34 @@ void GameScene::Draw() {
 
 
 
-void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB)
+
+void GameScene::CheckAllCollisions() 
 {
-	Vector3 cApos = colliderA->GetWorldPosition();
-	Vector3 cBpos = colliderB->GetWorldPosition();
+	collisionManager_->ClearColliderList();
 
-	float cAradious = colliderA->GetRadious();
-	float cBradious = colliderB->GetRadious();
-	if ((colliderA->GetCollosionAttribute()&colliderB->GetCollisionMask())==0||
-	    (colliderB->GetCollosionAttribute() & colliderA->GetCollisionMask()) == 0)
-	{
-		return;
-	}
-
-	bool isHit=CheckBallCollosion(cApos, cAradious, cBpos, cBradious);
-
-	if (isHit) 
-	{
-		colliderA->OnCollision();
-		colliderB->OnCollision();
-	}
-}
-
-
-
-void GameScene::CheckAllCollision() 
-{
 
     const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
 	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
 
 	std::list<Collider*> colliders_;
 
-	colliders_.push_back(player_);
-	colliders_.push_back(enemy_);
+	collisionManager_->AddToColliderList(player_);
+	collisionManager_->AddToColliderList(enemy_);
+
     
 
 
-	for (PlayerBullet* bullet : playerBullets)
-	{
-		colliders_.push_back(bullet);
+	for (PlayerBullet* bullet : playerBullets){
+		collisionManager_->AddToColliderList(bullet);
 	}
-	for (EnemyBullet* bullet : enemyBullets)
-	{
-		colliders_.push_back(bullet);
+	for (EnemyBullet* bullet : enemyBullets){
+		collisionManager_->AddToColliderList(bullet);
 	}
-
-	std::list<Collider*>::iterator itrA = colliders_.begin();
-
-	for (; itrA != colliders_.end(); ++itrA) {
-	
-		Collider* colliderA = *itrA;
-		
-		std::list<Collider*>::iterator itrB = itrA;
-		itrB++;
-
-		for (; itrB != colliders_.end(); ++itrB)
-		{
-			Collider* colliderB = *itrB;
-
-			CheckCollisionPair(colliderA, colliderB);
-		}
-	}
+	collisionManager_->CheckAllCollisions();
 
 }
 
 
-bool GameScene::CheckBallCollosion(Vector3 v1, float v1Radious, Vector3 v2, float v2Radious) 
-{
-	float x = (v2.x - v1.x);
-	float y = (v2.y - v1.y);
-	float z = (v2.z - v1.z);
-
-	float resultPos = (x* x) + (y* y) + (z* z);
-	
-	 float resultRadious = v1Radious + v2Radious;
-
-	bool Flag = false;
-
-
-
-	if (resultPos<=(resultRadious*resultRadious))
-	{
-		Flag = true;
-	}
-
-	return Flag;
-}
 
 //void GameScene::CheckAllCollision() { 
 //	//判定対象AとBの座標
