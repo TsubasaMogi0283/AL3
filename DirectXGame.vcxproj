@@ -110,6 +110,7 @@
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="Collider\Collider.cpp" />
+    <ClCompile Include="Collider\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="Enemy\Bullet\EnemyBullet.cpp" />
     <ClCompile Include="Enemy\Enemy.cpp" />
     <ClCompile Include="main.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="base\WinApp.h" />
     <ClInclude Include="Collider\Collider.h" />
     <ClInclude Include="Collider\ColliderConfig.h" />
+    <ClInclude Include="Collider\CollisionManager\CollisionManager.h" />
     <ClInclude Include="Enemy\Bullet\EnemyBullet.h" />
     <ClInclude Include="Enemy\Enemy.h" />
     <ClInclude Include="input\Input.h" />
