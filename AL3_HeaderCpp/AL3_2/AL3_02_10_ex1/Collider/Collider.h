@@ -7,7 +7,7 @@ class Collider {
 public:
 
 	//衝突時に呼ばれる関数
-	virtual void OnCollision();
+	virtual void OnCollision()=0;
 
 	//純枠仮想関数(Pure Virtual Function)
 	//Virtual関数の後ろに「=0」をつけるだけ

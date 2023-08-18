@@ -86,7 +86,7 @@ void GameScene::CheckAllCollision() {
 		colliders_.push_back(enemyBullet);
 	}
 
-
+	
 	//リスト内のペアを総当たり
 	std::list<Collider*>::iterator itrA = colliders_.begin();
 	for (; itrA != colliders_.end(); ++itrA) {
@@ -115,13 +115,11 @@ void GameScene::CheckAllCollision() {
 void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
 	
 
-	//衝突フィルタリング
-	if ((colliderA->GetCollosionAttribute()&colliderB->GetCollisionMask())==0||
-	    (colliderB->GetCollosionAttribute() & colliderA->GetCollisionMask()) == 0)
-	{
-		return;
-	}
-
+	//一応通っている
+	float debug = 0.1f;
+	ImGui::Begin("a");
+	ImGui::DragFloat("distance", &debug, 0.01f);
+	ImGui::End();
 
 	//それぞれの座標を取得
 	Vector3 worldPositionA = colliderA->GetWorldPosition();
@@ -129,9 +127,12 @@ void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
 
 	float collisionDistance = Length(Subtract(worldPositionA, worldPositionB));
 
-
-
-
+	//衝突フィルタリング
+	if ((colliderA->GetCollosionAttribute()&colliderB->GetCollisionMask())==0||
+	    (colliderB->GetCollosionAttribute() & colliderA->GetCollisionMask()) == 0)
+	{
+		return;
+	}
 
 	//球と球の交差判定
 	if (collisionDistance < colliderA->GetCollisionRadius() + colliderB->GetCollisionRadius()) {
@@ -144,6 +145,11 @@ void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
 	}
 
 
+
+	
+
+
+	
 }
 
 

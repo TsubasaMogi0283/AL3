@@ -11,6 +11,7 @@
 
 #include <AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h>
 #include <AL3_HeaderCpp/AL3_2/AL3_02_06/Enemy/Enemy.h>
+#include "AL3_HeaderCpp/AL3_2/AL3_02_10_ex1/Collider/Collider.h"
 #include <DebugCamera.h>
 
 #include <imgui.h>
