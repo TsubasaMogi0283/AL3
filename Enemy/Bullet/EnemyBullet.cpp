@@ -1,30 +1,54 @@
-﻿#include <cassert>
+﻿//#include <cassert>
 #include "EnemyBullet.h"
-#include "CalculationFunction/CalculationFunction.h"
-#include <imgui.h>
-#include "Collider/ColliderConfig.h"
+//#include "CalculationFunction/CalculationFunction.h"
+//#include <imgui.h>
+//#include "Collider/ColliderConfig.h"
 
-void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
+EnemyBullet::EnemyBullet() { 
+
+}
+
+void EnemyBullet::Initialize(Model* model,const Vector3& position, const Vector3& velocity) {
 	
-	//NULLチェック
-	assert(model);
-
 	model_ = model;
-	//テクスチャ読み込み
 	textureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_3/bullet.png");
 
-	//ワールドトランスフォームの初期化
-	//中にあるよ
+	
 	worldTransform_.Initialize();
-	//引数で受け取った初期座標をセット
+
+		
 	worldTransform_.translation_ = position;
-	velocity_ = velocity;
+ 
+	velocity_ =velocity;
+	bulletDrawFlag = true;
 
-	SetCollosionAttribute(COLLISION_ATTRIBUTE_PLAYER);
-	SetCollisionMask(COLLISION_ATTRIBUTE_ENEMY);
+	SetCollosionAttribute(kCollisionAttributeEnemy);
+	SetCollisionMask(kCollisionAttributePlayer);
 
-	isDead_ = false;
 }
+
+//void EnemyBullet::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
+//	
+//	//NULLチェック
+//	assert(model);
+//
+//	model_ = model;
+//	//テクスチャ読み込み
+//	textureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_3/bullet.png");
+//
+//	//ワールドトランスフォームの初期化
+//	//中にあるよ
+//	worldTransform_.Initialize();
+//	//引数で受け取った初期座標をセット
+//	worldTransform_.translation_ = position;
+//	velocity_ = velocity;
+//
+//	SetCollosionAttribute(kCollisionAttributePlayer);
+//	SetCollisionMask(kCollisionAttributeEnemy);
+//
+//	isDead_ = false;
+//}
+
 
 // ワールド座標を取得
 Vector3 EnemyBullet::GetWorldPosition() {
@@ -39,11 +63,15 @@ Vector3 EnemyBullet::GetWorldPosition() {
 }
 
 
+
+
 //衝突を検出したら呼び出されるコールバック関数
 void EnemyBullet::OnCollision() {
 	isDead_ = true;
 	
 }
+
+
 
 void EnemyBullet::Update() { 
 
@@ -61,12 +89,22 @@ void EnemyBullet::Update() {
 	worldTransform_.UpdateMatrix(); 
 }
 
+
+
 void EnemyBullet::Draw(const ViewProjection& viewProjection) { 
+	
 	//自キャラと同じ処理なので出来れば継承を使うといいよ！
-	if (isDead_==false) {
-		
+	//描画のフラグを別で用意すればよかったと思った。
+	//ここでおかしかった
+	if (bulletDrawFlag) {
+
 		model_->Draw(worldTransform_, viewProjection, textureHandle_);
 	}
-	
-
 }
+
+
+
+
+EnemyBullet::~EnemyBullet() {}
+
+

@@ -1,117 +1,65 @@
 ﻿#pragma once
-#include <ViewProjection.h>
-#include <WorldTransform.h>
+
 #include <Model.h>
-
+#include <WorldTransform.h>
 #include "Enemy/Bullet/EnemyBullet.h"
+#include "Player/Player.h"
 #include "Collider/Collider.h"
+#include "Collider/ColliderConfig.h"
 
-//前方宣言で
 class Player;
 
 
-
-class Enemy : public Collider{
+class Enemy :public Collider{
 public:
-	~Enemy();
-
-	//Initialize(mode,position,velocity)
-	void Initialize(Model* model,const Vector3& position,const Vector3& velocity);
-
-	void Fire();
-
-	//弾リストを取得
-	const std::list<EnemyBullet*>& GetBullets() const { 
-		return bullets_;
-	}
-
-	const float_t GetRadius() { 
-		return radius_; 
+	enum class Phase {
+		Approach,
+		Leave,
 	};
 
-	//衝突を検出したら呼び出されるコールバック関数
-	void OnCollision() override;
+	Enemy();
+	~Enemy();
+
+	void Initialize();
 
 	void Update();
 
-	//ビュープロジェクション
-	void Draw(const ViewProjection& viewProjection);
+	void Draw(ViewProjection ViewProjection_);
 
-	Vector3 GetEnemyPosition() { 
-		return enemyPosition_;
-	}
-	Vector3 GetEnemyVelocity() { 
-		return enemyVelocity_;
-	}
+	void PhaseInitialize();
+	
+	void SetPlayer(Player* player) { player_ = player; }
 
+	
 
-	//敵キャラに自キャラのアドレスを渡す
-	//GameSceneからPlayerを借りる
-	void SetPlayer(Player* player) { 
-		player_ = player;
-	}
+	void OnCollision() override;
 
-	//ワールド座標を取得
-	Vector3 GetWorldPosition();
+	Vector3 GetWorldPosition()override;
 
+	Vector3 LerpFanc(Vector3 v1, Vector3 v2);
 
-
-
-
-	void ApproachInitialize();
-
-	void ApproachUpdate();
-
-	void LeaveUpdate();
+	
+	const std::list<EnemyBullet*>& GetBullets() const { return bullets_; }
 
 
 private:
+	
 
-	//ワールド変換データ
+	void Fire();
+
+	uint32_t modeltexHandle;
+	Model* model_;
 	WorldTransform worldTransform_;
-	//モデルのポインタ
-	Model* model_ = nullptr;
-	//テクスチャハンドル
-	uint32_t textureHandle_ = 0u;
 
-	//速度
-	const float kEnemySpeed_ = -0.05f;
-	Vector3 enemyPosition_ = {0.0f, 3.0f, 50.0f};
-	Vector3 enemyVelocity_ = {0.0f, 0.0f, kEnemySpeed_};
-	
-	float_t radius_=1.0f;
-
-	
-	
-	//enum宣言
-	enum class Phase {
-		Approach,	//接近
-		Leave,		//離脱
-	};
 
 	Phase phase_ = Phase();
 
-
-
-
-	EnemyBullet* enemyBullets_ = nullptr;
 	std::list<EnemyBullet*> bullets_;
 
-	//発射タイマー
-	int32_t enemyBulletShotTime = 0;
-
-
-
-	//自キャラ
-	Player* player_ = nullptr;
-
-
-
-public:
-	//静的メンバ変数
 	static const int kFireInterval = 60;
 
+	int32_t FireTimer = 0;
 
-
+	Player* player_ = nullptr;
 
 };

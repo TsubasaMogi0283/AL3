@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Audio.h"
 #include "DirectXCommon.h"
 #include "Input.h"
@@ -8,14 +7,13 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include"DebugCamera.h"
 
-#include "Player/Player.h"
 #include "Enemy/Enemy.h"
+#include "Player/Player.h"
 #include "Collider/Collider.h"
-#include <DebugCamera.h>
 
-#include <imgui.h>
-
+#include<cmath>
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -25,7 +23,10 @@ public: // メンバ関数
 	/// <summary>
 	/// コンストクラタ
 	/// </summary>
-	GameScene();
+	GameScene(
+
+	
+	);
 
 	/// <summary>
 	/// デストラクタ
@@ -38,11 +39,6 @@ public: // メンバ関数
 	void Initialize();
 
 	/// <summary>
-	/// 衝突判定と応答
-	/// </summary>
-	void CheckAllCollision();
-
-	/// <summary>
 	/// 毎フレーム処理
 	/// </summary>
 	void Update();
@@ -52,52 +48,34 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+
 private: // メンバ変数
+
+    void CheckCollisionPair(Collider* cA, Collider* cB);
+	
+	bool CheckBallCollosion(Vector3 v1, float v1Radious, Vector3 v2, float v2Radious);
+	void CheckAllCollision();
+
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
+	
 	Audio* audio_ = nullptr;
+	//ビュープロジェクション
+	ViewProjection viewProjection_;
 
+
+	 //uint32_t soundDataHandle_ = 0;
+	 //uint32_t voiceHandle_ = 0;
+	float inputFloat3[3] = {0, 0, 0};
+
+	 DebugCamera* debugCamera_ = nullptr;
+
+	 Player* player_ = new Player();
+	 Enemy* enemy_ = nullptr;
+
+
+	 bool isDebugCameraActive_ = false;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
-	/// 
-	
-	 
-	 ///テクスチャハンドル
-	uint32_t playerTextureHandle_ = 0;
-
-	//3Dモデル
-	Model* playerModel_=nullptr;
-	
-	//ワールドトランスフォーム
-	WorldTransform worldTransform_;
-	
-	//ビュープロジェクション
-	ViewProjection viewProjection_;
-	 
-	//自キャラ
-	Player* player_ = nullptr;
-
-
-	//敵キャラ
-	Model* enemyModel_ = nullptr;
-	Enemy* enemy_ = nullptr;
-
-
-	//デバッグカメラの切り替え
-	bool isDebugCameraActive_ = false;
-
-
-
-
-	//デバッグカメラ
-	DebugCamera* debugCamera_ = nullptr;
-
-
-
-private:
-	//GameSceneのにで使うよ!!
-	//コライダー２つの衝突判定と応答
-	void CheckCollisionPair(Collider* colliderA, Collider* colliderB);
-
 };

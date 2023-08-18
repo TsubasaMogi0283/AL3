@@ -4,6 +4,11 @@
 #include <imgui.h>
 #include "Collider/ColliderConfig.h"
 
+PlayerBullet::PlayerBullet() {
+
+}
+
+
 void PlayerBullet::Initialize(Model* model, const Vector3& position,const Vector3& velocity) { 
 	
 	//NULLチェック
@@ -11,7 +16,7 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position,const Vector
 
 	model_ = model;
 	//テクスチャ読み込み
-	textureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_3/bullet.png");
+	textureHandle_ =  TextureManager::Load("AL3_Resources/AL3_2/AL3_2_3/bullet.png");
 
 	//ワールドトランスフォームの初期化
 	//中にあるよ
@@ -20,9 +25,11 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position,const Vector
 	worldTransform_.translation_ = position;
 	velocity_ = velocity;
 
-	SetCollosionAttribute(COLLISION_ATTRIBUTE_PLAYER);
-	SetCollisionMask(COLLISION_ATTRIBUTE_ENEMY);
+	SetCollosionAttribute(kCollisionAttributePlayer);
+	SetCollisionMask(kCollisionAttributeEnemy);
 }
+
+
 
 // ワールド座標を取得
 Vector3 PlayerBullet::GetWorldPosition() {
@@ -37,10 +44,13 @@ Vector3 PlayerBullet::GetWorldPosition() {
 }
 
 
+
 //衝突を検出したら呼び出されるコールバック関数
 void PlayerBullet::OnCollision() { 
 	isDead_ = true;
 }
+
+
 
 void PlayerBullet::Update() { 
 
@@ -66,10 +76,17 @@ void PlayerBullet::Update() {
 
 }
 
+
 void PlayerBullet::Draw(const ViewProjection& viewProjection) { 
 	//自キャラと同じ処理なので出来れば継承を使うといいよ！
 	if (isDead_ == false) {
 		model_->Draw(worldTransform_, viewProjection, textureHandle_);
 	}
 	
+}
+
+
+
+PlayerBullet::~PlayerBullet() {
+
 }
