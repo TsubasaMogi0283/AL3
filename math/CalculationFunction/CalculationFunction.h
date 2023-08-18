@@ -1,9 +1,9 @@
 ﻿#pragma once
-
-
 #include <Matrix4x4.h>
 #include <Vector3.h>
+
 Vector3 Add(const Vector3 v1, const Vector3 v2);
+Vector3 Subtract(const Vector3 v1, const Vector3 v2);
 //Scale
 Matrix4x4 MakeScaleMatrix(const Vector3 scale);
 //Rotate
@@ -32,3 +32,8 @@ Matrix4x4 MakeViewportMatrix(float left, float top, float width, float height, f
 
 //ベクトルの回転
 Vector3 TransformNormal(const Vector3& v, const Matrix4x4& m);
+
+float Length(const Vector3 v);
+
+//ベクトルの正規化
+Vector3 NormalizeVector3(Vector3& v1);

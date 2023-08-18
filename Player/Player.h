@@ -4,9 +4,9 @@
 #include <input/Input.h>
 #include <Model.h>
 #include <WorldTransform.h>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_03/PlayerBullet/PlayerBullet.h>
-#include "AL3_HeaderCpp/AL3_2/AL3_02_10_ex1/Collider/Collider.h"
+#include "CalculationFunction/CalculationFunction.h"
+#include "Player/Bullet/PlayerBullet.h"
+#include "Collider/Collider.h"
 
 
 class Player : public Collider{

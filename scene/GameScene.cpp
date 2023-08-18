@@ -3,6 +3,7 @@
 #include <cassert>
 #include <ImGuiManager.h>
 #include <AxisIndicator.h>
+#include "CalculationFunction/CalculationFunction.h"
 
 GameScene::GameScene() {}
 

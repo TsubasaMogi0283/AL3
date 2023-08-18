@@ -1,7 +1,7 @@
-﻿#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
-#include <cassert>
+﻿#include <cassert>
 #include <cmath>
 
+#include "CalculationFunction.h"
 
 Vector3 Add(const Vector3 v1, const Vector3 v2) {
 	Vector3 result = {};

@@ -1,14 +1,12 @@
-﻿#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h>
+﻿#include "Player.h"
 
 #include <ImGuiManager.h>
 #include <cassert>
 
-#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h>
 
 #include <ImGuiManager.h>
 #include <cassert>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_10_ex1/Collider/ColliderConfig.h>
-
+#include "Collider/ColliderConfig.h"
 Player::~Player() { 
 	//弾の解放処理
 	//複数出たのでfor文で解放しよう
@@ -35,6 +33,7 @@ void Player::Initialize(Model* model,uint32_t textureHandle) {
 
 	input_ = Input::GetInstance();
 }
+
 
 
 Vector3 Player::GetWorldPosition() { 

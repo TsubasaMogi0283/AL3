@@ -1,9 +1,9 @@
 ﻿#include <cassert>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_06/Enemy/Enemy.h>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
+#include "Enemy.h"
+#include "CalculationFunction/CalculationFunction.h"
 #include <imgui.h>
-#include "AL3_HeaderCpp/AL3_2/AL3_02_03/Player/Player.h"
-#include <AL3_HeaderCpp/AL3_2/AL3_02_10_ex1/Collider/ColliderConfig.h>
+#include "Player/Player.h"
+#include "Collider/ColliderConfig.h"
 
 Enemy::~Enemy() { 
 	//弾の解放処理

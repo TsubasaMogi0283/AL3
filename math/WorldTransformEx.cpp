@@ -1,5 +1,5 @@
 ﻿#include <WorldTransform.h>
-#include <AL3_HeaderCpp/AL3_2/AL3_02_03/Function/Function.h>
+#include "CalculationFunction/CalculationFunction.h"
 
 
 
@@ -10,6 +10,7 @@ void WorldTransform::UpdateMatrix() {
 
 	//定数バッファに転送
 	TransferMatrix();
+
 
 
 }
