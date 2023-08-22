@@ -382,6 +382,17 @@ void GameScene::CheckAllCollision() {
 
 
 void GameScene::Update() {
+
+
+
+
+
+
+
+
+
+
+
 	player_->Update(viewProjection_);
 	//enemy_->Update();
 	skydome_->Update();
