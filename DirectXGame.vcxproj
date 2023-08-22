@@ -120,6 +120,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
     <ClCompile Include="scene\TitleScene\TitleSceneInterface.cpp" />
+    <ClCompile Include="scene\TitleScene\TitleScene\TitleStartScene\TitleStartScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2d\ImGuiManager.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="math\Vector4.h" />
     <ClInclude Include="scene\GameScene.h" />
     <ClInclude Include="scene\TitleScene\TitleSceneInterface.h" />
+    <ClInclude Include="scene\TitleScene\TitleScene\TitleStartScene\TitleStartScene.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\TerrainPS.hlsl">
