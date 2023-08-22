@@ -2,14 +2,14 @@
 
 class ITitleScene {
 public:
-	void Initialize();
+	
+
+	ITitleScene();
+
+	virtual void Update()=0;
 
 
-
-	void Update();
-
-
-	void Draw();
+	~ITitleScene();
 
 
 private:

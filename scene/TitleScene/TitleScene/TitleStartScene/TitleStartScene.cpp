@@ -1,10 +1,16 @@
 #include "TitleStartScene.h"
 
-void Initialaze();
+TitleStartScene::TitleStartScene() {
 
-void Update();
+}
 
-void Draw();
+void TitleStartScene::Update() {
+
+}
+
+TitleStartScene::~TitleStartScene() {
+
+}
 
 
 

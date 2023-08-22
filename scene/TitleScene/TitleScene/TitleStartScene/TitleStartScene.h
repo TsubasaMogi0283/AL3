@@ -1,13 +1,12 @@
 #pragma once
 
-class TitleScene {
+class TitleStartScene {
 public:
-
-	void Initialaze();
+	TitleStartScene();
 
 	void Update();
 
-	void Draw();
+	~TitleStartScene();
 
 
 private:
