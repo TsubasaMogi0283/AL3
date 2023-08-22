@@ -80,7 +80,7 @@ private:
 	uint32_t textureHandle_ = 0u;
 
 	//速度
-	const float kEnemySpeed_ = -0.05f;
+	const float kEnemySpeed_ = -0.005f;
 	Vector3 enemyPosition_ = {0.0f, 3.0f, 20.0f};
 	Vector3 enemyVelocity_ = {0.0f, 0.0f, kEnemySpeed_};
 	
