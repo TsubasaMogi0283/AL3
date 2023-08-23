@@ -22,6 +22,10 @@
 #include <AL3_HeaderCpp/AL3_2/AL3_02_12/RailCamera/RailCamera.h>
 
 #include "sstream"
+#include <GameSceneManager/IGameSceneState.h>
+
+class IGamaSceneState;
+
 
 /// <summary>
 /// ゲームシーン
@@ -82,6 +86,10 @@ private: // メンバ変数
 	/// </summary>
 	/// 
 	
+
+	//ゲームシーンの変化
+	IGameSceneState* iGameScene_ = nullptr;
+
 #pragma region プレイヤーのメンバ変数
 	 ///テクスチャハンドル
 	uint32_t playerTextureHandle_ = 0;

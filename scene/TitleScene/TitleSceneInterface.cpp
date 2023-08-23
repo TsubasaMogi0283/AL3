@@ -1,13 +1,13 @@
 #include "scene/TitleScene/TitleSceneInterface.h"
 
-void Initialize() {
+ITitleScene::ITitleScene() {
 
 }
 
-void Update() {
+void ITitleScene::Update() {
 
 }
 
-void Draw() {
+ITitleScene::~ITitleScene() {
 
 }

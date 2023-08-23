@@ -1,10 +1,12 @@
 #pragma once
+#include "scene/TitleScene/TitleSceneInterface.h"
 
-class TitleStartScene {
+
+class TitleStartScene :public ITitleScene {
 public:
 	TitleStartScene();
 
-	void Update();
+	void Update() override;
 
 	~TitleStartScene();
 
