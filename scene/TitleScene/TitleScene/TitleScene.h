@@ -10,6 +10,8 @@ public:
 	
 	TitleScene();
 
+	void Initialize();
+
 	void Update();
 
 	void ChangeTitleState(ITitleScene* newState);
