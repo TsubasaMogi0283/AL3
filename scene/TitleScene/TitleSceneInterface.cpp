@@ -4,6 +4,10 @@ ITitleScene::ITitleScene() {
 
 }
 
+void ITitleScene::Initialize(TitleScene* titleScene) {
+
+}
+
 void ITitleScene::Update(TitleScene* titleScene) {
 	
 }
