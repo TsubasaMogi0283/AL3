@@ -4,7 +4,11 @@ ITitleScene::ITitleScene() {
 
 }
 
-void ITitleScene::Update() {
+void ITitleScene::Update(TitleScene* titleScene) {
+	
+}
+
+void ITitleScene::Draw(TitleScene* titleScene) {
 
 }
 
