@@ -368,7 +368,7 @@ void GameScene::CheckAllCollision() {
 void GameScene::Update() {
 
 
-
+	iGameScene_->Update(this);
 
 
 

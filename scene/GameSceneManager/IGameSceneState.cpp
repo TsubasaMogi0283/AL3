@@ -4,7 +4,7 @@ IGameSceneState::IGameSceneState() {
 
 }
 
-void IGameSceneState::ChangeState() {
+void IGameSceneState::Update(GameScene* gameScene) {
 
 }
 

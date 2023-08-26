@@ -1,10 +1,12 @@
 #pragma once
 
+class GameScene;
+
 class IGameSceneState {
 public:
 	IGameSceneState();
 
-	void ChangeState();
+	virtual void Update(GameScene* gameScene)=0;
 
 	IGameSceneState();
 
