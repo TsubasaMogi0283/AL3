@@ -49,6 +49,8 @@ void GameScene::Initialize() {
 	playerModel_= Model::Create();
 	//自キャラの初期化
 	Vector3 playerPosition = {0.0f, 0.0f, 10.0f};
+
+	//Initializeの引数無くした方がよさそう
 	player_->Initialize(playerModel_,playerTextureHandle_,playerPosition);
 	
 
@@ -65,25 +67,7 @@ void GameScene::Initialize() {
 	enemyTextureHandle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_6/Enemy/Enemy.png");
 
 
-	//生成
-	//enemy_ = new Enemy();
-	//Vector3 enemyPosition = {0.0f, 0.0f, 100.0f};
-	//
-	//enemy_->Initialize(enemyModel_,enemyTextureHandle_,enemyPosition);
-	//enemy_->SetPlayer(player_);
-	//enemy_->SetGameScene(this);
-	//
-	//enemyes_.push_back(enemy_);
-
 	LoadEnemyPopData();
-
-	//初期化
-	//enemy_->Initialize(enemyModel_, {0.0f,0.0f,100.0f}, enemy_->GetEnemyVelocity());
-	
-	//敵キャラに自キャラのアドレスを渡す
-	//enemy_->SetPlayer(player_);
-
-	//enemyModel_= Model::Create();
 
 	isWait_ = false;
 
