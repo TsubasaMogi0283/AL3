@@ -6,7 +6,11 @@
 
 #include <fstream>
 
-GameScene::GameScene() {}
+GameScene::GameScene() {
+	//最初はタイトル
+	state_=new Title
+
+}
 
 GameScene::~GameScene() {
 	delete debugCamera_;
@@ -368,7 +372,7 @@ void GameScene::CheckAllCollision() {
 void GameScene::Update() {
 
 
-	iGameScene_->Update(this);
+	state_->Update(this);
 
 
 

@@ -9,11 +9,11 @@ class TitleStartScene :public ITitleScene {
 public:
 	TitleStartScene();
 
-	void Initialize(TitleScene* titleScene) override;
+	void Initialize() override;
 
 	void Update(TitleScene* titleScene) override;
 
-	void Draw(TitleScene* titleScene) override;
+	void Draw() override;
 
 	~TitleStartScene();
 

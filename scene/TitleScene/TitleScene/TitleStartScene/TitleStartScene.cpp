@@ -7,7 +7,7 @@ TitleStartScene::TitleStartScene() {
 	
 }
 
-void TitleStartScene::Initialize(TitleScene* titleScene) {
+void TitleStartScene::Initialize() {
 
 }
 
@@ -15,7 +15,7 @@ void TitleStartScene::Update(TitleScene* titleScene) {
 
 }
 
-void TitleStartScene::Draw(TitleScene* titleScene) { 
+void TitleStartScene::Draw() { 
 	sprite_->Draw(); 
 }
 

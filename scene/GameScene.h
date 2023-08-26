@@ -88,7 +88,7 @@ private: // メンバ変数
 	
 
 	//ゲームシーンの変化
-	IGameSceneState* iGameScene_ = nullptr;
+	IGameSceneState* state_ = nullptr;
 
 #pragma region プレイヤーのメンバ変数
 	 ///テクスチャハンドル
