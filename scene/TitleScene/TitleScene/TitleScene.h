@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <WorldTransform.h>
 #include <cstdint>
 
@@ -25,9 +25,9 @@ public:
 private:
 	ITitleScene* state_ = nullptr;
 
-	//ƒ[ƒ‹ƒh•ÏŠ·ƒf[ƒ^
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›ãƒ‡ãƒ¼ã‚¿
 	WorldTransform worldTransform_;
-	//ƒeƒNƒXƒ`ƒƒƒnƒ“ƒhƒ‹
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒ³ãƒ‰ãƒ«
 	uint32_t textureHandle_ = 0u;
 
 };

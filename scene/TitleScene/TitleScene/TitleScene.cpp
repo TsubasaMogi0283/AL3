@@ -1,8 +1,8 @@
-#include "TitleScene.h"
+ï»¿#include "TitleScene.h"
 #include "TitleStartScene/TitleStartScene.h"
 
 TitleScene::TitleScene() { 
-	//Å‰‚Íƒ^ƒCƒgƒ‹‰æ–Ê‚Ì•\Ž¦
+	//æœ€åˆã¯ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ã®è¡¨ç¤º
 	state_ = new TitleStartScene(); 
 }
 
@@ -17,7 +17,7 @@ void TitleScene::Initialize() {
 }
 
 
-//ƒV[ƒ“‚ÌØ‚è‘Ö‚¦
+//ã‚·ãƒ¼ãƒ³ã®åˆ‡ã‚Šæ›¿ãˆ
 void TitleScene::ChangeTitleState(ITitleScene* newState) { 
 	delete state_; 
 	this->state_ = newState;
@@ -26,7 +26,7 @@ void TitleScene::ChangeTitleState(ITitleScene* newState) {
 
 void TitleScene::Update() {
 
-	//ITitleState‚ÌUpdate‚Å•Ï‰»‚·‚é‚æ
+	//ITitleStateã®Updateã§å¤‰åŒ–ã™ã‚‹ã‚ˆ
 	state_->Update(this);
 
 

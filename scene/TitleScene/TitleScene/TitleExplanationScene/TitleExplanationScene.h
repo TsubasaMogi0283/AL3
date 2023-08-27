@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "scene/TitleScene/TitleSceneInterface.h"
 
 
@@ -32,16 +32,16 @@ private:
 
 
 #pragma region
-	//ƒeƒNƒXƒ`ƒƒ‚Ìİ’è
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è¨­å®š
 	Sprite* sprite_ = nullptr;
 
 	uint32_t textureHandle_ = 0u;
 
-	//2–‡—pˆÓ‚·‚é
+	//2æšç”¨æ„ã™ã‚‹
 	uint32_t explanation[2] = {0u};
 
 
-	//ƒtƒ‰ƒO“I‚È‚â‚Â
+	//ãƒ•ãƒ©ã‚°çš„ãªã‚„ã¤
 	int32_t explantionTextureNumber_ = 0;
 
 #pragma endregion

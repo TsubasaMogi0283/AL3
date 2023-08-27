@@ -6,9 +6,12 @@
 
 #include <fstream>
 
+
+#include "TitleScene/TitleScene/TitleStartScene/TitleStartScene.h"
+
 GameScene::GameScene() {
 	//最初はタイトル
-	state_=new Title
+	//state_ = new TitleStartScene();
 
 }
 
@@ -84,10 +87,10 @@ void GameScene::Initialize() {
 
 	//フォルダの名前を指定してね
 	//読み込むファイルと同じフォルダ名にしないと✕
-	skydomeModel_ = Model::CreateFromOBJ("CelestialSphere", true);
+	skydomeModel_ = Model::CreateFromOBJ("SpaceSphere", true);
 
 	//テクスチャ読み込み
-	skydomeTextureHandle_ = TextureManager::Load("CelestialSphere/uvChecker.png");
+	skydomeTextureHandle_ = TextureManager::Load("SpaceSphere/SpaceSphere.png");
 
 	//天球の初期化
 	skydome_->Initialize(skydomeModel_,skydomeTextureHandle_);

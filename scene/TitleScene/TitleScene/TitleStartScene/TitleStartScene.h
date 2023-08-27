@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "scene/TitleScene/TitleSceneInterface.h"
 
 #include <Sprite.h>
@@ -21,7 +21,7 @@ public:
 private:
 	
 
-	//ƒXƒvƒ‰ƒCƒg
+	//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 	Sprite* sprite_ = nullptr;
 
 

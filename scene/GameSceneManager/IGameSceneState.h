@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 class GameScene;
 
@@ -8,7 +8,7 @@ public:
 
 	virtual void Update(GameScene* gameScene)=0;
 
-	IGameSceneState();
+	~IGameSceneState();
 
 private:
 

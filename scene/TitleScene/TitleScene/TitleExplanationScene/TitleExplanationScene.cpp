@@ -1,4 +1,4 @@
-#include "TitleExplanationScene.h"
+ï»¿#include "TitleExplanationScene.h"
 
 
 #include "TitleScene/TitleScene/TitleScene.h"
@@ -16,24 +16,24 @@ void TitleExplanationScene::Initialize() {
 	explanation[1] = 0;
 
 
-	//Å‰‚Í‚P–‡–Ú‚Ì‰æ‘œ
+	//æœ€åˆã¯ï¼‘æžšç›®ã®ç”»åƒ
 	explantionTextureNumber_ = 1;
 
 	textureHandle_ = explanation[0];
 
-	//Œ©•Ô‚µ‚Ä‚Ý‚½‚ç’†S“_‚ð“ü‚ê‚Ä‚¢‚é‚Ý‚½‚¢
+	//è¦‹è¿”ã—ã¦ã¿ãŸã‚‰ä¸­å¿ƒç‚¹ã‚’å…¥ã‚Œã¦ã„ã‚‹ã¿ãŸã„
 	sprite_ = Sprite::Create(textureHandle_, {100.0f, 50.0f});
 }
 
 void TitleExplanationScene::Update(TitleScene* titleScene) {
 
-	//2–‡–Ú‚Ìà–¾‚Éi‚Þ
+	//2æžšç›®ã®èª¬æ˜Žã«é€²ã‚€
 	if (input_->TriggerKey(DIK_SPACE) != 0 && explantionTextureNumber_ == 1) {
 		explantionTextureNumber_ = 2;
 	}
 
 
-	//ƒJƒEƒ“ƒgƒ_ƒEƒ“‚Ö
+	//ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³ã¸
 	if (input_->TriggerKey(DIK_SPACE) != 0 && explantionTextureNumber_ == 2) {
 		//titleScene->ChangeTitleState(new )
 	}

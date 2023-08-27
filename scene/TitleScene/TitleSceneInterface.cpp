@@ -4,7 +4,7 @@ ITitleScene::ITitleScene() {
 
 }
 
-void ITitleScene::Initialize(TitleScene* titleScene) {
+void ITitleScene::Initialize() {
 
 }
 
@@ -12,7 +12,7 @@ void ITitleScene::Update(TitleScene* titleScene) {
 	
 }
 
-void ITitleScene::Draw(TitleScene* titleScene) {
+void ITitleScene::Draw() {
 
 }
 
