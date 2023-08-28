@@ -88,7 +88,7 @@ private: // メンバ変数
 	
 
 	//ゲームシーンの変化
-	IGameSceneState* state_ = nullptr;
+	//IGameSceneState* state_ = nullptr;
 
 #pragma region プレイヤーのメンバ変数
 	 ///テクスチャハンドル
@@ -192,5 +192,28 @@ private: // メンバ変数
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
 	#pragma endregion
+
+
+
+
+	//シーン管理をStatePatternでやろうと思ったけど時間かかりそう
+	//余裕があるときにやってみる
+	//なんやかんやでswitchが一番使いやすい。偉大だよこれ
+	enum class Scene {
+		//タイトル
+		Title,
+		
+		//カウントダウン
+		Ready,
+
+		//ゲーム
+		Game,
+
+		//結果
+		Result,
+
+	};
+
+	Phase phase_ = Phase();
 
 };

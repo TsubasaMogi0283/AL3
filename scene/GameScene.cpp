@@ -375,8 +375,7 @@ void GameScene::CheckAllCollision() {
 void GameScene::Update() {
 
 
-	state_->Update(this);
-
+	switch (Scene)
 
 
 
