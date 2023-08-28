@@ -132,10 +132,16 @@ void GameScene::Initialize() {
 
 
 
-	 //
-	 countDownSprite[3] = TextureManager::Load("Title/Logo/TitleLogo.png");
+	 //カウントダウン
+	 countDownTexture[3] = TextureManager::Load("Ready/CountDown/CountDown3.png");
+	 countDownTexture[2] = TextureManager::Load("Ready/CountDown/CountDown2.png");
+	 countDownTexture[1] = TextureManager::Load("Ready/CountDown/CountDown1.png");
+	 countDownTexture[0] = TextureManager::Load("Ready/CountDown/CountDownStart.png");
 
-
+	 countDownSprite[3]=Sprite::Create( countDownTexture[3], {0, 0});
+	 countDownSprite[2]=Sprite::Create( countDownTexture[2], {0, 0});
+	 countDownSprite[1]=Sprite::Create( countDownTexture[1], {0, 0});
+	 countDownSprite[0]=Sprite::Create( countDownTexture[0], {0, 0});
 
 
 
@@ -464,6 +470,10 @@ void GameScene::TitleDrawSpriteScene() {
 }
 
 void GameScene::ReadyDrawSpriteScene() {
+	countDownSprite[3]->Draw();
+	countDownSprite[2]->Draw();
+	 countDownSprite[1]->Draw();
+	 countDownSprite[0]->Draw();
 
 }
 
