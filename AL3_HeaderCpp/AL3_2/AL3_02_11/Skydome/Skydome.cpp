@@ -18,7 +18,7 @@ void Skydome::Update() {
 
 	worldTransform_.translation_ = {0.0f, 0.0f, 0.3f};
 	//小さすぎたかも・・
-	const float_t SCALE = 300.0f;
+	const float_t SCALE = 200.0f;
 	worldTransform_.scale_ = {SCALE, SCALE, SCALE};
 
 	worldTransform_.matWorld_ = MakeAffineMatrix(

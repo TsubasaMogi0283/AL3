@@ -119,11 +119,6 @@
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
-    <ClCompile Include="scene\GameSceneManager\IGameSceneState.cpp" />
-    <ClCompile Include="scene\TitleScene\TitleSceneInterface.cpp" />
-    <ClCompile Include="scene\TitleScene\TitleScene\TitleExplanationScene\TitleExplanationScene.cpp" />
-    <ClCompile Include="scene\TitleScene\TitleScene\TitleScene.cpp" />
-    <ClCompile Include="scene\TitleScene\TitleScene\TitleStartScene\TitleStartScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2d\ImGuiManager.h" />
@@ -161,7 +156,6 @@
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
     <ClInclude Include="scene\GameScene.h" />
-    <ClInclude Include="scene\GameSceneManager\IGameSceneState.h" />
     <ClInclude Include="scene\TitleScene\TitleSceneInterface.h" />
     <ClInclude Include="scene\TitleScene\TitleScene\TitleExplanationScene\TitleExplanationScene.h" />
     <ClInclude Include="scene\TitleScene\TitleScene\TitleScene.h" />

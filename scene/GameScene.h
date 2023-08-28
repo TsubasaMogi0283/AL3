@@ -22,9 +22,7 @@
 #include <AL3_HeaderCpp/AL3_2/AL3_02_12/RailCamera/RailCamera.h>
 
 #include "sstream"
-#include <GameSceneManager/IGameSceneState.h>
 
-class IGamaSceneState;
 
 
 /// <summary>
@@ -76,6 +74,32 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+
+
+
+
+	//Update用
+	void TitleScene();
+
+	void ReadyScene();
+
+	void GamePlayScene();
+
+	void ResultScene();
+
+
+
+	//Sprite描画よう
+	void TitleDrawSpriteScene();
+
+	void ReadyDrawSpriteScene();
+
+	void GamePlayDrawSpriteScene();
+
+	void ResultDrawSpriteScene();
+
+
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -86,10 +110,6 @@ private: // メンバ変数
 	/// </summary>
 	/// 
 	
-
-	//ゲームシーンの変化
-	//IGameSceneState* state_ = nullptr;
-
 #pragma region プレイヤーのメンバ変数
 	 ///テクスチャハンドル
 	uint32_t playerTextureHandle_ = 0;
@@ -214,6 +234,51 @@ private: // メンバ変数
 
 	};
 
-	Phase phase_ = Phase();
+	Scene scene_ = Scene();
+
+
+	enum class DrawSpriteScene {
+		//タイトル
+		Title,
+		
+		//カウントダウン
+		Ready,
+
+		//ゲーム
+		Game,
+
+		//結果
+		Result,
+	};
+
+	DrawSpriteScene drawSpriteScene_ = DrawSpriteScene();
+
+
+
+
+	
+
+
+	//フラグ的な奴
+	int32_t titleTextureNumber_ = 0;
+	
+	
+	
+	//タイトル
+	Sprite* titleLogoSprite_ = nullptr;
+	uint32_t titleLogoTexture = 0u;
+	//説明
+	Sprite* explanationSprite[2] = {nullptr};
+	uint32_t explanationTexture[2] = {0u};
+	
+
+
+
+	//カウントダウン
+	const int32_t SECOND_ = 60;
+	int32_t countDownTimer_ = SECOND_ * 3;
+
+	Sprite* countDownSprite[4] = {nullptr};
+	uint32_t countDownTexture[4] = {0u};
 
 };

@@ -10,8 +10,6 @@
 #include "TitleScene/TitleScene/TitleStartScene/TitleStartScene.h"
 
 GameScene::GameScene() {
-	//最初はタイトル
-	//state_ = new TitleStartScene();
 
 }
 
@@ -55,14 +53,13 @@ void GameScene::Initialize() {
 	//CreateはnewとInitializeの呼び出しをまとめた関数
 	playerModel_= Model::Create();
 	//自キャラの初期化
-	Vector3 playerPosition = {0.0f, 0.0f, 10.0f};
+	Vector3 playerPosition = {0.0f, 0.0f, 20.0f};
 
 	//Initializeの引数無くした方がよさそう
 	player_->Initialize(playerModel_,playerTextureHandle_,playerPosition);
 	
 
 #pragma endregion
-
 
 #pragma region 敵の生成
 	
@@ -87,10 +84,10 @@ void GameScene::Initialize() {
 
 	//フォルダの名前を指定してね
 	//読み込むファイルと同じフォルダ名にしないと✕
-	skydomeModel_ = Model::CreateFromOBJ("SpaceSphere", true);
+	skydomeModel_ = Model::CreateFromOBJ("CelestialSphere", true);
 
 	//テクスチャ読み込み
-	skydomeTextureHandle_ = TextureManager::Load("SpaceSphere/SpaceSphere.png");
+	skydomeTextureHandle_ = TextureManager::Load("CelestialSphere/SpaceSphere.png");
 
 	//天球の初期化
 	skydome_->Initialize(skydomeModel_,skydomeTextureHandle_);
@@ -109,6 +106,40 @@ void GameScene::Initialize() {
 	player_->SetParent(&railCamera_->GetWorldTransform());
 	
 #pragma endregion
+
+
+	//タイトル画面
+
+	//タイトルのテクスチャ切り替え
+	titleTextureNumber_ = 1;
+
+	
+	
+	//タイトル
+	titleLogoTexture = TextureManager::Load("Title/Logo/TitleLogo.png");
+	//説明
+	explanationTexture[0] =TextureManager::Load("Title/Explanation/Explanation1/Explanation1.png");
+	explanationTexture[1] =TextureManager::Load("Title/Explanation/Explanation2/Explanation2.png");
+
+	// スプライトの生成
+	titleLogoSprite_ = Sprite::Create(titleLogoTexture, {0, 0});
+
+
+	 explanationSprite[0] = Sprite::Create(explanationTexture[0], {0, 0});
+	 explanationSprite[1] = Sprite::Create(explanationTexture[1], {0, 0});
+
+
+
+
+
+	 //
+	 countDownSprite[3] = TextureManager::Load("Title/Logo/TitleLogo.png");
+
+
+
+
+
+
 
 	//ビュープロジェクション
 	//forZを適度に大きい値に変更する
@@ -372,10 +403,105 @@ void GameScene::CheckAllCollision() {
 }
 
 
+
+#pragma region Update用
+
+void GameScene::TitleScene() {
+
+
+	//基本SPACEで進む
+	if (input_->TriggerKey(DIK_SPACE)) {
+		titleTextureNumber_ += 1;
+		if (titleTextureNumber_ == 3) {
+			//カウントダウンへ
+			scene_ = Scene::Ready;
+		}
+
+	}
+
+
+	
+
+	ImGui::Begin("TitleTexture");
+	ImGui::InputInt("TextureNumber", &titleTextureNumber_);
+	ImGui::End();
+
+}
+
+
+void GameScene::ReadyScene() {
+
+}
+
+void GameScene::GamePlayScene() {
+
+}
+
+void GameScene::ResultScene() {
+
+}
+
+#pragma endregion
+
+#pragma region Draw用
+
+void GameScene::TitleDrawSpriteScene() { 
+
+	if (titleTextureNumber_ == 1) {
+		titleLogoSprite_->Draw(); 
+	} 
+	else if (titleTextureNumber_ == 2) {
+		explanationSprite[0]->Draw();
+	}
+	else if (titleTextureNumber_ == 3) {
+		explanationSprite[1]->Draw();
+	}
+	
+
+	
+	
+
+}
+
+void GameScene::ReadyDrawSpriteScene() {
+
+}
+
+void GameScene::GamePlayDrawSpriteScene() {
+
+}
+
+void GameScene::ResultDrawSpriteScene() {
+
+}
+
+#pragma endregion
+
+
 void GameScene::Update() {
 
 
-	switch (Scene)
+	switch (scene_) { 
+		case Scene::Title:
+	default:
+		TitleScene();
+
+		break;
+
+
+		case Scene::Ready:
+		ReadyScene();
+		break;
+
+		case Scene::Game:
+		GamePlayScene();
+		break;
+
+		case Scene::Result:
+		ResultScene();
+		break;
+
+	}
 
 
 
@@ -434,7 +560,7 @@ void GameScene::Update() {
 	}
 	
 
-	#endif
+	
 
 	if (input_->PushKey(DIK_C)!=0&&isDebugCameraActive_==true) {
 		//デバッグカメラの更新
@@ -486,6 +612,7 @@ void GameScene::Update() {
 
 	ImGui::End();
 
+	#endif
 
 }
 
@@ -501,6 +628,8 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
+
+	
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
@@ -545,6 +674,29 @@ void GameScene::Draw() {
 
 	player_->DrawUI();
 
+
+
+	switch (drawSpriteScene_) { 
+		case DrawSpriteScene::Title:
+	default:
+		TitleDrawSpriteScene();
+
+		break;
+
+
+		case DrawSpriteScene::Ready:
+		ReadyDrawSpriteScene();
+		break;
+
+		case DrawSpriteScene::Game:
+		GamePlayDrawSpriteScene();
+		break;
+
+		case DrawSpriteScene::Result:
+		ResultDrawSpriteScene();
+		break;
+
+	}
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
