@@ -395,60 +395,12 @@ void Player::Update(ViewProjection viewProjection) {
 	
 	#pragma region ゲームパッドの状態を得る変数(XINPUT)
 
-	//XINPUT_STATE joyState;
-	//
-	////ゲームパッド状態取得
-	////左スティック
-	//if (Input::GetInstance()->GetJoystickState(0, joyState)) {
-	//	move.x += (float)joyState.Gamepad.sThumbLX / SHRT_MAX * kCharacterSpeed ;
-	//	move.y += (float)joyState.Gamepad.sThumbLY / SHRT_MAX * kCharacterSpeed ;
-	//
-	//}
-	//
-	//
-	//#pragma region キーボード入力による移動処理
-	////押した方向で移動
-	//if (input_->PushKey(DIK_LEFT)) {
-	//	move.x -= kCharacterSpeed;
-	//}
-	//else if (input_->PushKey(DIK_RIGHT)) {
-	//	move.x += kCharacterSpeed;
-	//}
-	//else if(input_->PushKey(DIK_DOWN)) {
-	//	move.y -= kCharacterSpeed;
-	//}
-	//else if (input_->PushKey(DIK_UP)) {
-	//	move.y += kCharacterSpeed;
-	//} 
+	
 	
 	#pragma endregion
 	
 
-	////行列更新
-	////座標移動(ベクトルの加算)
-	//worldTransform_.translation_ = Add(worldTransform_.translation_ , move);
-	//
-	//
-	//////平行移動行列
-	//worldTransform_.matWorld_ = MakeAffineMatrix(
-	//    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
-	//
-	//
-	//
-	//#pragma region 移動の限界
-	//const float MOVE_LIMITX = 30.0f;
-	//const float MOVE_LIMITY = 18.0f;
-	//
-	////超えない処理
-	//worldTransform_.translation_.x = max(worldTransform_.translation_.x, -MOVE_LIMITX);
-	//worldTransform_.translation_.x = min(worldTransform_.translation_.x, MOVE_LIMITX);
-	//worldTransform_.translation_.y = max(worldTransform_.translation_.y, -MOVE_LIMITY);
-	//worldTransform_.translation_.y = min(worldTransform_.translation_.y, MOVE_LIMITY);
-
-
-
-
-
+	
 	#pragma endregion
 
 	
@@ -458,116 +410,13 @@ void Player::Update(ViewProjection viewProjection) {
 	#pragma region レティクル
 
 
-	////自機のワールド座標から3Dレティクルのワールド座標を計算
-	//
-	////自機から3Dレティクルへの距離
-	//const float DISTANCE_PLAYER_TO_3D_RETICLE = 50.0f;
-	//
-	////自機から3Dレティクルへのオフセット(Z向き)
-	//Vector3 offset = {0.0f, 0.0f, 1.0f};
-	//
-	////自機のワールド行列の回復を反映
-	//offset = TransformNormal(offset, worldTransform_.matWorld_);
-	//
-	////ベクトルの長さを整える
-	//offset.x = NormalizeVector3(offset).x * DISTANCE_PLAYER_TO_3D_RETICLE;
-	//offset.y = NormalizeVector3(offset).y * DISTANCE_PLAYER_TO_3D_RETICLE;
-	//offset.z = NormalizeVector3(offset).z * DISTANCE_PLAYER_TO_3D_RETICLE;
-
 	
-
-
-
-
-	//3Dレティクルの座標を設定
-	//worldTransform3DReticle_.translation_ = Add(GetWorldPosition(),offset);
-	
-
-
-
-	////35ページ
-	//Vector3 positionReticle = Get3DReticleWorldPosition();
-	//
-	//
-	////3Dレティクルのw－ルド座標から2Dレティクルのスクリーン座標を計算
-	////ビューポート
-	//Matrix4x4 matViewport =
-	//    MakeViewportMatrix(0, 0, WinApp::kWindowWidth, WinApp::kWindowHeight, 0, 1);
-	//
-	//
-	////ビュー行列
-	//Matrix4x4 matViewProjectionViewport =
-	//    Multiply(viewProjection.matView, Multiply(viewProjection.matProjection,matViewport));
-	//
-	////ワールド→スクリーン座標変換(3Dから2Dへ)
-	//positionReticle = Transform(positionReticle, matViewProjectionViewport);
-	//
-	////スプライトのレティクルに座標設定
-	//sprite2DReticle_->SetPosition(Vector2(positionReticle.x, positionReticle.y));
-
 
 	#pragma endregion
 
 
 
 	#pragma region 2D照準
-
-	////マウスカーソルのスクリーン座標からワールド座標を取得して3Dレティクルを配置
-	//
-	//POINT mousePosition;
-	////マウス座標(スクリーン座標)を取得
-	//GetCursorPos(&mousePosition);
-	//
-	////クライアントエリア座標に変換する
-	//HWND hwnd = WinApp::GetInstance()->GetHwnd();
-	//ScreenToClient(hwnd, &mousePosition);
-	//
-	//
-	////マウス座標を2Dレティクルのスプライトに入れる
-	//sprite2DReticle_->SetPosition(Vector2(float(mousePosition.x), float(mousePosition.y)));
-	//
-	//
-	////合成行列の逆行列
-	////ビュープロジェクションビューポート合成行列
-	//Matrix4x4 matVPV =
-	//    Multiply(viewProjection.matView, Multiply(viewProjection.matProjection, matViewport));
-	////合成行列の逆行列を計算する
-	//Matrix4x4 matInverseVPV = Inverse(matVPV);
-	//
-	////2点のワールド行列
-	////スクリーン座標
-	//Vector3 posNear = Vector3(float(mousePosition.x), float(mousePosition.y), 0);
-	//Vector3 posFar = Vector3(float(mousePosition.x), float(mousePosition.y), 1);
-	//
-	////スクリーン座標系からワールド座標系へ
-	//posNear = Transform(posNear, matInverseVPV);
-	//posFar = Transform(posFar, matInverseVPV);
-	//
-	//
-	////3Dレティクルの座標計算
-	////マウスレイの方向
-	//Vector3 mouseDirection = Subtract(posFar,posNear);
-	//mouseDirection = NormalizeVector3(mouseDirection);
-	////スプライトの現在座標を取得
-	////Vector2 spritePosition = sprite2DReticle_->GetPosition();
-	//
-	//
-	//////右スティック
-	////if (Input::GetInstance()->GetJoystickState(0, joyState)) {
-	////	spritePosition.x += (float)joyState.Gamepad.sThumbRX / SHRT_MAX * 5.0f;
-	////	spritePosition.y -= (float)joyState.Gamepad.sThumbRY / SHRT_MAX * 5.0f;
-	////	
-	////	//スプライトの座標変更を反映
-	////	sprite2DReticle_->SetPosition(spritePosition);
-	////
-	////}
-	//
-	//
-	////カメラから照準オブジェクトの距離
-	//const float DISTANCE_TEST_OBJECT = 50.0f;
-	//worldTransform3DReticle_.translation_.x = posNear.x + mouseDirection.x*DISTANCE_TEST_OBJECT;
-	//worldTransform3DReticle_.translation_.y = posNear.y + mouseDirection.y*DISTANCE_TEST_OBJECT;
-	//worldTransform3DReticle_.translation_.z = posNear.z + mouseDirection.z*DISTANCE_TEST_OBJECT;
 
 
 

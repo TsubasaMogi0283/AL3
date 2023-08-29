@@ -15,6 +15,13 @@ public:
 		return worldTransform_;
 	}
 
+	Vector3 GetCameraSpeed() { 
+		return cameraSpeed_;
+	}
+	void  SetCameraSpeed(Vector3 speed) { 
+		cameraSpeed_ = speed;
+	}
+
 	ViewProjection GetViewProjection() { 
 		return viewProjection_;
 	}
@@ -29,5 +36,7 @@ private:
 	
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
+
+	Vector3 cameraSpeed_ = {};
 
 };

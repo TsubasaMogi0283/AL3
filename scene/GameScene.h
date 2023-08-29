@@ -22,6 +22,8 @@
 #include <AL3_HeaderCpp/AL3_2/AL3_02_12/RailCamera/RailCamera.h>
 
 #include "sstream"
+#include <Collider/Collider.h>
+#include <Collider/ColliderManager/CollisionManager.h>
 
 
 
@@ -99,6 +101,25 @@ public: // メンバ関数
 	void ResultDrawSpriteScene();
 
 
+	//3DObject
+	void TitleDraw3DObjectScene();
+
+	void ReadyDraw3DObjectScene();
+
+	void GamePlayDraw3DObjectScene();
+
+	void ResultDraw3DObjectScene();
+
+
+
+private:
+
+	//当たり判定
+	void CheckCollisionPair(Collider* colliderA, Collider* colliderB);
+	
+	void CheckAllCollisions();
+
+	 CollisionManager* collisionManager_ = nullptr;
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -256,6 +277,24 @@ private: // メンバ変数
 
 
 
+	enum class Draw3DObjectScene {
+		//タイトル
+		Title,
+		
+		//カウントダウン
+		Ready,
+
+		//ゲーム
+		Game,
+
+		//結果
+		Result,
+	};
+
+	Draw3DObjectScene draw3DObjectScene_ = Draw3DObjectScene();
+
+
+
 	
 
 
@@ -273,6 +312,9 @@ private: // メンバ変数
 	
 
 
+
+	//フラグ的な奴
+	int32_t countDownTextureNumber_ = 0;
 
 	//カウントダウン
 	const int32_t SECOND_ = 60;

@@ -108,6 +108,10 @@ void GameScene::Initialize() {
 #pragma endregion
 
 
+	//当たり判定
+	collisionManager_ = new CollisionManager;
+
+
 	//タイトル画面
 
 	//タイトルのテクスチャ切り替え
@@ -143,7 +147,8 @@ void GameScene::Initialize() {
 	 countDownSprite[1]=Sprite::Create( countDownTexture[1], {0, 0});
 	 countDownSprite[0]=Sprite::Create( countDownTexture[0], {0, 0});
 
-
+	 countDownTextureNumber_ = 3;
+	 countDownTimer_ = SECOND_ * 3;
 
 
 
@@ -421,109 +426,65 @@ void GameScene::TitleScene() {
 		if (titleTextureNumber_ == 3) {
 			//カウントダウンへ
 			scene_ = Scene::Ready;
+			drawSpriteScene_ = DrawSpriteScene::Ready;
 		}
 
 	}
 
 
-	
+	#ifdef _DEBUG
 
 	ImGui::Begin("TitleTexture");
 	ImGui::InputInt("TextureNumber", &titleTextureNumber_);
 	ImGui::End();
 
+
+
+	#endif
 }
 
 
-void GameScene::ReadyScene() {
+void GameScene::ReadyScene() { 
+	countDownTimer_ -= 1;
+
+	if (countDownTimer_ < SECOND_ * 3) {
+		if (countDownTimer_ < SECOND_ * 3 && countDownTimer_ >= SECOND_ * 2) {
+			countDownTextureNumber_ = 3;
+		}
+		if (countDownTimer_ < SECOND_ * 2 && countDownTimer_ >= SECOND_ * 1) {
+			countDownTextureNumber_ = 2;
+		}
+		if (countDownTimer_ < SECOND_ * 1 && countDownTimer_ >= SECOND_ * 0) {
+			countDownTextureNumber_ = 1;
+		}
+		if (countDownTimer_ < SECOND_ * 0 && countDownTimer_ >= SECOND_ * ( - 1)) {
+			countDownTextureNumber_ = 0;
+		}
+		if (countDownTimer_ < SECOND_ * (-1)) {
+			countDownTextureNumber_ = -1;
+			scene_ = Scene::Game;
+		}
+
+
+	}
+
+
+	#ifdef _DEBUG
+
+	ImGui::Begin("TitleTexture");
+	ImGui::InputInt("CountDown", &countDownTimer_);
+	ImGui::InputInt("TextureNumber", &countDownTextureNumber_);
+
+	ImGui::End();
+
+
+
+	#endif
+
 
 }
 
 void GameScene::GamePlayScene() {
-
-}
-
-void GameScene::ResultScene() {
-
-}
-
-#pragma endregion
-
-#pragma region Draw用
-
-void GameScene::TitleDrawSpriteScene() { 
-
-	if (titleTextureNumber_ == 1) {
-		titleLogoSprite_->Draw(); 
-	} 
-	else if (titleTextureNumber_ == 2) {
-		explanationSprite[0]->Draw();
-	}
-	else if (titleTextureNumber_ == 3) {
-		explanationSprite[1]->Draw();
-	}
-	
-
-	
-	
-
-}
-
-void GameScene::ReadyDrawSpriteScene() {
-	countDownSprite[3]->Draw();
-	countDownSprite[2]->Draw();
-	 countDownSprite[1]->Draw();
-	 countDownSprite[0]->Draw();
-
-}
-
-void GameScene::GamePlayDrawSpriteScene() {
-
-}
-
-void GameScene::ResultDrawSpriteScene() {
-
-}
-
-#pragma endregion
-
-
-void GameScene::Update() {
-
-
-	switch (scene_) { 
-		case Scene::Title:
-	default:
-		TitleScene();
-
-		break;
-
-
-		case Scene::Ready:
-		ReadyScene();
-		break;
-
-		case Scene::Game:
-		GamePlayScene();
-		break;
-
-		case Scene::Result:
-		ResultScene();
-		break;
-
-	}
-
-
-
-
-
-
-
-	player_->Update(viewProjection_);
-	//enemy_->Update();
-	skydome_->Update();
-	railCamera_->Update();
-
 	UpdateEnemyPopCommands();
 
 	for (Enemy* enemy : enemyes_) {
@@ -555,6 +516,135 @@ void GameScene::Update() {
 
 
 	CheckAllCollision();
+
+
+	
+}
+
+void GameScene::ResultScene() {
+
+}
+
+#pragma endregion
+
+#pragma region Draw用
+
+void GameScene::TitleDrawSpriteScene() { 
+
+	if (titleTextureNumber_ == 1) {
+		titleLogoSprite_->Draw(); 
+	} 
+	else if (titleTextureNumber_ == 2) {
+		explanationSprite[0]->Draw();
+	}
+	else if (titleTextureNumber_ == 3) {
+		explanationSprite[1]->Draw();
+	}
+	
+
+	
+	
+
+}
+
+void GameScene::ReadyDrawSpriteScene() {
+
+	if (countDownTextureNumber_ == 3) {
+		countDownSprite[3]->Draw();
+	}
+	if (countDownTextureNumber_ == 2) {
+		countDownSprite[2]->Draw();
+	}
+	if (countDownTextureNumber_ == 1) {
+		countDownSprite[1]->Draw();
+	}
+	if (countDownTextureNumber_ == 0) {
+		countDownSprite[0]->Draw();
+	}
+
+	player_->DrawUI();
+}
+
+void GameScene::GamePlayDrawSpriteScene() {
+	player_->DrawUI();
+}
+
+void GameScene::ResultDrawSpriteScene() {
+
+}
+
+#pragma endregion
+
+
+
+//3DObject
+void GameScene::TitleDraw3DObjectScene() {
+
+}
+
+void GameScene::ReadyDraw3DObjectScene() {
+	
+}
+
+void GameScene::GamePlayDraw3DObjectScene() {
+	
+	
+
+	//2.敵弾リスト描画
+	for (EnemyBullet* enemyBullet : enemyBullets_) {
+		enemyBullet->Draw(viewProjection_);
+	}
+	
+	for (Enemy* enemy : enemyes_) {
+		enemy->Draw(viewProjection_);
+		
+		
+	}
+}
+
+void GameScene::ResultDraw3DObjectScene() {
+
+}
+
+
+
+
+void GameScene::Update() {
+
+
+	switch (scene_) { 
+		case Scene::Title:
+	default:
+		TitleScene();
+
+		break;
+
+
+		case Scene::Ready:
+		ReadyScene();
+		break;
+
+		case Scene::Game:
+		GamePlayScene();
+		break;
+
+		case Scene::Result:
+		ResultScene();
+		break;
+
+	}
+
+
+	skydome_->Update();
+
+
+
+
+	player_->Update(viewProjection_);
+	
+	railCamera_->Update();
+
+
 
 
 	
@@ -655,20 +745,39 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	player_->Draw(viewProjection_);
-	//enemy_->Draw(viewProjection_);
+
+	//恒常の描画
 	skydome_->Draw(viewProjection_);
 
-	//2.敵弾リスト描画
-	for (EnemyBullet* enemyBullet : enemyBullets_) {
-		enemyBullet->Draw(viewProjection_);
-	}
+	player_->Draw(viewProjection_);
+
 	
-	for (Enemy* enemy : enemyes_) {
-		enemy->Draw(viewProjection_);
-		
-		
+
+
+
+	switch (draw3DObjectScene_) { 
+		case Draw3DObjectScene::Title:
+	default:
+		TitleDraw3DObjectScene();
+		break;
+
+
+		case Draw3DObjectScene::Ready:
+		ReadyDraw3DObjectScene();
+		break;
+
+		case Draw3DObjectScene::Game:
+		GamePlayDraw3DObjectScene();
+		break;
+
+		case Draw3DObjectScene::Result:
+		ResultDraw3DObjectScene();
+		break;
+
 	}
+
+
+
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -682,7 +791,7 @@ void GameScene::Draw() {
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
 
-	player_->DrawUI();
+	
 
 
 
