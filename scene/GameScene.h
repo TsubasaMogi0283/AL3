@@ -89,6 +89,9 @@ public: // メンバ関数
 
 	void ResultScene();
 
+	void WinScene();
+
+	void LoseScene();
 
 
 	//Sprite描画よう
@@ -100,6 +103,10 @@ public: // メンバ関数
 
 	void ResultDrawSpriteScene();
 
+	void WinDrawSpriteScene();
+
+	void LoseDrawSpriteScene();
+
 
 	//3DObject
 	void TitleDraw3DObjectScene();
@@ -110,6 +117,9 @@ public: // メンバ関数
 
 	void ResultDraw3DObjectScene();
 
+	void WinDraw3DObjectScene();
+
+	void LoseDraw3DObjectScene();
 
 
 private:
@@ -253,6 +263,12 @@ private: // メンバ変数
 		//結果
 		Result,
 
+		//勝ち
+		Win,
+
+		//負け
+		Lose,
+
 	};
 
 	Scene scene_ = Scene();
@@ -270,6 +286,12 @@ private: // メンバ変数
 
 		//結果
 		Result,
+
+		//勝ち
+		Win,
+
+		//負け
+		Lose,
 	};
 
 	DrawSpriteScene drawSpriteScene_ = DrawSpriteScene();
@@ -289,6 +311,12 @@ private: // メンバ変数
 
 		//結果
 		Result,
+
+		//勝ち
+		Win,
+
+		//負け
+		Lose,
 	};
 
 	Draw3DObjectScene draw3DObjectScene_ = Draw3DObjectScene();
@@ -344,5 +372,8 @@ private: // メンバ変数
 	uint32_t loseTexture_ = 0u;
 
 	bool isWin_;
+
+
+
 
 };

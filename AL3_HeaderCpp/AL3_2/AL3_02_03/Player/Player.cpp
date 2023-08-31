@@ -424,7 +424,7 @@ void Player::Update(ViewProjection viewProjection) {
 
 
 
-	
+	#ifdef _DEBUG
 
 	#pragma region デバッグテキスト
 
@@ -464,7 +464,7 @@ void Player::Update(ViewProjection viewProjection) {
 
 
 	
-
+	#endif
 
 }
 

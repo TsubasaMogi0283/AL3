@@ -51,7 +51,7 @@ public:
 	void SetParent(const WorldTransform* parent);
 
 
-	bool IsAlive() { 
+	bool GetIsAlive() { 
 		return isAlive_;
 	}
 

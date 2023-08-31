@@ -129,27 +129,37 @@ void GameScene::Initialize() {
 	titleLogoSprite_ = Sprite::Create(titleLogoTexture, {0, 0});
 
 
-	 explanationSprite[0] = Sprite::Create(explanationTexture[0], {0, 0});
-	 explanationSprite[1] = Sprite::Create(explanationTexture[1], {0, 0});
+	explanationSprite[0] = Sprite::Create(explanationTexture[0], {0, 0});
+	explanationSprite[1] = Sprite::Create(explanationTexture[1], {0, 0});
 
 
 
 
 
-	 //カウントダウン
-	 countDownTexture[3] = TextureManager::Load("Ready/CountDown/CountDown3.png");
-	 countDownTexture[2] = TextureManager::Load("Ready/CountDown/CountDown2.png");
-	 countDownTexture[1] = TextureManager::Load("Ready/CountDown/CountDown1.png");
-	 countDownTexture[0] = TextureManager::Load("Ready/CountDown/CountDownStart.png");
+	//カウントダウン
+	countDownTexture[3] = TextureManager::Load("Ready/CountDown/CountDown3.png");
+	countDownTexture[2] = TextureManager::Load("Ready/CountDown/CountDown2.png");
+	countDownTexture[1] = TextureManager::Load("Ready/CountDown/CountDown1.png");
+	countDownTexture[0] = TextureManager::Load("Ready/CountDown/CountDownStart.png");
 
-	 countDownSprite[3]=Sprite::Create( countDownTexture[3], {0, 0});
-	 countDownSprite[2]=Sprite::Create( countDownTexture[2], {0, 0});
-	 countDownSprite[1]=Sprite::Create( countDownTexture[1], {0, 0});
-	 countDownSprite[0]=Sprite::Create( countDownTexture[0], {0, 0});
+	countDownSprite[3]=Sprite::Create( countDownTexture[3], {0, 0});
+	countDownSprite[2]=Sprite::Create( countDownTexture[2], {0, 0});
+	countDownSprite[1]=Sprite::Create( countDownTexture[1], {0, 0});
+	countDownSprite[0]=Sprite::Create( countDownTexture[0], {0, 0});
 
-	 countDownTextureNumber_ = 3;
-	 countDownTimer_ = SECOND_ * 3;
+	countDownTextureNumber_ = 3;
+	countDownTimer_ = SECOND_ * 3;
 
+
+	gameLimitTime_ = SECOND_* 30;
+
+
+	winTexture_ =  TextureManager::Load("Result/Win/Win.png");
+	winSprite_ = Sprite::Create( winTexture_, {0, 0});
+	
+
+	loseTexture_  =  TextureManager::Load("Result/Lose/Lose.png");
+	loseSprite_ = Sprite::Create( loseTexture_, {0, 0});
 
 
 	//ビュープロジェクション
@@ -320,15 +330,15 @@ void GameScene::CheckAllCollision() {
 			//敵弾の衝突時コールバックを呼び出す
 			bullet->OnCollision();
 
+
+			//負け
+			scene_ = Scene::Lose;
+			drawSpriteScene_ = DrawSpriteScene::Lose;
+			draw3DObjectScene_ = Draw3DObjectScene::Lose;
+
+
 		}
-		ImGui::Begin("EnemyBulletCondition");
-		ImGui::InputFloat3("PlayerPosition", &posA.x);
-		ImGui::InputFloat3("EnemyBulletPosition", &posB.x);
-		ImGui::InputFloat("distance", &distanceAB);
-
-		ImGui::End();
-
-
+		
 	}
 	
 	#pragma endregion
@@ -366,12 +376,6 @@ void GameScene::CheckAllCollision() {
 				
 			}
 		
-			ImGui::Begin("PlayerBulletCondition");
-			ImGui::InputFloat3("EnemyPositipn", &posC.x);
-			ImGui::InputFloat3("PlayerBulletPosition", &posD.x);
-			ImGui::InputFloat("distance", &distanceCD);
-
-			ImGui::End();
 		
 		}
 	}
@@ -418,7 +422,9 @@ void GameScene::CheckAllCollision() {
 #pragma region Update用
 
 void GameScene::TitleScene() {
-
+	railCamera_->SetCameraSpeed({0.0f, 0.0f, 0.0f});
+	player_->Update(viewProjection_);
+	railCamera_->Update();
 
 	//基本SPACEで進む
 	if (input_->TriggerKey(DIK_SPACE)) {
@@ -427,6 +433,7 @@ void GameScene::TitleScene() {
 			//カウントダウンへ
 			scene_ = Scene::Ready;
 			drawSpriteScene_ = DrawSpriteScene::Ready;
+			draw3DObjectScene_ = Draw3DObjectScene::Ready;
 		}
 
 	}
@@ -446,6 +453,11 @@ void GameScene::TitleScene() {
 
 void GameScene::ReadyScene() { 
 	countDownTimer_ -= 1;
+	railCamera_->SetCameraSpeed({0.0f, 0.0f, 0.03f});
+	player_->Update(viewProjection_);	
+	railCamera_->Update();
+
+
 
 	if (countDownTimer_ < SECOND_ * 3) {
 		if (countDownTimer_ < SECOND_ * 3 && countDownTimer_ >= SECOND_ * 2) {
@@ -463,6 +475,8 @@ void GameScene::ReadyScene() {
 		if (countDownTimer_ < SECOND_ * (-1)) {
 			countDownTextureNumber_ = -1;
 			scene_ = Scene::Game;
+			drawSpriteScene_ = DrawSpriteScene::Game;
+			draw3DObjectScene_ = Draw3DObjectScene::Game;
 		}
 
 
@@ -486,6 +500,12 @@ void GameScene::ReadyScene() {
 
 void GameScene::GamePlayScene() {
 	UpdateEnemyPopCommands();
+
+	player_->Update(viewProjection_);
+	railCamera_->SetCameraSpeed({0.0f, 0.0f, 0.03f});
+	railCamera_->Update();
+
+
 
 	for (Enemy* enemy : enemyes_) {
 		 enemy->Update();
@@ -518,7 +538,46 @@ void GameScene::GamePlayScene() {
 	CheckAllCollision();
 
 
+	gameLimitTime_ -= 1;
+	if (gameLimitTime_ < 0) {
+		scene_ = Scene::Win;
+		drawSpriteScene_ = DrawSpriteScene::Win;
+		draw3DObjectScene_ = Draw3DObjectScene::Win;
+	}
+
+
+
+	ImGui::Begin("GameScene");
+	ImGui::InputInt("timer", &gameLimitTime_);
+	ImGui::End();
+
+
+}
+
+
+void GameScene::WinScene() {
+	//基本SPACEで進む
+	if (input_->TriggerKey(DIK_SPACE)) {
+		//カウントダウンへ
+		scene_ = Scene::Title;
+		drawSpriteScene_ = DrawSpriteScene::Title;
+		draw3DObjectScene_ = Draw3DObjectScene::Title;
+		
+
+	}
+
+}
+
+void GameScene::LoseScene() {
+	//基本SPACEで進む
+	if (input_->TriggerKey(DIK_SPACE)) {
+		//カウントダウンへ
+		scene_ = Scene::Title;
+		drawSpriteScene_ = DrawSpriteScene::Title;
+		draw3DObjectScene_ = Draw3DObjectScene::Title;
 	
+
+	}
 }
 
 void GameScene::ResultScene() {
@@ -530,7 +589,6 @@ void GameScene::ResultScene() {
 #pragma region Draw用
 
 void GameScene::TitleDrawSpriteScene() { 
-
 	if (titleTextureNumber_ == 1) {
 		titleLogoSprite_->Draw(); 
 	} 
@@ -541,14 +599,9 @@ void GameScene::TitleDrawSpriteScene() {
 		explanationSprite[1]->Draw();
 	}
 	
-
-	
-	
-
 }
 
 void GameScene::ReadyDrawSpriteScene() {
-
 	if (countDownTextureNumber_ == 3) {
 		countDownSprite[3]->Draw();
 	}
@@ -569,7 +622,18 @@ void GameScene::GamePlayDrawSpriteScene() {
 	player_->DrawUI();
 }
 
-void GameScene::ResultDrawSpriteScene() {
+void GameScene::WinDrawSpriteScene() { 
+	winSprite_->Draw(); 
+}
+
+void GameScene::LoseDrawSpriteScene() { 
+	loseSprite_->Draw(); 
+}
+
+
+void GameScene::ResultDrawSpriteScene() { 
+	
+
 
 }
 
@@ -587,8 +651,9 @@ void GameScene::ReadyDraw3DObjectScene() {
 }
 
 void GameScene::GamePlayDraw3DObjectScene() {
-	
-	
+	player_->Update(viewProjection_);
+	railCamera_->SetCameraSpeed({0.0f, 0.0f, 0.03f});
+	railCamera_->Update();
 
 	//2.敵弾リスト描画
 	for (EnemyBullet* enemyBullet : enemyBullets_) {
@@ -600,6 +665,29 @@ void GameScene::GamePlayDraw3DObjectScene() {
 		
 		
 	}
+}
+
+void GameScene::WinDraw3DObjectScene() {
+	player_->Update(viewProjection_);
+	railCamera_->SetCameraSpeed({0.0f, 0.0f, 0.0f});
+	railCamera_->Update();
+}
+
+void GameScene::LoseDraw3DObjectScene() {
+	player_->Update(viewProjection_);
+	railCamera_->SetCameraSpeed({0.0f, 0.0f, 0.03f});
+	railCamera_->Update();
+
+	//2.敵弾リスト描画
+	for (EnemyBullet* enemyBullet : enemyBullets_) {
+		enemyBullet->Draw(viewProjection_);
+	}
+	
+	for (Enemy* enemy : enemyes_) {
+		enemy->Draw(viewProjection_);
+		
+	}
+
 }
 
 void GameScene::ResultDraw3DObjectScene() {
@@ -632,6 +720,14 @@ void GameScene::Update() {
 		ResultScene();
 		break;
 
+		case Scene::Win:
+		WinScene();
+		break;
+
+		case Scene::Lose:
+		LoseScene();
+		break;
+
 	}
 
 
@@ -639,27 +735,21 @@ void GameScene::Update() {
 
 
 
-
-	player_->Update(viewProjection_);
-	
-	railCamera_->Update();
-
-
-
-
-	
-
-
-	
-	
-
-
 	#ifdef _DEBUG
 	if (input_->PushKey(DIK_C)) {
 		isDebugCameraActive_ = true;
 	}
 	
+	//忘れていたのでここに書いておく
+	//ImGuiはUpdateで！！！！！！！！
+	ImGui::Begin("Camera");
+	ImGui::Text("Key C To DebugCameraIsActive!!");
 
+	ImGui::InputFloat3("CameraTranslation", &viewProjection_.translation_.x);
+
+	ImGui::End();
+
+	#endif
 	
 
 	if (input_->PushKey(DIK_C)!=0&&isDebugCameraActive_==true) {
@@ -678,7 +768,6 @@ void GameScene::Update() {
 		
 
 	} 
-	
 	else {
 
 		
@@ -699,20 +788,6 @@ void GameScene::Update() {
 
 		
 	}
-
-	
-	
-
-	//忘れていたのでここに書いておく
-	//ImGuiはUpdateで！！！！！！！！
-	ImGui::Begin("Camera");
-	ImGui::Text("Key C To DebugCameraIsActive!!");
-
-	ImGui::InputFloat3("CameraTranslation", &viewProjection_.translation_.x);
-
-	ImGui::End();
-
-	#endif
 
 }
 
@@ -774,6 +849,16 @@ void GameScene::Draw() {
 		ResultDraw3DObjectScene();
 		break;
 
+
+		case Draw3DObjectScene::Win:
+		WinDraw3DObjectScene();
+		break;
+
+		case Draw3DObjectScene::Lose:
+		LoseDraw3DObjectScene();
+		break;
+
+
 	}
 
 
@@ -813,6 +898,14 @@ void GameScene::Draw() {
 
 		case DrawSpriteScene::Result:
 		ResultDrawSpriteScene();
+		break;
+
+		case DrawSpriteScene::Win:
+		WinDrawSpriteScene();
+		break;
+
+		case DrawSpriteScene::Lose:
+		LoseDrawSpriteScene();
 		break;
 
 	}

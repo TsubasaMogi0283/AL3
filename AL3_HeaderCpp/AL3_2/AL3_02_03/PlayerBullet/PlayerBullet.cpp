@@ -50,13 +50,16 @@ void PlayerBullet::Update() {
 		isDead_ = true;
 	}
 
+
+	#ifdef _DEBUG
 	ImGui::Begin("PlayerBullet");
 
 	ImGui::InputFloat3("PlayerBulletPosition", &worldTransform_.translation_.x);
 	
-
 	//ImGui::SliderFloat3()
 	ImGui::End();
+
+	#endif
 
 	//ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix(); 

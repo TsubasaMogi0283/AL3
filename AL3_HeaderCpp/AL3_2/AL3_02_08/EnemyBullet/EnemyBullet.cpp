@@ -56,11 +56,14 @@ void EnemyBullet::Update() {
 	//ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix(); 
 
+
+
+	#ifdef _DEBUG
 	ImGui::Begin("EnemyBullet");
 	ImGui::InputFloat3("position", &worldTransform_.translation_.x);
 	ImGui::InputInt("Timer", &deathTimer_);
 	ImGui::End();
-
+	#endif
 }
 
 void EnemyBullet::Draw(const ViewProjection& viewProjection) { 
