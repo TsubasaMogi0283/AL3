@@ -51,7 +51,13 @@ public:
 	void SetParent(const WorldTransform* parent);
 
 
+	bool IsAlive() { 
+		return isAlive_;
+	}
 
+	void SetIsAlive(bool isAlive) { 
+		isAlive_ = isAlive;
+	}
 
 
 	//衝突を検出したら呼び出されるコールバック関数
@@ -84,6 +90,8 @@ private:
 	Player* player_ = nullptr;
 
 	Input* input_ = nullptr;
+
+	bool isAlive_ = true;
 
 	//キャラクターも異動ベクトル
 	const float kCharacterSpeed_ = 0.3f;

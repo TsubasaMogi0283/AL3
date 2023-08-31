@@ -27,7 +27,6 @@ void RailCamera::Initialize(Vector3 worldPosition,Vector3 radian) {
 
 void RailCamera::Update() {
 
-	cameraSpeed_ = {0.0f, 0.0f, 0.05f};
 	worldTransform_.translation_ = Add(worldTransform_.translation_, cameraSpeed_);
 	worldTransform_.rotation_ = Add(worldTransform_.rotation_, {0.0f, 0.0f, 0.0f});
 

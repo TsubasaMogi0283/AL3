@@ -59,6 +59,8 @@ void Player::Initialize(Model* model,uint32_t textureHandle,Vector3 position) {
 	worldTransform3DReticle_.translation_ = position;
 	worldTransform_.translation_ = position;
 
+	isAlive_ = true;
+
 	//レティクル用
 	uint32_t textureReticle_ = TextureManager::Load("AL3_Resources/AL3_2/AL3_2_14/3DReticle/Sign.png");
 	sprite2DReticle_ = Sprite::Create(
@@ -101,15 +103,13 @@ void Player::Attack() {
 		return;
 	}
 
-
 	//SPACEキーで発射
-	if ((input_->TriggerKey(DIK_SPACE))|| (joyState.Gamepad.wButtons&XINPUT_GAMEPAD_RIGHT_SHOULDER)) {
+	if ( (joyState.Gamepad.wButtons&XINPUT_GAMEPAD_RIGHT_SHOULDER)) {
 		count_ += 1;
 		//弾の速度
 		//z方向に+1.0ずつ進むよ
    		const float kBulletSpeed = 1.0f;
 		Vector3 velocity(0, 0, kBulletSpeed);
-		//Vector3 bulletPosition = GetWorldPosition();
 
 
 		//自機から照準オブジェクトへのベクトル
@@ -143,9 +143,7 @@ void Player::Attack() {
 
 
 //衝突を検出したら呼び出されるコールバック関数
-void Player::OnCollision() {
-
-}
+void Player::OnCollision() { isAlive_ = false; }
 
 
 
@@ -321,18 +319,6 @@ void Player::Update(ViewProjection viewProjection) {
 	//マウスレイの方向
 	Vector3 mouseDirection = Subtract(posFar,posNear);
 	mouseDirection = NormalizeVector3(mouseDirection);
-	//スプライトの現在座標を取得
-	//Vector2 spritePosition = sprite2DReticle_->GetPosition();
-
-	////右スティック
-	//if (Input::GetInstance()->GetJoystickState(0, joyState)) {
-	//	spritePosition.x += (float)joyState.Gamepad.sThumbRX / SHRT_MAX * 5.0f;
-	//	spritePosition.y -= (float)joyState.Gamepad.sThumbRY / SHRT_MAX * 5.0f;
-	//	
-	//	//スプライトの座標変更を反映
-	//	sprite2DReticle_->SetPosition(spritePosition);
-	//
-	//}
 
 
 	//カメラから照準オブジェクトの距離
@@ -384,13 +370,6 @@ void Player::Update(ViewProjection viewProjection) {
 		return false;
 	});
 
-
-	////キャラクターの移動の速さ
-    //const float kCharacterSpeed = 0.05f;
-	//
-	////キャラクターも異動ベクトル
-	//Vector3 move = {0.0f,0.0f,0.0f};
-	
 	
 	
 	#pragma region ゲームパッドの状態を得る変数(XINPUT)
@@ -443,20 +422,31 @@ void Player::Update(ViewProjection viewProjection) {
 	}
 
 
+
+
 	
 
 	#pragma region デバッグテキスト
 
+
+
 	ImGui::Begin("3D");
+	
+	
+	
 	ImGui::InputFloat3("3dPosition", &reticlePosition_.x);
 	ImGui::End();
 
 	ImGui::Begin("Player");
 
+
+	ImGui::Text("Life", isAlive_);
+
 	ImGui::Text("Space To BulletShot");
 	ImGui::InputFloat3("PlayerPosition", &worldTransform_.translation_.x);
 	ImGui::SliderFloat3("PlayerSlide", &worldTransform_.translation_.x, -20.0f,30.0f);
 	ImGui::InputInt("count", &count_);
+
 
 	ImGui::Text(
 	    "2DReticle:(%f,%f)", sprite2DReticle_->GetPosition().x, sprite2DReticle_->GetPosition().y);
@@ -466,13 +456,14 @@ void Player::Update(ViewProjection viewProjection) {
 	    "3DReticle(%+.2f,%+.2f,%+.2f)", worldTransform3DReticle_.translation_.x,
 	    worldTransform3DReticle_.translation_.y, worldTransform3DReticle_.translation_.z);
 
+
+
 	ImGui::End();
 
 	#pragma endregion
 
 
-
-
+	
 
 
 }
@@ -486,10 +477,14 @@ void Player::DrawUI() {
 //描画
 void Player::Draw(ViewProjection viewProjection) { 
 
-	model_->Draw(
-		worldTransform_,
-		viewProjection, 
-		textureHandle_);
+
+	if (isAlive_==true) {
+		
+		model_->Draw(
+			worldTransform_,
+			viewProjection, 
+			textureHandle_);
+	}
 
 	
 	//弾の描画

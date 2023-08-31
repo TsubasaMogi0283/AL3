@@ -25,7 +25,6 @@ private:
 	uint32_t textureHandle_ = 0u;
 
 
-	Vector3 cam
 
 
 };

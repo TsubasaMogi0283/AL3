@@ -294,7 +294,7 @@ private: // メンバ変数
 	Draw3DObjectScene draw3DObjectScene_ = Draw3DObjectScene();
 
 
-
+	
 	
 
 
@@ -322,5 +322,27 @@ private: // メンバ変数
 
 	Sprite* countDownSprite[4] = {nullptr};
 	uint32_t countDownTexture[4] = {0u};
+
+
+
+
+
+
+
+
+	          
+	//制限時間
+	int32_t gameLimitTime_ = SECOND_* 30;
+
+
+
+	//リザルト
+	Sprite* winSprite_ = nullptr;
+	uint32_t winTexture_ = 0u;
+
+	Sprite* loseSprite_ = nullptr;
+	uint32_t loseTexture_ = 0u;
+
+	bool isWin_;
 
 };
