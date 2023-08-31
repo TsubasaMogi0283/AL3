@@ -547,10 +547,6 @@ void GameScene::GamePlayScene() {
 
 
 
-	ImGui::Begin("GameScene");
-	ImGui::InputInt("timer", &gameLimitTime_);
-	ImGui::End();
-
 
 }
 

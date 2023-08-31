@@ -170,6 +170,9 @@ void Enemy::Update() {
 	//ワールドトランスフォームの更新
 	worldTransform_.UpdateMatrix(); 
 
+
+	#ifdef _DEBUG
+
 	ImGui::Begin("Enemy");
 
 	ImGui::Text("EnemyBulletTime");
@@ -177,7 +180,7 @@ void Enemy::Update() {
 	
 	ImGui::End();
 
-
+	#endif
 	
 
 
